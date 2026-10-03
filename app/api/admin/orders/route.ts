@@ -21,8 +21,9 @@ export async function PATCH(request: NextRequest) {
   const body = await request.json() as { id?: unknown; status?: unknown }
   const id = typeof body.id === 'string' ? body.id : ''
   const status = typeof body.status === 'string' ? body.status : ''
-  if (!id || !statusValues.includes(status as (typeof statusValues)[number])) return NextResponse.json({ error: 'Invalid order status.' }, { status: 400 })
-  const [updated] = await db.update(orders).set({ status }).where(and(eq(orders.id, id))).returning()
+  const nextStatus = status as (typeof statusValues)[number]
+  if (!id || !statusValues.includes(nextStatus)) return NextResponse.json({ error: 'Invalid order status.' }, { status: 400 })
+  const [updated] = await db.update(orders).set({ status: nextStatus }).where(and(eq(orders.id, id))).returning()
   return updated ? NextResponse.json(updated) : NextResponse.json({ error: 'Order not found.' }, { status: 404 })
 }
 

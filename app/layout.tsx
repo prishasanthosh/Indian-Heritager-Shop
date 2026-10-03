@@ -5,10 +5,10 @@ import { CartProvider } from '@/components/cart-provider'
 import { StoreFooter } from '@/components/store-footer'
 
 export const metadata: Metadata = {
-  title: 'Indian Heritager Books | Discover stories. Preserve heritage.',
-  description: 'Explore a thoughtfully curated collection of books celebrating knowledge, culture, history and stories from India and beyond.',
+  title: 'Indian Heritager Shop | Curated products from heritage to everyday life.',
+  description: 'Explore a diverse collection of products spanning home decor, crafts, accessories, gifts, and traditional essentials.',
   generator: 'v0.app',
-  keywords: ['Indian heritage', 'Indian books', 'culture', 'history', 'literature'],
+  keywords: ['Indian heritage', 'heritage products', 'handicrafts', 'home decor', 'traditional products', 'gifts'],
   icons: {
     icon: [{ url: '/logo.png', type: 'image/png' }],
     apple: [{ url: '/logo.png', type: 'image/png' }],

@@ -1,26 +1,32 @@
-export type BookCategory = {
+export type ProductCategory = {
   name: string
   slug: string
   value: string
 }
 
-export const bookCategories: BookCategory[] = [
-  { name: 'Indian Literature', slug: 'indian-literature', value: 'Indian Literature' },
-  { name: 'History', slug: 'history', value: 'History' },
-  { name: 'Culture & Heritage', slug: 'culture-heritage', value: 'Culture & Heritage' },
-  { name: "Children's Books", slug: 'childrens-books', value: "Children's Books" },
-  { name: 'Education', slug: 'education', value: 'Education' },
-  { name: 'Fiction', slug: 'fiction', value: 'Fiction' },
-  { name: 'Non-Fiction', slug: 'non-fiction', value: 'Non-Fiction' },
-  { name: 'Biography', slug: 'biography', value: 'Biography' },
-  { name: 'Regional Literature', slug: 'regional-literature', value: 'Regional Literature' },
-  { name: 'Academic / Learning', slug: 'academic-learning', value: 'Academic / Learning' },
+export const productCategories: ProductCategory[] = [
+  { name: 'Books', slug: 'books', value: 'Books' },
+  { name: 'Clothing', slug: 'clothing', value: 'Clothing' },
+  { name: 'Handicrafts', slug: 'handicrafts', value: 'Handicrafts' },
+  { name: 'Home Decor', slug: 'home-decor', value: 'Home Decor' },
+  { name: 'Jewellery', slug: 'jewellery', value: 'Jewellery' },
+  { name: 'Accessories', slug: 'accessories', value: 'Accessories' },
+  { name: 'Gifts', slug: 'gifts', value: 'Gifts' },
+  { name: 'Art & Collectibles', slug: 'art-collectibles', value: 'Art & Collectibles' },
+  { name: 'Traditional Products', slug: 'traditional-products', value: 'Traditional Products' },
+  { name: 'Other Products', slug: 'other-products', value: 'Other Products' },
 ]
 
+export const bookCategories = productCategories
+
 export function getCategoryBySlug(slug: string | null) {
-  return bookCategories.find((category) => category.slug === slug)
+  return productCategories.find((category) => category.slug === slug)
+}
+
+export function productsHref(slug?: string) {
+  return slug ? `/products?category=${encodeURIComponent(slug)}` : '/products'
 }
 
 export function booksHref(slug?: string) {
-  return slug ? `/books?category=${encodeURIComponent(slug)}` : '/books'
+  return productsHref(slug)
 }
