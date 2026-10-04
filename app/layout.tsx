@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { CartProvider } from '@/components/cart-provider'
+import { StoreHeader } from '@/components/store-header'
 import { StoreFooter } from '@/components/store-footer'
 
 export const metadata: Metadata = {
@@ -30,6 +31,7 @@ export default function RootLayout({
     <html lang="en" className="light">
       <body className="antialiased">
         <CartProvider>
+          <StoreHeader />
           {children}
           <StoreFooter />
         </CartProvider>

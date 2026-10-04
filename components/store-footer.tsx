@@ -1,89 +1,97 @@
-import { ArrowRight, Mail, MapPin, Phone } from 'lucide-react'
+import { Mail } from 'lucide-react'
 
-const foundationUrl = 'https://www.indianheritager.org'
-
-const quickLinks = [
-  ['About', `${foundationUrl}/about`],
-  ['Our Programmes', `${foundationUrl}/projects`],
-  ['Volunteer', `${foundationUrl}/volunteer`],
-  ['CSR Partnerships', `${foundationUrl}/blog`],
-  ['Contact', `${foundationUrl}/contact`],
-  ['Reports & Compliance', `${foundationUrl}/donate`],
+const shopLinks = [
+  ['Shop All', '/products'],
+  ['Categories', '/#categories'],
+  ['New Arrivals', '/products?sort=newest'],
+  ['Featured Products', '/products'],
+  ['Best Sellers', '/products'],
 ]
 
-const getInvolvedLinks = [
-  ['Donate', `${foundationUrl}/give`],
-  ['Project Vidhyadhanam', `${foundationUrl}/programmes/project-vidhyadhanam`],
-  ['Donate Books', `${foundationUrl}/project-vidhyadhanam/donate-books`],
-  ['Request Books', `${foundationUrl}/project-vidhyadhanam/request-books`],
-  ['Partnerships', `${foundationUrl}/contact`],
+const brandLinks = [
+  ['About Us', '/about'],
+  ['Our Story', '/#story'],
+  ['Our Heritage', '/about'],
+  ['Contact Us', 'mailto:support@indianheritager.com'],
+  ['FAQs', 'mailto:support@indianheritager.com'],
 ]
+
+const customerCareLinks = [
+  ['Shipping & Delivery', 'mailto:support@indianheritager.com'],
+  ['Returns & Refunds', 'mailto:support@indianheritager.com'],
+  ['Track Your Order', '/account'],
+  ['Privacy Policy', 'mailto:support@indianheritager.com'],
+  ['Terms & Conditions', 'mailto:support@indianheritager.com'],
+]
+
+function FooterLinks({ title, links }: { title: string; links: string[][] }) {
+  return (
+    <nav aria-label={title}>
+      <h2 className="text-base font-bold text-white">{title}</h2>
+      <ul className="mt-4 space-y-3 text-[15px] text-[#c2d0da]">
+        {links.map(([label, href]) => (
+          <li key={label}>
+            <a className="hover:text-white" href={href}>{label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
 
 export function StoreFooter() {
   return (
-    <footer className="bg-[radial-gradient(ellipse_at_top_left,_#12251f_0%,_#031321_50%)] px-5 py-14 text-[#dce5eb] lg:px-8 lg:pt-16">
-      <div className="mx-auto grid max-w-[1400px] gap-10 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.55fr_0.55fr_1.2fr] lg:gap-12">
+    <footer className="bg-[radial-gradient(ellipse_at_top_left,#1b271d_0%,#031321_32%)] px-4 py-10 text-[#dce5eb] sm:px-5 sm:py-14 lg:px-8 lg:py-16 xl:px-12">
+      <div className="mx-auto grid max-w-[1800px] gap-8 sm:grid-cols-2 sm:gap-10 xl:grid-cols-[1.3fr_0.7fr_0.8fr_0.9fr_1.3fr] xl:gap-10">
         <div>
-          <a href={foundationUrl} className="inline-flex items-center gap-3" aria-label="Indian Heritager Foundation home">
-            <img src="/logo.png" alt="" width="56" height="56" className="size-14 rounded-full object-contain" />
-            <span>
-              <strong className="block text-xl font-extrabold tracking-tight text-white">Indian Heritager</strong>
-              <small className="mt-1 block text-[10px] tracking-[0.24em] text-[#aab9c5]">FOUNDATION</small>
-            </span>
+          <a href="/" aria-label="Indian Heritager home" className="inline-flex min-w-0 items-center gap-3 sm:gap-4">
+            <img src="/logo.png" alt="" width="68" height="68" className="size-12 shrink-0 rounded-full object-contain sm:size-[68px]" />
+            <span className="text-xl font-extrabold tracking-tight text-white sm:text-[26px]">Indian Heritager</span>
           </a>
-          <p className="mt-6 max-w-sm text-[15px] leading-6 text-[#c2d0da]">
-            A charitable organisation working in education, environment, sustainability, community development, skill development and livelihoods.
+          <h2 className="mt-7 text-base font-bold text-white">Bringing India&apos;s Heritage Closer to You</h2>
+          <p className="mt-3 max-w-md text-[15px] leading-[1.65] text-[#c2d0da]">
+            Discover a thoughtfully curated collection of products inspired by India&apos;s rich heritage, traditions, craftsmanship, and cultural identity. Each product reflects the beauty of India&apos;s diverse stories, artistry, and timeless traditions.
           </p>
-          <address className="mt-6 space-y-3 text-[15px] not-italic text-[#c2d0da]">
-            <p className="flex items-center gap-3"><MapPin size={17} className="shrink-0 text-[#a52f17]" aria-hidden="true" />Coimbatore, Tamil Nadu, India</p>
-            <a className="flex items-center gap-3 hover:text-white" href="tel:+917904140033"><Phone size={17} className="shrink-0 text-[#a52f17]" aria-hidden="true" />+91 7904140033</a>
-            <a className="flex items-center gap-3 hover:text-white" href="mailto:info@indianheritager.org"><Mail size={17} className="shrink-0 text-[#a52f17]" aria-hidden="true" />info@indianheritager.org</a>
-          </address>
-          <div className="mt-7 flex gap-2.5" aria-label="Social media">
-            {['Facebook', 'Instagram', 'Twitter', 'YouTube', 'LinkedIn'].map((name) => (
-              <span key={name} title={name} className="grid size-11 place-items-center rounded-full bg-white/[0.06] text-xs font-bold text-white">
-                {name === 'YouTube' ? '▶' : name === 'LinkedIn' ? 'in' : name === 'Instagram' ? '◎' : name === 'Facebook' ? 'f' : '𝕏'}
-                <span className="sr-only">{name}</span>
-              </span>
-            ))}
+          <div className="mt-6 flex flex-wrap gap-2 sm:mt-7 sm:gap-3" aria-label="Social media">
+            <span role="img" title="Facebook" className="grid size-10 place-items-center rounded-full bg-white/[0.055] text-xl font-bold text-white sm:size-[52px]" aria-label="Facebook">f</span>
+            <span role="img" title="Instagram" className="grid size-10 place-items-center rounded-full bg-white/[0.055] text-white sm:size-[52px]" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" className="size-[22px]" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="18" cy="6" r="1" fill="currentColor" stroke="none" />
+              </svg>
+            </span>
+            <span role="img" title="X" className="grid size-10 place-items-center rounded-full bg-white/[0.055] text-lg text-white sm:size-[52px]" aria-label="X">𝕏</span>
+            <span role="img" title="YouTube" className="grid size-10 place-items-center rounded-full bg-white/[0.055] text-white sm:size-[52px]" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" className="size-[22px]" fill="currentColor" aria-hidden="true">
+                <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z" />
+              </svg>
+            </span>
+            <span role="img" title="LinkedIn" className="grid size-10 place-items-center rounded-full bg-white/[0.055] text-base font-bold text-white sm:size-[52px]" aria-label="LinkedIn">in</span>
           </div>
         </div>
 
-        <nav aria-label="Quick links">
-          <h2 className="text-base font-bold text-white">Quick Links</h2>
-          <ul className="mt-4 space-y-3 text-[15px] text-[#c2d0da]">
-            {quickLinks.map(([label, href]) => <li key={label}><a className="hover:text-white" href={href}>{label}</a></li>)}
-          </ul>
-        </nav>
-
-        <nav aria-label="Get involved">
-          <h2 className="text-base font-bold text-white">Get Involved</h2>
-          <ul className="mt-4 space-y-3 text-[15px] text-[#c2d0da]">
-            {getInvolvedLinks.map(([label, href]) => <li key={label}><a className="hover:text-white" href={href}>{label}</a></li>)}
-          </ul>
-        </nav>
+        <FooterLinks title="Shop" links={shopLinks} />
+        <FooterLinks title="Indian Heritager" links={brandLinks} />
+        <FooterLinks title="Customer Care" links={customerCareLinks} />
 
         <div>
-          <h2 className="text-base font-bold text-white">Stories in your inbox</h2>
-          <p className="mt-4 text-[15px] leading-6 text-[#c2d0da]">A monthly letter from the field — no noise, just impact.</p>
-          <form action="mailto:info@indianheritager.org" method="post" encType="text/plain" className="mt-5 flex items-center rounded-full border border-[#283b49] bg-[#10202d] p-1.5">
-            <label className="sr-only" htmlFor="footer-email">Email address</label>
-            <input id="footer-email" name="email" type="email" required placeholder="you@example.com" className="min-w-0 flex-1 bg-transparent px-3 text-sm text-white outline-none placeholder:text-[#9aabb9]" />
-            <button type="submit" className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#f4bb20] px-4 py-2.5 text-sm font-semibold text-[#071321] hover:bg-[#ffd044]">
-              Subscribe <ArrowRight size={17} aria-hidden="true" />
-            </button>
-          </form>
-          <p className="mt-3 text-xs text-[#aab9c5]">We respect your privacy. Unsubscribe anytime.</p>
+          <h2 className="text-base font-bold text-white">Stay Connected</h2>
+          <p className="mt-4 text-[15px] leading-6 text-[#c2d0da]">
+            Follow Indian Heritager and discover stories, traditions, products, and inspiration from India&apos;s rich cultural heritage.
+          </p>
+          <p className="mt-5 inline-flex max-w-full items-start gap-2 text-sm text-[#c2d0da] sm:gap-3 sm:text-[15px]">
+            <Mail size={19} className="mt-0.5 shrink-0 text-[#c26742]" aria-hidden="true" />
+            <span><strong className="text-white">Email:</strong>{' '}
+              <a className="break-all hover:text-white" href="mailto:support@indianheritager.com">support@indianheritager.com</a>
+            </span>
+          </p>
         </div>
       </div>
 
-      <div className="mx-auto mt-14 flex max-w-[1400px] flex-col gap-4 border-t border-[#1e3240] pt-6 text-sm text-[#9aabb9] sm:flex-row sm:items-center sm:justify-between">
-        <p>© 2026 Indian Heritager Foundation. All rights reserved.</p>
-        <nav aria-label="Legal" className="flex flex-wrap gap-x-6 gap-y-2">
-          <a className="hover:text-white" href={`${foundationUrl}/privacy-policy`}>Privacy Policy</a>
-          <a className="hover:text-white" href={`${foundationUrl}/terms-and-conditions`}>Terms &amp; Conditions</a>
-          <a className="hover:text-white" href={`${foundationUrl}/donate`}>Financial Transparency</a>
-        </nav>
+      <div className="mx-auto mt-14 flex max-w-[1800px] flex-col gap-3 border-t border-[#1e3240] pt-6 text-sm text-[#9aabb9] sm:flex-row sm:items-center sm:justify-between">
+        <p>© 2026 Indian Heritager. All Rights Reserved.</p>
+        <p className="font-medium text-[#c2d0da]">Celebrating India&apos;s Heritage, One Story at a Time.</p>
       </div>
     </footer>
   )

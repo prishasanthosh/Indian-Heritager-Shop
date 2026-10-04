@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 import { ArrowLeft, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react'
 import { productCategories, getCategoryBySlug, productsHref } from '@/lib/categories'
-import { StoreHeader } from '@/components/store-header'
 import { useCart } from '@/components/cart-provider'
 
 type Product = { id: string; title: string; author: string; category: string; price: number; originalPrice?: number | null; cover: string; badge?: string | null; rating: string | number; stock: number }
@@ -29,6 +28,7 @@ export default function ProductsPage() {
   const [inStock, setInStock] = useState(false)
   const [sort, setSort] = useState('featured')
   const [page, setPage] = useState(1)
+  const [filtersOpen, setFiltersOpen] = useState(false)
   const [result, setResult] = useState<ApiResponse>({ products: [], page: 1, pageSize: 24, hasMore: false })
   const [loading, setLoading] = useState(true)
 
@@ -96,24 +96,26 @@ export default function ProductsPage() {
   const products = result.products
 
   return (
-    <main className="min-h-screen bg-[#f8f5ee] text-[#183d38]">
-      <StoreHeader />
-      <section className="mx-auto max-w-[1280px] px-5 py-12 lg:px-8 lg:py-16">
+    <main className="min-h-screen overflow-x-clip bg-[#f8f5ee] text-[#183d38]">
+      <section className="mx-auto max-w-[1280px] px-4 py-8 sm:px-5 sm:py-12 lg:px-8 lg:py-16">
         <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold text-[#c26742]"><ArrowLeft size={16} /> Back to home</Link>
-        <div className="mt-8 flex flex-col justify-between gap-4 border-b border-[#dcd3c2] pb-8 sm:flex-row sm:items-end">
+        <div className="mt-6 flex flex-col justify-between gap-4 border-b border-[#dcd3c2] pb-6 sm:mt-8 sm:pb-8 sm:flex-row sm:items-end">
           <div>
             <p className="text-xs font-bold tracking-[0.2em] text-[#c26742]">THE COLLECTION</p>
-            <h1 className="mt-2 font-serif text-5xl tracking-[-0.04em]">{title}</h1>
+            <h1 className="mt-2 break-words font-serif text-4xl tracking-[-0.04em] sm:text-5xl">{title}</h1>
             <p className="mt-3 text-sm text-[#6e7069]">{loading ? 'Finding products…' : `${products.length}${result.hasMore ? '+' : ''} products`}</p>
           </div>
-          <select aria-label="Sort products" value={sort} onChange={(event) => change({ sort: event.target.value })} className="h-11 border border-[#dcd3c2] bg-[#fbfaf6] px-3 text-sm">
+          <select aria-label="Sort products" value={sort} onChange={(event) => change({ sort: event.target.value })} className="h-11 w-full border border-[#dcd3c2] bg-[#fbfaf6] px-3 text-sm sm:w-auto">
             <option value="featured">Relevance</option>
             {sortOptions.slice(1).map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}
           </select>
         </div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[240px_1fr]">
-          <aside className="space-y-5">
+        <div className="mt-6 grid gap-5 sm:mt-8 sm:gap-8 lg:grid-cols-[240px_1fr]">
+          <button type="button" onClick={() => setFiltersOpen((open) => !open)} aria-expanded={filtersOpen} className="flex h-11 items-center justify-between border border-[#dcd3c2] bg-[#fbfaf6] px-3 text-sm font-bold lg:hidden">
+            Filters <span aria-hidden="true">{filtersOpen ? '−' : '+'}</span>
+          </button>
+          <aside className={`${filtersOpen ? 'block' : 'hidden'} space-y-5 border border-[#dcd3c2] bg-[#fbfaf6] p-4 lg:block lg:border-0 lg:bg-transparent lg:p-0`}>
             <label className="block text-xs font-bold uppercase tracking-wider">Search
               <input value={search} onChange={(event) => change({ search: event.target.value })} placeholder="Name, brand, keyword" className="mt-2 h-11 w-full border border-[#dcd3c2] bg-[#fbfaf6] px-3 text-sm outline-none focus:border-[#c26742]" />
             </label>
@@ -162,7 +164,7 @@ export default function ProductsPage() {
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
+                <div className="grid grid-cols-2 gap-x-3 gap-y-7 sm:grid-cols-3 sm:gap-x-4 sm:gap-y-10 lg:grid-cols-4">
                   {products.map((product) => {
                     const quantityInCart = items.find((item) => item.id === product.id)?.quantity ?? 0
                     const atStockLimit = quantityInCart >= product.stock
@@ -170,26 +172,26 @@ export default function ProductsPage() {
                     return (
                       <article key={product.id} className="flex flex-col">
                         <Link href={productHref(product.title || product.author || 'product', product.id)} className="group overflow-hidden border border-[#dfd2be] bg-white hover:border-[#c26742]">
-                          <div className="flex h-64 items-center justify-center bg-[#eadfce] p-4 text-center font-serif text-3xl text-[#183d38]">
+                          <div className="flex aspect-[4/5] items-center justify-center bg-[#eadfce] p-2 text-center font-serif text-xl text-[#183d38] sm:p-4 sm:text-3xl">
                             {product.cover ? <img src={product.cover} alt={product.title} className="h-full w-full object-cover" /> : (product.title || 'Product')}
                           </div>
-                          <div className="p-4">
+                          <div className="p-2.5 sm:p-4">
                             <div className="flex items-center justify-between gap-2 text-[11px] font-bold uppercase tracking-wider text-[#59645f]">
-                              <span>{product.category}</span>
-                              {product.badge && <span className="bg-[#f4ede0] px-2 py-1 text-[#c26742]">{product.badge}</span>}
+                              <span className="min-w-0 truncate">{product.category}</span>
+                              {product.badge && <span className="shrink-0 bg-[#f4ede0] px-1.5 py-1 text-[#c26742] sm:px-2">{product.badge}</span>}
                             </div>
-                            <h3 className="mt-3 font-serif text-2xl leading-tight text-[#183d38]">{product.title}</h3>
-                            <p className="mt-2 text-sm text-[#59645f]">{product.author || 'Curated product'}</p>
-                            <div className="mt-4 flex items-end gap-2">
-                              <span className="text-xl font-bold">₹{product.price.toLocaleString('en-IN')}</span>
-                              {product.originalPrice ? <span className="text-sm text-[#59645f] line-through">₹{product.originalPrice.toLocaleString('en-IN')}</span> : null}
+                            <h3 className="mt-2 break-words font-serif text-lg leading-tight text-[#183d38] sm:mt-3 sm:text-2xl">{product.title}</h3>
+                            <p className="mt-1 text-xs text-[#59645f] sm:mt-2 sm:text-sm">{product.author || 'Curated product'}</p>
+                            <div className="mt-3 flex flex-wrap items-end gap-x-2 gap-y-1 sm:mt-4">
+                              <span className="text-lg font-bold sm:text-xl">₹{product.price.toLocaleString('en-IN')}</span>
+                              {product.originalPrice ? <span className="text-xs text-[#59645f] line-through sm:text-sm">₹{product.originalPrice.toLocaleString('en-IN')}</span> : null}
                             </div>
                           </div>
                         </Link>
 
-                        <div className="mt-3 flex items-center justify-between gap-3">
-                          <span className="text-xs font-bold uppercase tracking-wider text-[#59645f]">{product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}</span>
-                          <button onClick={() => add(product.id, 1, product.stock)} disabled={product.stock <= 0 || atStockLimit} className="bg-[#c26742] px-3 py-2 text-sm font-bold text-white disabled:cursor-not-allowed disabled:opacity-60">Add to cart</button>
+                        <div className="mt-2 flex flex-col items-stretch justify-between gap-2 sm:mt-3 sm:flex-row sm:items-center sm:gap-3">
+                          <span className="text-[10px] font-bold uppercase tracking-wide text-[#59645f] sm:text-xs">{product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}</span>
+                          <button onClick={() => add(product.id, 1, product.stock)} disabled={product.stock <= 0 || atStockLimit} className="min-h-9 bg-[#c26742] px-2 py-2 text-xs font-bold text-white disabled:cursor-not-allowed disabled:opacity-60 sm:px-3 sm:text-sm">Add to cart</button>
                         </div>
                       </article>
                     )
