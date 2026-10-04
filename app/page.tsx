@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import { ArrowRight, Sparkles, Star } from 'lucide-react'
+import { HeroCarousel } from '@/components/hero-carousel'
 import { productCategories } from '@/lib/categories'
 
 export default function Page() {
   return (
     <main className="min-h-screen overflow-x-clip bg-[#f8f5ee] text-[#000000]">
       <section id="top" className="relative flex min-h-[440px] items-center overflow-hidden bg-[#031321] px-4 py-12 text-[#fbfaf6] sm:min-h-[520px] sm:px-5 sm:py-16 lg:px-8">
-        <img src="/hero-education.jpg" alt="Curated handcrafted and heritage products" className="absolute inset-0 size-full object-cover object-[58%_48%]" />
+        <HeroCarousel />
         <div className="absolute inset-0 bg-[#031321]/55" />
         <div className="relative mx-auto w-full max-w-[1280px]">
           <p className="mb-5 text-xs font-bold tracking-[0.24em] text-[#f4c532]">THE INDIAN HERITAGER SHOP</p>

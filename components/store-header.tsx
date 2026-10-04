@@ -3,26 +3,21 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { ChevronDown, Menu, Search, ShoppingBag, UserRound, X } from 'lucide-react'
+import { Menu, Search, ShoppingBag, UserRound, X } from 'lucide-react'
 import { useCart } from '@/components/cart-provider'
 import { useSession } from '@/lib/auth-client'
+import { productCategories, productsHref } from '@/lib/categories'
 
 type NavItem = 'home' | 'categories' | 'shop' | 'about'
 type DrawerTab = 'menu' | 'account' | 'settings'
 
 const menuCategories = [
-  { label: 'HOME AND LIVING', href: '/products?category=home-decor' },
-  { label: 'WOMEN', href: '/products?category=clothing' },
-  { label: 'KIDS', href: '/products?category=clothing' },
-  { label: 'MEN', href: '/products?category=clothing' },
-  { label: 'FURNITURE', href: '/products?category=home-decor' },
-  {
-    label: 'PAINTINGS',
-    href: '/products?category=art-collectibles',
-    children: ['Traditional Paintings', 'Modern Paintings'],
-  },
-  { label: 'GI TAGGED', href: '/products?category=handicrafts' },
-  { label: 'ODOP', href: '/products?category=traditional-products' },
+  ...productCategories.map((category) => ({
+    label: category.name,
+    href: productsHref(category.slug),
+  })),
+  { label: 'GI Tagged', href: productsHref('handicrafts') },
+  { label: 'ODOP', href: productsHref('traditional-products') },
 ]
 
 export function StoreHeader() {
@@ -34,7 +29,6 @@ export function StoreHeader() {
   const [query, setQuery] = useState('')
   const [activeItem, setActiveItem] = useState<NavItem>('home')
   const [drawerTab, setDrawerTab] = useState<DrawerTab>('menu')
-  const [paintingsOpen, setPaintingsOpen] = useState(true)
 
   useEffect(() => {
     setMenuOpen(false)
@@ -187,33 +181,10 @@ export function StoreHeader() {
               {drawerTab === 'menu' && (
                 <nav aria-label="Product categories">
                   {menuCategories.map((category) => (
-                    category.children ? (
-                      <div key={category.label} className="border-b border-[#ead8cf]">
-                        <div className="flex min-h-11 items-center">
-                          <Link href={category.href} onClick={closeMenu} className="flex-1 px-5 py-3 text-xs font-medium">{category.label}</Link>
-                          <button type="button" onClick={() => setPaintingsOpen((open) => !open)} aria-label={`${paintingsOpen ? 'Collapse' : 'Expand'} ${category.label}`} aria-expanded={paintingsOpen} className="grid min-h-11 w-12 place-items-center text-[#bbc5c8]">
-                            <ChevronDown size={17} className={paintingsOpen ? 'rotate-180 transition-transform' : 'transition-transform'} />
-                          </button>
-                        </div>
-                        {paintingsOpen && (
-                          <div className="pb-1">
-                            {category.children.map((child) => (
-                              <Link key={child} href={category.href} onClick={closeMenu} className="block px-5 py-2 text-xs text-[#6e625d]">{child}</Link>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <Link key={category.label} href={category.href} onClick={closeMenu} className="flex min-h-11 items-center border-b border-[#ead8cf] px-5 py-3 text-xs font-medium">
-                        {category.label}
-                      </Link>
-                    )
+                    <Link key={category.label} href={category.href} onClick={closeMenu} className="flex min-h-11 items-center border-b border-[#ead8cf] px-5 py-3 text-xs font-medium">
+                      {category.label}
+                    </Link>
                   ))}
-                  <div className="grid grid-cols-3 border-b border-[#ead8cf] text-center text-xs">
-                    <Link href="/" onClick={closeMenu} className="px-2 py-4">Home</Link>
-                    <Link href="/products" onClick={closeMenu} className="px-2 py-4">Shop all</Link>
-                    <Link href="/about" onClick={closeMenu} className="px-2 py-4">About</Link>
-                  </div>
                 </nav>
               )}
 
