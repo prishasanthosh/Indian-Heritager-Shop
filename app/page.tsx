@@ -96,7 +96,7 @@ export default function Page() {
         </div>
       </header>
 
-      <section id="top" className="relative flex min-h-[560px] items-center overflow-hidden bg-[#173d38] px-5 py-16 text-[#fbfaf6] sm:min-h-[620px] lg:min-h-[660px] lg:px-8">
+      <section id="top" className="relative flex min-h-[570px] items-center overflow-hidden bg-[#173d38] px-5 py-16 text-[#fbfaf6] lg:px-8">
         <img src="/hero-education.jpg" alt="Curated handcrafted and heritage products" className="absolute inset-0 size-full object-cover object-[58%_48%]" />
         <div className="absolute inset-0 bg-[#10251f]/55" />
         <div className="relative mx-auto w-full max-w-[1280px]">
