@@ -35,7 +35,7 @@ export default function CheckoutPage() {
 
   if (!items.length) {
     return (
-      <main className="grid min-h-[60vh] place-items-center overflow-x-clip bg-[#f8f5ee] px-4 py-12 text-center text-[#183d38]">
+      <main className="grid min-h-[60vh] place-items-center overflow-x-clip bg-[#f8f5ee] px-4 py-12 text-center text-[#071b2b]">
         <div>
           <h1 className="font-serif text-3xl sm:text-4xl">Your cart is empty</h1>
           <Link href="/products" className="mt-6 inline-flex bg-[#c26742] px-5 py-3 font-bold text-white">Browse products</Link>
@@ -45,7 +45,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <main className="min-h-screen overflow-x-clip bg-[#f8f5ee] px-4 py-8 text-[#183d38] sm:px-5 sm:py-12 md:px-10">
+    <main className="min-h-screen overflow-x-clip bg-[#f8f5ee] px-4 py-8 text-[#071b2b] sm:px-5 sm:py-12 md:px-10">
       <div className="mx-auto max-w-5xl">
         <Link href="/cart" className="text-sm font-bold text-[#c26742]">← Back to cart</Link>
         <h1 className="mt-4 font-serif text-4xl sm:text-5xl">Checkout</h1>

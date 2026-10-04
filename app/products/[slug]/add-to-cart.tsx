@@ -20,7 +20,7 @@ export function AddToCart({ id, stock }: { id: string; stock: number }) {
         <button aria-label="Increase quantity" disabled={quantity >= remainingStock} className="px-4 py-3 disabled:cursor-not-allowed disabled:opacity-40" onClick={() => setQuantity(Math.min(remainingStock, quantity + 1))}>+</button>
       </div>
       <button disabled={disabled} onClick={() => add(id, quantity, stock)} className="bg-[#c26742] px-6 py-3 font-bold text-white disabled:cursor-not-allowed disabled:opacity-50">{disabled ? 'Stock limit reached' : 'Add to cart'}</button>
-      <button disabled={disabled} onClick={() => { add(id, quantity, stock); router.push('/checkout') }} className="border border-[#183d38] px-6 py-3 font-bold disabled:opacity-50">Buy now</button>
+      <button disabled={disabled} onClick={() => { add(id, quantity, stock); router.push('/checkout') }} className="border border-[#071b2b] px-6 py-3 font-bold disabled:opacity-50">Buy now</button>
     </div>
   )
 }

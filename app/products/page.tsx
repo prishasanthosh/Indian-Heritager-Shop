@@ -96,7 +96,7 @@ export default function ProductsPage() {
   const products = result.products
 
   return (
-    <main className="min-h-screen overflow-x-clip bg-[#f8f5ee] text-[#183d38]">
+    <main className="min-h-screen overflow-x-clip bg-[#f8f5ee] text-[#071b2b]">
       <section className="mx-auto max-w-[1280px] px-4 py-8 sm:px-5 sm:py-12 lg:px-8 lg:py-16">
         <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold text-[#c26742]"><ArrowLeft size={16} /> Back to home</Link>
         <div className="mt-6 flex flex-col justify-between gap-4 border-b border-[#dcd3c2] pb-6 sm:mt-8 sm:pb-8 sm:flex-row sm:items-end">
@@ -172,7 +172,7 @@ export default function ProductsPage() {
                     return (
                       <article key={product.id} className="flex flex-col">
                         <Link href={productHref(product.title || product.author || 'product', product.id)} className="group overflow-hidden border border-[#dfd2be] bg-white hover:border-[#c26742]">
-                          <div className="flex aspect-[4/5] items-center justify-center bg-[#eadfce] p-2 text-center font-serif text-xl text-[#183d38] sm:p-4 sm:text-3xl">
+                          <div className="flex aspect-[4/5] items-center justify-center bg-[#eadfce] p-2 text-center font-serif text-xl text-[#071b2b] sm:p-4 sm:text-3xl">
                             {product.cover ? <img src={product.cover} alt={product.title} className="h-full w-full object-cover" /> : (product.title || 'Product')}
                           </div>
                           <div className="p-2.5 sm:p-4">
@@ -180,7 +180,7 @@ export default function ProductsPage() {
                               <span className="min-w-0 truncate">{product.category}</span>
                               {product.badge && <span className="shrink-0 bg-[#f4ede0] px-1.5 py-1 text-[#c26742] sm:px-2">{product.badge}</span>}
                             </div>
-                            <h3 className="mt-2 break-words font-serif text-lg leading-tight text-[#183d38] sm:mt-3 sm:text-2xl">{product.title}</h3>
+                            <h3 className="mt-2 break-words font-serif text-lg leading-tight text-[#071b2b] sm:mt-3 sm:text-2xl">{product.title}</h3>
                             <p className="mt-1 text-xs text-[#59645f] sm:mt-2 sm:text-sm">{product.author || 'Curated product'}</p>
                             <div className="mt-3 flex flex-wrap items-end gap-x-2 gap-y-1 sm:mt-4">
                               <span className="text-lg font-bold sm:text-xl">₹{product.price.toLocaleString('en-IN')}</span>
@@ -199,11 +199,11 @@ export default function ProductsPage() {
                 </div>
 
                 <div className="mt-10 flex items-center justify-between gap-4">
-                  <button disabled={page <= 1} onClick={() => change({ page: page - 1 })} className="inline-flex items-center gap-2 border border-[#dcd3c2] bg-white px-3 py-2 text-sm font-bold text-[#183d38] disabled:cursor-not-allowed disabled:opacity-50">
+                  <button disabled={page <= 1} onClick={() => change({ page: page - 1 })} className="inline-flex items-center gap-2 border border-[#dcd3c2] bg-white px-3 py-2 text-sm font-bold text-[#071b2b] disabled:cursor-not-allowed disabled:opacity-50">
                     <span className="inline-flex items-center gap-2">◀ Prev</span>
                   </button>
                   <span className="text-sm font-bold text-[#59645f]">Page {page}</span>
-                  <button disabled={!result.hasMore} onClick={() => change({ page: page + 1 })} className="inline-flex items-center gap-2 border border-[#dcd3c2] bg-white px-3 py-2 text-sm font-bold text-[#183d38] disabled:cursor-not-allowed disabled:opacity-50">
+                  <button disabled={!result.hasMore} onClick={() => change({ page: page + 1 })} className="inline-flex items-center gap-2 border border-[#dcd3c2] bg-white px-3 py-2 text-sm font-bold text-[#071b2b] disabled:cursor-not-allowed disabled:opacity-50">
                     Next ▶
                   </button>
                 </div>

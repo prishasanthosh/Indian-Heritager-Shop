@@ -5,9 +5,9 @@ import { productCategories } from '@/lib/categories'
 export default function Page() {
   return (
     <main className="min-h-screen overflow-x-clip bg-[#f8f5ee] text-[#000000]">
-      <section id="top" className="relative flex min-h-[440px] items-center overflow-hidden bg-[#173d38] px-4 py-12 text-[#fbfaf6] sm:min-h-[520px] sm:px-5 sm:py-16 lg:px-8">
+      <section id="top" className="relative flex min-h-[440px] items-center overflow-hidden bg-[#031321] px-4 py-12 text-[#fbfaf6] sm:min-h-[520px] sm:px-5 sm:py-16 lg:px-8">
         <img src="/hero-education.jpg" alt="Curated handcrafted and heritage products" className="absolute inset-0 size-full object-cover object-[58%_48%]" />
-        <div className="absolute inset-0 bg-[#10251f]/55" />
+        <div className="absolute inset-0 bg-[#031321]/55" />
         <div className="relative mx-auto w-full max-w-[1280px]">
           <p className="mb-5 text-xs font-bold tracking-[0.24em] text-[#f4c532]">THE INDIAN HERITAGER SHOP</p>
           <h1 className="max-w-3xl font-serif text-[clamp(2.5rem,10vw,4.5rem)] leading-[0.98] lg:text-[88px]">Shop thoughtfully.<br /><em className="text-[#f4c532]">Celebrate craft.</em></h1>
@@ -31,14 +31,14 @@ export default function Page() {
         <div className="mt-7 grid grid-cols-2 gap-2.5 sm:mt-9 sm:gap-3 md:grid-cols-3 lg:grid-cols-5">
           {productCategories.map((item) => (
             <Link key={item.slug} href={`/products?category=${item.slug}`} className="group min-h-32 rounded-none bg-[#e9dfc9] p-3 text-left transition hover:-translate-y-1 hover:bg-[#d9c9a8] focus:outline-none focus:ring-2 focus:ring-[#c26742] sm:min-h-36 sm:p-5">
-              <span className="inline-flex rounded-full bg-white/70 p-2 text-[#173d38]"><Sparkles size={16} /></span>
-              <h3 className="mt-3 break-words font-serif text-lg leading-tight text-[#173d38] sm:mt-5 sm:text-2xl">{item.name}</h3>
+              <span className="inline-flex rounded-full bg-white/70 p-2 text-[#031321]"><Sparkles size={16} /></span>
+              <h3 className="mt-3 break-words font-serif text-lg leading-tight text-[#031321] sm:mt-5 sm:text-2xl">{item.name}</h3>
             </Link>
           ))}
         </div>
       </section>
 
-      <section id="story" className="bg-[#173d38] px-4 py-12 text-[#f8f5ee] sm:px-5 sm:py-16 lg:px-8 lg:py-24">
+      <section id="story" className="bg-[#031321] px-4 py-12 text-[#f8f5ee] sm:px-5 sm:py-16 lg:px-8 lg:py-24">
         <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
             <p className="text-xs font-bold tracking-[0.2em] text-[#f4c532]">OUR STORY</p>
@@ -78,9 +78,9 @@ export default function Page() {
             ['Botanical Wall Art', 'Art & Collectibles', '₹1,120', '₹1,450'],
           ].map(([name, category, price, originalPrice]) => (
             <article key={name} className="border border-[#dcd3c2] bg-[#fbfaf6] p-4">
-              <div className="flex aspect-[4/3] items-center justify-center bg-[#eadfce] text-center font-serif text-2xl text-[#173d38] sm:h-56 sm:aspect-auto sm:text-3xl">{name.split(' ')[0]}</div>
+              <div className="flex aspect-[4/3] items-center justify-center bg-[#eadfce] text-center font-serif text-2xl text-[#031321] sm:h-56 sm:aspect-auto sm:text-3xl">{name.split(' ')[0]}</div>
               <div className="mt-4 flex items-center justify-between text-[#59645f]"><span className="text-xs font-bold uppercase tracking-[0.14em]">{category}</span><span className="inline-flex items-center gap-1 text-sm"><Star size={14} className="fill-[#f4bb20] text-[#f4bb20]" /> 4.9</span></div>
-              <h3 className="mt-3 font-serif text-2xl text-[#183d38]">{name}</h3>
+              <h3 className="mt-3 font-serif text-2xl text-[#071b2b]">{name}</h3>
               <div className="mt-4 flex items-end gap-2"><span className="text-2xl font-bold">{price}</span><span className="text-sm line-through text-[#59645f]">{originalPrice}</span></div>
             </article>
           ))}

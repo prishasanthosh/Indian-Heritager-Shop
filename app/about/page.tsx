@@ -3,7 +3,7 @@ import { ArrowRight, Heart, Sparkles, Star } from 'lucide-react'
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen overflow-x-clip bg-[#f8f5ee] text-[#183d38]">
+    <main className="min-h-screen overflow-x-clip bg-[#f8f5ee] text-[#071b2b]">
       <section className="mx-auto max-w-6xl px-4 py-10 sm:px-5 sm:py-16 lg:px-8 lg:py-24">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
           <div>
@@ -18,7 +18,7 @@ export default function AboutPage() {
               <Link href="/products" className="inline-flex items-center gap-2 bg-[#c26742] px-4 py-3 text-sm font-bold text-white sm:px-6">
                 Explore products <ArrowRight size={16} />
               </Link>
-              <Link href="/" className="border border-[#dcd3c2] bg-white px-6 py-3 text-sm font-bold text-[#183d38]">
+              <Link href="/" className="border border-[#dcd3c2] bg-white px-6 py-3 text-sm font-bold text-[#071b2b]">
                 Back home
               </Link>
             </div>
@@ -26,12 +26,12 @@ export default function AboutPage() {
 
           <div className="rounded-2xl border border-[#e6dcc7] bg-[#f3ebdc] p-5 shadow-sm sm:rounded-[32px] sm:p-7">
             <div className="flex items-center gap-3">
-              <span className="grid size-12 place-items-center rounded-full bg-[#173d38] text-[#f4bb20]">
+              <span className="grid size-12 place-items-center rounded-full bg-[#031321] text-[#f4bb20]">
                 <Heart size={22} />
               </span>
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#6d6258]">Our mission</p>
-                <h2 className="font-serif text-2xl text-[#173d38]">Support craft, community, and care.</h2>
+                <h2 className="font-serif text-2xl text-[#031321]">Support craft, community, and care.</h2>
               </div>
             </div>
 
@@ -43,7 +43,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-[#173d38] px-4 py-10 text-[#f8f5ee] sm:px-5 sm:py-16 lg:px-8">
+      <section className="bg-[#031321] px-4 py-10 text-[#f8f5ee] sm:px-5 sm:py-16 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <p className="text-xs font-bold tracking-[0.2em] text-[#f4c532]">WHAT WE BELIEVE</p>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
@@ -53,7 +53,7 @@ export default function AboutPage() {
               { icon: Heart, title: 'Community impact', text: 'A portion of each purchase supports programmes with lasting social value.' }
             ].map(({ icon: Icon, title, text }) => (
               <div key={title} className="rounded-2xl border border-white/10 bg-white/5 p-5 sm:rounded-3xl sm:p-6">
-                <span className="mb-4 inline-flex rounded-full bg-[#f4bb20] p-3 text-[#173d38]">
+                <span className="mb-4 inline-flex rounded-full bg-[#f4bb20] p-3 text-[#031321]">
                   <Icon size={18} />
                 </span>
                 <h3 className="font-serif text-2xl text-[#f8f5ee]">{title}</h3>

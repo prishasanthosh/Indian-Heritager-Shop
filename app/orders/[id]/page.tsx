@@ -15,7 +15,7 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
   const items = await db.select().from(orderItems).where(eq(orderItems.orderId, order.id))
 
   return (
-    <main className="min-h-screen overflow-x-clip bg-[#f8f5ee] px-4 py-8 text-[#183d38] sm:px-5 sm:py-12 md:px-10">
+    <main className="min-h-screen overflow-x-clip bg-[#f8f5ee] px-4 py-8 text-[#071b2b] sm:px-5 sm:py-12 md:px-10">
       <div className="mx-auto max-w-3xl">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c26742]">Order placed successfully</p>
         <h1 className="mt-3 break-words font-serif text-4xl sm:text-5xl">Thank you, {order.customerName}.</h1>
@@ -45,7 +45,7 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
         </section>
         <div className="mt-6 flex flex-wrap gap-3 sm:gap-4">
           <Link href="/account" className="bg-[#c26742] px-4 py-3 font-bold text-white sm:px-5">My orders</Link>
-          <Link href="/products" className="border border-[#183d38] px-4 py-3 font-bold sm:px-5">Continue shopping</Link>
+          <Link href="/products" className="border border-[#071b2b] px-4 py-3 font-bold sm:px-5">Continue shopping</Link>
         </div>
       </div>
     </main>

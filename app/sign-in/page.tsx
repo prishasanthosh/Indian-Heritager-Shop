@@ -7,7 +7,7 @@ export default function SignInPage() {
       <div className="w-full max-w-md space-y-5 bg-[#fbfaf6] p-5 shadow-sm sm:space-y-6 sm:p-8">
         <AuthForm mode="sign-in" />
         <p className="text-sm text-[#59645f]">New to Indian Heritager? <Link className="font-bold text-[#c26742]" href="/sign-up">Create an account</Link></p>
-        <Link href="/" className="text-sm font-bold text-[#183d38]">← Back to shop</Link>
+        <Link href="/" className="text-sm font-bold text-[#071b2b]">← Back to shop</Link>
       </div>
     </main>
   )

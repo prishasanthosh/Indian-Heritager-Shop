@@ -25,7 +25,7 @@ export default function CartPage() {
   const shipping = subtotal >= 1000 ? 0 : 80
 
   return (
-    <main className="min-h-screen overflow-x-clip bg-[#f8f5ee] px-4 py-8 text-[#183d38] sm:px-5 sm:py-12 md:px-10">
+    <main className="min-h-screen overflow-x-clip bg-[#f8f5ee] px-4 py-8 text-[#071b2b] sm:px-5 sm:py-12 md:px-10">
       <div className="mx-auto max-w-5xl">
         <Link href="/products" className="text-sm font-bold text-[#c26742]">← Continue shopping</Link>
         <h1 className="mt-4 font-serif text-4xl sm:text-5xl">Your cart</h1>
