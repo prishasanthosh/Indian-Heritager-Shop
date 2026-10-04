@@ -65,11 +65,11 @@ export default function Page() {
 
       <header className="sticky top-0 z-20 border-b border-[#e9e4d9] bg-[#fbfaf6]">
         <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between gap-5 px-5 md:h-20 lg:px-8">
-          <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Indian Heritager Foundation home">
-            <img src="/logo.png" alt="Indian Heritager Foundation" width="48" height="48" className="size-12 shrink-0 rounded-full object-contain" />
+          <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Indian Heritager Shop home">
+            <img src="/logo.png" alt="Indian Heritager Shop" width="48" height="48" className="size-12 shrink-0 rounded-full object-contain" />
             <span className="flex flex-col leading-tight">
-              <strong className="block whitespace-nowrap font-sans text-[15px] font-bold text-[#183d38]">Indian Heritager</strong>
-              <small className="mt-0.5 block whitespace-nowrap text-[9px] font-medium uppercase tracking-[0.18em] text-[#414b54] sm:text-[10px]">Foundation - Shop</small>
+              <strong className="block whitespace-nowrap font-sans text-base font-bold text-[#183d38]">Indian Heritager</strong>
+              <small className="mt-0.5 block whitespace-nowrap text-[9px] font-medium uppercase tracking-[0.18em] text-[#414b54] sm:text-[10px]">Shop</small>
             </span>
           </Link>
 
@@ -96,7 +96,7 @@ export default function Page() {
         </div>
       </header>
 
-      <section id="top" className="relative flex min-h-[570px] items-center overflow-hidden bg-[#173d38] px-5 py-16 text-[#fbfaf6] lg:px-8">
+      <section id="top" className="relative flex min-h-[520px] items-center overflow-hidden bg-[#173d38] px-5 py-16 text-[#fbfaf6] lg:px-8">
         <img src="/hero-education.jpg" alt="Curated handcrafted and heritage products" className="absolute inset-0 size-full object-cover object-[58%_48%]" />
         <div className="absolute inset-0 bg-[#10251f]/55" />
         <div className="relative mx-auto w-full max-w-[1280px]">

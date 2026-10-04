@@ -64,34 +64,52 @@ export function StoreHeader() {
   }, [pathname])
 
   const navLinkClass = (item: NavItem) => {
-    const active = activeItem === item
-    return `${active ? 'border-b-2 border-[#f4bb20] text-[#183d38]' : 'text-[#35434d] hover:text-[#a86f00]'} py-2 transition-colors`
-  }
+  const active = activeItem === item
+
+  return `${
+    active
+      ? 'text-[#a86f00] after:scale-x-100'
+      : 'text-[#35434d]'
+  } relative px-3 py-2 rounded-md text-sm font-medium transition-colors hover:text-[#a86f00]
+     after:absolute after:left-3 after:right-3 after:-bottom-0.5
+     after:h-0.5 after:origin-left after:scale-x-0
+     after:bg-[#f4bb20] after:transition-transform
+     hover:after:scale-x-100`
+}
 
   return (
     <>
-      <div className="bg-[#173d38] px-3 py-2 text-center text-[9px] font-semibold leading-relaxed tracking-[0.1em] text-[#f4c532] sm:px-5 sm:py-2.5 sm:text-xs sm:tracking-[0.12em]">
-        EVERY PRODUCT PURCHASE SUPPORTS INDIAN HERITAGER FOUNDATION&apos;S COMMUNITY PROGRAMMES
-      </div>
 
       <header className="sticky top-0 z-50 border-b border-[#e9e4d9] bg-[#fbfaf6] px-2 lg:px-8">
         <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between gap-1 sm:gap-5 md:h-20">
           <Link href="/" className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <img src="/logo.png" alt="Indian Heritager Foundation" width="48" height="48" className="size-12 shrink-0 rounded-full object-contain" />
+            <img
+              src="/logo.png"
+              alt="Indian Heritager Shop"
+              width="48"
+              height="48"
+              className="size-12 shrink-0 rounded-full object-contain"
+            />
+
             <span className="flex flex-col leading-tight">
-              <strong className="block whitespace-nowrap font-sans text-[15px] font-bold text-[#183d38]">Indian Heritager</strong>
-              <small className="mt-0.5 block whitespace-nowrap text-[9px] font-medium uppercase tracking-[0.18em] text-[#414b54] sm:text-[10px]">Foundation - Shop</small>
+              <strong className="block whitespace-nowrap font-display text-base font-bold text-[#183d38]">
+                Indian Heritager
+              </strong>
+
+              <small className="block whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.18em] text-[#414b54]">
+                Shop
+              </small>
             </span>
           </Link>
 
-          <nav aria-label="Main navigation" className="hidden items-center gap-7 text-sm font-medium text-[#35434d] xl:flex">
+          <nav aria-label="Main navigation" className="hidden items-center gap-7 lg:flex">
             <Link href="/" className={navLinkClass('home')}>Home</Link>
             <Link href="/#categories" className={navLinkClass('categories')}>Categories</Link>
             <Link href="/products" className={navLinkClass('shop')}>Shop</Link>
             <Link href="/about" className={navLinkClass('about')}>About Us</Link>
           </nav>
 
-          <div className="flex shrink-0 items-center gap-0.5 sm:gap-3">
+          <div className="ml-auto flex shrink-0 items-center gap-0.5 sm:gap-3">
             {searchOpen && (
               <form action="/products" className="hidden items-center gap-2 rounded-full border border-[#e5dfd3] bg-white px-3 py-2 xl:flex">
                 <Search size={17} aria-hidden="true" />
@@ -144,16 +162,16 @@ export function StoreHeader() {
         {menuOpen && (
           <div className="border-t border-[#e9e4d9] bg-[#fbfaf6] px-2 py-4 xl:hidden">
             <nav aria-label="Mobile navigation" className="flex flex-col gap-1 text-sm font-medium text-[#183d38]">
-              <Link href="/" onClick={() => setMenuOpen(false)} className="rounded px-3 py-3 hover:bg-[#f1eadb]">
+              <Link href="/" onClick={() => setMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium text-[#35434d] hover:bg-[#f1eadb] hover:text-[#a86f00]">
                 Home
               </Link>
-              <Link href="/#categories" onClick={() => setMenuOpen(false)} className="rounded px-3 py-3 hover:bg-[#f1eadb]">
+              <Link href="/#categories" onClick={() => setMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium text-[#35434d] hover:bg-[#f1eadb] hover:text-[#a86f00]">
                 Categories
               </Link>
-              <Link href="/products" onClick={() => setMenuOpen(false)} className="rounded px-3 py-3 hover:bg-[#f1eadb]">
+              <Link href="/products" onClick={() => setMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium text-[#35434d] hover:bg-[#f1eadb] hover:text-[#a86f00]">
                 Shop
               </Link>
-              <Link href="/about" onClick={() => setMenuOpen(false)} className="rounded px-3 py-3 hover:bg-[#f1eadb]">
+              <Link href="/about" onClick={() => setMenuOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium text-[#35434d] hover:bg-[#f1eadb] hover:text-[#a86f00]">
                 About Us
               </Link>
             </nav>
