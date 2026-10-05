@@ -38,7 +38,7 @@ export default function CheckoutPage() {
       <main className="grid min-h-[60vh] place-items-center overflow-x-clip bg-[#f8f5ee] px-4 py-12 text-center text-[#071b2b]">
         <div>
           <h1 className="font-serif text-3xl sm:text-4xl">Your cart is empty</h1>
-          <Link href="/products" className="mt-6 inline-flex bg-[#c26742] px-5 py-3 font-bold text-white">Browse products</Link>
+          <Link href="/products" className="mt-6 inline-flex bg-[#f4a900] px-5 py-3 font-bold text-black">Browse products</Link>
         </div>
       </main>
     )
@@ -61,7 +61,7 @@ export default function CheckoutPage() {
               ))}
             </div>
             {error && <p className="mt-5 bg-[#fff0ec] p-3 text-sm text-[#a13d2d]">{error}</p>}
-            <button disabled={busy} className="mt-6 min-h-11 w-full bg-[#c26742] px-5 py-3 font-bold text-white disabled:opacity-60">{busy ? 'Recording order…' : 'Place order'}</button>
+            <button disabled={busy} className="mt-6 min-h-11 w-full bg-[#f4a900] px-5 py-3 font-bold text-black disabled:opacity-60">{busy ? 'Recording order…' : 'Place order'}</button>
           </section>
           <aside className="h-fit border border-[#dcd3c2] bg-white p-5 sm:p-6">
             <h2 className="font-serif text-2xl">Order summary</h2>

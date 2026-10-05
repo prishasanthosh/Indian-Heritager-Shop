@@ -15,11 +15,11 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
   const items = await db.select().from(orderItems).where(eq(orderItems.orderId, order.id))
 
   return (
-    <main className="min-h-screen overflow-x-clip bg-[#f8f5ee] px-4 py-8 text-[#071b2b] sm:px-5 sm:py-12 md:px-10">
+    <main className="min-h-screen overflow-x-clip bg-[#fffdf7] px-4 py-8 text-black sm:px-5 sm:py-12 md:px-10">
       <div className="mx-auto max-w-3xl">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c26742]">Order placed successfully</p>
+        <p className="text-xs font-bold uppercase tracking-[0.2em]">Order placed successfully</p>
         <h1 className="mt-3 break-words font-serif text-4xl sm:text-5xl">Thank you, {order.customerName}.</h1>
-        <p className="mt-4 break-words text-sm text-[#59645f] sm:text-base">Order #{order.id} · {order.createdAt.toLocaleDateString('en-IN')} · {order.status}</p>
+        <p className="mt-4 break-words text-sm text-black/70 sm:text-base">Order #{order.id} · {order.createdAt.toLocaleDateString('en-IN')} · {order.status}</p>
         <section className="mt-7 border border-[#dcd3c2] bg-white p-4 sm:mt-10 sm:p-6">
           <h2 className="font-serif text-2xl">Items</h2>
           <div className="mt-4 divide-y divide-[#eadfce]">
@@ -27,7 +27,7 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
               <div key={item.id} className="flex justify-between gap-3 py-4 sm:gap-4">
                 <div className="min-w-0">
                   <p className="break-words font-bold">{item.title}</p>
-                  <p className="break-words text-sm text-[#59645f]">{item.author} · Qty {item.quantity}</p>
+                  <p className="break-words text-sm text-black/70">{item.author} · Qty {item.quantity}</p>
                 </div>
                 <b className="shrink-0">₹{(item.price * item.quantity).toLocaleString('en-IN')}</b>
               </div>
@@ -41,11 +41,11 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
         </section>
         <section className="mt-5 border border-[#dcd3c2] bg-white p-4 sm:p-6">
           <h2 className="font-serif text-2xl">Delivery details</h2>
-          <p className="mt-4 break-words leading-7 text-[#59645f]">{order.shippingAddress}</p>
+          <p className="mt-4 break-words leading-7 text-black/70">{order.shippingAddress}</p>
         </section>
         <div className="mt-6 flex flex-wrap gap-3 sm:gap-4">
-          <Link href="/account" className="bg-[#c26742] px-4 py-3 font-bold text-white sm:px-5">My orders</Link>
-          <Link href="/products" className="border border-[#071b2b] px-4 py-3 font-bold sm:px-5">Continue shopping</Link>
+          <Link href="/account" className="bg-[#f4a900] px-4 py-3 font-bold text-black sm:px-5">My orders</Link>
+          <Link href="/products" className="border border-black px-4 py-3 font-bold sm:px-5">Continue shopping</Link>
         </div>
       </div>
     </main>

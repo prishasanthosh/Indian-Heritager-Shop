@@ -160,7 +160,7 @@ export default function ProductsPage() {
                 <Sparkles className="mx-auto mb-5 text-[#c26742]" size={34} />
                 <h2 className="font-serif text-3xl">{category ? 'No products in this category yet' : 'No products match your search'}</h2>
                 <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-[#6e7069]">Try another category or explore the full collection.</p>
-                <Link href={productsHref()} className="mt-7 inline-flex bg-[#c26742] px-5 py-3 text-sm font-bold text-white">Show all products</Link>
+                <Link href={productsHref()} className="mt-7 inline-flex bg-[#f4a900] px-5 py-3 text-sm font-bold text-black">Show all products</Link>
               </div>
             ) : (
               <>
@@ -191,7 +191,7 @@ export default function ProductsPage() {
 
                         <div className="mt-2 flex flex-col items-stretch justify-between gap-2 sm:mt-3 sm:flex-row sm:items-center sm:gap-3">
                           <span className="text-[10px] font-bold uppercase tracking-wide text-[#59645f] sm:text-xs">{product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}</span>
-                          <button onClick={() => add(product.id, 1, product.stock)} disabled={product.stock <= 0 || atStockLimit} className="min-h-9 bg-[#c26742] px-2 py-2 text-xs font-bold text-white disabled:cursor-not-allowed disabled:opacity-60 sm:px-3 sm:text-sm">Add to cart</button>
+                          <button onClick={() => add(product.id, 1, product.stock)} disabled={product.stock <= 0 || atStockLimit} className="min-h-9 bg-[#f4a900] px-2 py-2 text-xs font-bold text-black disabled:cursor-not-allowed disabled:opacity-60 sm:px-3 sm:text-sm">Add to cart</button>
                         </div>
                       </article>
                     )

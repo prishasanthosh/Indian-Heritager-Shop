@@ -40,7 +40,7 @@ export function ShopByCategory() {
   return (
     <section id="categories" className="bg-white px-4 py-12 sm:px-5 sm:py-16 lg:px-8 lg:py-20">
       <div className="relative mx-auto mt-5 max-w-[1280px] border border-[#e5cfad] px-4 pb-7 pt-10 sm:px-8 sm:pb-10 sm:pt-12">
-        <h2 className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap bg-white px-3 font-serif text-2xl text-[#84211d] sm:px-5 sm:text-4xl">
+        <h2 className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap bg-white px-3 font-serif text-2xl text-black sm:px-5 sm:text-4xl">
           Shop by Category
         </h2>
 
@@ -64,7 +64,7 @@ export function ShopByCategory() {
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
-                <h3 className="mt-4 font-serif text-xl text-[#84211d] transition-colors group-hover:text-[#b34a36] sm:text-2xl">
+                <h3 className="mt-4 font-serif text-xl text-black transition-colors group-hover:text-[#b06f00] sm:text-2xl">
                   {category.name}
                 </h3>
               </Link>
@@ -75,7 +75,7 @@ export function ShopByCategory() {
             type="button"
             aria-label="Show previous categories"
             onClick={() => scroll('left')}
-            className="absolute -left-4 top-[42%] grid size-8 -translate-y-1/2 place-items-center border border-[#84211d] bg-[#fffaf2] text-[#84211d] transition-colors hover:bg-[#f4c532] sm:-left-12 sm:size-10"
+            className="absolute -left-4 top-[42%] grid size-8 -translate-y-1/2 place-items-center border border-black bg-[#fffaf2] text-black transition-colors hover:bg-[#f4a900] sm:-left-12 sm:size-10"
           >
             <ChevronLeft size={20} aria-hidden="true" />
           </button>
@@ -83,7 +83,7 @@ export function ShopByCategory() {
             type="button"
             aria-label="Show more categories"
             onClick={() => scroll('right')}
-            className="absolute -right-4 top-[42%] grid size-8 -translate-y-1/2 place-items-center border border-[#84211d] bg-[#fffaf2] text-[#84211d] transition-colors hover:bg-[#f4c532] sm:-right-12 sm:size-10"
+            className="absolute -right-4 top-[42%] grid size-8 -translate-y-1/2 place-items-center border border-black bg-[#fffaf2] text-black transition-colors hover:bg-[#f4a900] sm:-right-12 sm:size-10"
           >
             <ChevronRight size={20} aria-hidden="true" />
           </button>

@@ -39,7 +39,7 @@ export default function CartPage() {
         {!items.length ? (
           <div className="mt-8 border border-[#dcd3c2] bg-white p-6 text-center sm:mt-12 sm:p-10">
             <p>Your cart is empty</p>
-            <Link href="/products" className="mt-5 inline-flex bg-[#c26742] px-5 py-3 font-bold text-white">Browse products</Link>
+            <Link href="/products" className="mt-5 inline-flex bg-[#f4a900] px-5 py-3 font-bold text-black">Browse products</Link>
           </div>
         ) : (
           <div className="mt-7 grid gap-6 sm:mt-10 sm:gap-8 md:grid-cols-[1fr_300px]">
@@ -69,7 +69,7 @@ export default function CartPage() {
               <div className="mt-5 flex justify-between gap-3 text-sm"><span>Subtotal</span><b>₹{subtotal.toLocaleString('en-IN')}</b></div>
               <div className="mt-2 flex justify-between gap-3 text-sm"><span>Shipping</span><b>₹{shipping.toLocaleString('en-IN')}</b></div>
               <div className="mt-5 flex justify-between gap-3 border-t border-[#dcd3c2] pt-4 text-lg"><span>Total</span><b>₹{(subtotal + shipping).toLocaleString('en-IN')}</b></div>
-              <Link href="/checkout" className="mt-6 block bg-[#c26742] px-5 py-3 text-center font-bold text-white">Checkout</Link>
+              <Link href="/checkout" className="mt-6 block bg-[#f4a900] px-5 py-3 text-center font-bold text-black">Checkout</Link>
             </aside>
           </div>
         )}
