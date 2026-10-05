@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
   }
 
   const timestamp = Math.floor(Date.now() / 1000).toString()
-  const folder = 'indian-heritager/books'
+  const folder = 'indian-heritager/products'
   const signatureBase = `folder=${folder}&timestamp=${timestamp}${apiSecret}`
   const signature = createHash('sha1').update(signatureBase).digest('hex')
   const uploadData = new FormData()
@@ -50,11 +50,11 @@ export async function POST(request: NextRequest) {
   })
   const data: unknown = await response.json()
   if (!response.ok) {
-    console.error('Cloudinary book cover upload failed', { status: response.status, data })
+    console.error('Cloudinary product image upload failed', { status: response.status, data })
     return NextResponse.json({ error: 'The image could not be saved. Please try again.' }, { status: 502 })
   }
   if (typeof data !== 'object' || data === null || !('secure_url' in data) || typeof data.secure_url !== 'string') {
-    console.error('Cloudinary book cover upload returned an invalid response')
+    console.error('Cloudinary product image upload returned an invalid response')
     return NextResponse.json({ error: 'Image storage returned an invalid response.' }, { status: 502 })
   }
 

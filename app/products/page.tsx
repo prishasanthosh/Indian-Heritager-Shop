@@ -2,12 +2,12 @@
 
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowLeft, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowLeft, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
 import { productCategories, getCategoryBySlug, productsHref } from '@/lib/categories'
 import { useCart } from '@/components/cart-provider'
 
 type Product = { id: string; title: string; author: string; category: string; price: number; originalPrice?: number | null; cover: string; badge?: string | null; rating: string | number; stock: number }
-type ApiResponse = { products: Product[]; page: number; pageSize: number; hasMore: boolean; books?: Product[] }
+type ApiResponse = { products: Product[]; page: number; pageSize: number; hasMore: boolean }
 
 const sortOptions = [
   { label: 'Relevance', value: 'featured' },
@@ -56,14 +56,14 @@ export default function ProductsPage() {
     const controller = new AbortController()
     const params = new URLSearchParams({ page: String(page), sort })
     if (search) params.set('q', search)
-    if (category) params.set('category', category.value)
+    if (categorySlug) params.set('category', category?.value ?? categorySlug)
     if (price) params.set('price', price)
     if (rating) params.set('rating', rating)
     if (inStock) params.set('inStock', 'true')
     setLoading(true)
     fetch(`/api/products?${params}`, { signal: controller.signal })
       .then((response) => response.json())
-      .then((data: ApiResponse) => setResult({ products: data.products ?? data.books ?? [], page: data.page ?? 1, pageSize: data.pageSize ?? 24, hasMore: Boolean(data.hasMore) }))
+      .then((data: ApiResponse) => setResult({ products: data.products ?? [], page: data.page ?? 1, pageSize: data.pageSize ?? 24, hasMore: Boolean(data.hasMore) }))
       .catch(() => setResult({ products: [], page, pageSize: 24, hasMore: false }))
       .finally(() => setLoading(false))
     return () => controller.abort()
@@ -157,7 +157,7 @@ export default function ProductsPage() {
               <p className="py-24 text-center font-serif text-2xl">Loading the collection…</p>
             ) : products.length === 0 ? (
               <div className="border border-[#dcd3c2] bg-[#fbfaf6] px-6 py-24 text-center">
-                <BookOpen className="mx-auto mb-5 text-[#c26742]" size={34} />
+                <Sparkles className="mx-auto mb-5 text-[#c26742]" size={34} />
                 <h2 className="font-serif text-3xl">{category ? 'No products in this category yet' : 'No products match your search'}</h2>
                 <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-[#6e7069]">Try another category or explore the full collection.</p>
                 <Link href={productsHref()} className="mt-7 inline-flex bg-[#c26742] px-5 py-3 text-sm font-bold text-white">Show all products</Link>

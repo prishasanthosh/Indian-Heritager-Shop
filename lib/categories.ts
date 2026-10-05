@@ -5,7 +5,6 @@ export type ProductCategory = {
 }
 
 export const productCategories: ProductCategory[] = [
-  { name: 'Books', slug: 'books', value: 'Books' },
   { name: 'Clothing', slug: 'clothing', value: 'Clothing' },
   { name: 'Handicrafts', slug: 'handicrafts', value: 'Handicrafts' },
   { name: 'Home Decor', slug: 'home-decor', value: 'Home Decor' },
@@ -17,16 +16,10 @@ export const productCategories: ProductCategory[] = [
   { name: 'Other Products', slug: 'other-products', value: 'Other Products' },
 ]
 
-export const bookCategories = productCategories
-
 export function getCategoryBySlug(slug: string | null) {
   return productCategories.find((category) => category.slug === slug)
 }
 
 export function productsHref(slug?: string) {
   return slug ? `/products?category=${encodeURIComponent(slug)}` : '/products'
-}
-
-export function booksHref(slug?: string) {
-  return productsHref(slug)
 }

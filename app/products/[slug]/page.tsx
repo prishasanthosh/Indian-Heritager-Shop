@@ -1,19 +1,19 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { db } from '@/lib/db'
-import { books, idFromBookSlug } from '@/lib/db/schema'
-import { eq } from 'drizzle-orm'
+import { products, idFromProductSlug } from '@/lib/db/schema'
+import { and, eq, notIlike } from 'drizzle-orm'
 import { AddToCart } from './add-to-cart'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const product = await db.select({ title: books.title, description: books.description }).from(books).where(eq(books.id, idFromBookSlug((await params).slug))).limit(1)
+  const product = await db.select({ title: products.title, description: products.description }).from(products).where(and(eq(products.id, idFromProductSlug((await params).slug)), notIlike(products.category, 'books'))).limit(1)
   return product[0]
     ? { title: `${product[0].title} | Indian Heritager`, description: product[0].description }
     : { title: 'Product | Indian Heritager' }
 }
 
 export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
-  const product = (await db.select().from(books).where(eq(books.id, idFromBookSlug((await params).slug))).limit(1))[0]
+  const product = (await db.select().from(products).where(and(eq(products.id, idFromProductSlug((await params).slug)), notIlike(products.category, 'books'))).limit(1))[0]
   if (!product || product.isArchived) notFound()
 
   return (

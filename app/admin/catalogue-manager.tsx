@@ -4,10 +4,10 @@ import { useState } from 'react'
 import { productCategories } from '@/lib/categories'
 
 type Product = { id: string; title: string; author: string; category: string; description: string; price: number; originalPrice: number | null; cover: string; badge: string | null; stock: number; isArchived: boolean }
-const empty = { title: '', author: '', category: 'Books', description: '', price: '', originalPrice: '', cover: '', badge: '', stock: '0', isArchived: false }
+const empty = { title: '', author: '', category: productCategories[0].value, description: '', price: '', originalPrice: '', cover: '', badge: '', stock: '0', isArchived: false }
 
-export function CatalogueManager({ initialBooks }: { initialBooks: Product[] }) {
-  const [products, setProducts] = useState(initialBooks)
+export function CatalogueManager({ initialProducts }: { initialProducts: Product[] }) {
+  const [products, setProducts] = useState(initialProducts)
   const [form, setForm] = useState(empty)
   const [editing, setEditing] = useState<string | null>(null)
   const [message, setMessage] = useState('')
@@ -21,7 +21,7 @@ export function CatalogueManager({ initialBooks }: { initialBooks: Product[] }) 
     try {
       const image = new FormData()
       image.append('image', file)
-      const response = await fetch('/api/admin/books/image', { method: 'POST', body: image })
+      const response = await fetch('/api/admin/products/image', { method: 'POST', body: image })
       const data = await response.json()
       if (!response.ok) {
         setMessage(data.error ?? 'Could not upload image.')

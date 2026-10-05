@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { and, asc, desc, eq, ilike, or, sql, type SQL } from 'drizzle-orm'
+import { and, asc, desc, eq, ilike, notIlike, or, sql, type SQL } from 'drizzle-orm'
 import { db } from '@/lib/db'
-import { books } from '@/lib/db/schema'
+import { products } from '@/lib/db/schema'
 
 const PAGE_SIZE = 24
 
@@ -13,34 +13,34 @@ export async function GET(request: NextRequest) {
   const category = params.get('category')?.trim() ?? ''
   const sort = params.get('sort') ?? 'featured'
 
-  const filters: SQL[] = [eq(books.isArchived, false)]
+  const filters: SQL[] = [eq(products.isArchived, false), notIlike(products.category, 'books')]
 
-  if (ids.length) filters.push(sql`${books.id} in ${ids}`)
+  if (ids.length) filters.push(sql`${products.id} in ${ids}`)
 
   if (query) {
     const searchFilter = or(
-      ilike(books.title, `%${query}%`),
-      ilike(books.author, `%${query}%`),
-      ilike(books.category, `%${query}%`),
-      ilike(books.brand, `%${query}%`),
-      ilike(books.sku, `%${query}%`),
+      ilike(products.title, `%${query}%`),
+      ilike(products.author, `%${query}%`),
+      ilike(products.category, `%${query}%`),
+      ilike(products.brand, `%${query}%`),
+      ilike(products.sku, `%${query}%`),
     )
 
     if (searchFilter) filters.push(searchFilter)
   }
 
-  if (category && category !== 'All products') filters.push(eq(books.category, category))
+  if (category && category !== 'All products') filters.push(eq(products.category, category))
 
   const orderBy =
     sort === 'price-asc'
-      ? asc(books.price)
+      ? asc(products.price)
       : sort === 'price-desc'
-        ? desc(books.price)
+        ? desc(products.price)
         : sort === 'rating'
-          ? desc(books.rating)
-          : desc(books.createdAt)
+          ? desc(products.rating)
+          : desc(products.createdAt)
 
-  const rows = await db.select().from(books)
+  const rows = await db.select().from(products)
     .where(filters.length ? and(...filters) : undefined)
     .orderBy(orderBy)
     .limit(PAGE_SIZE)

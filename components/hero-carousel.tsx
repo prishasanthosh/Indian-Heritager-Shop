@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 const heroImages = [
-  { src: '/hero-education.jpg', position: 'object-[58%_48%]' },
+  { src: '/hero-image-1.jpeg', position: 'object-center' },
   { src: '/hero-image-2.jpeg', position: 'object-center' },
   { src: '/hero-image-3.jpeg', position: 'object-center' },
 ]

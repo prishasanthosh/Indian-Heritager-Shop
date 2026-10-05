@@ -146,8 +146,6 @@ export const cartItems = pgTable('cart_items', {
   cartItemsProductIdIdx: index('cart_items_product_id_idx').on(table.productId),
 }))
 
-export const books = products
-
 export const orders = pgTable('orders', {
   id: text('id').primaryKey(),
   userId: text('user_id').notNull().references(() => user.id, { onDelete: 'set null' }),
@@ -202,7 +200,6 @@ export const orderPayments = pgTable('order_payments', {
 }))
 
 export type Product = typeof products.$inferSelect
-export type Book = Product
 export type Order = typeof orders.$inferSelect
 export type OrderItem = typeof orderItems.$inferSelect
 export type Category = typeof categories.$inferSelect
@@ -226,19 +223,15 @@ export function makeOrderId() { return `IH-${Date.now().toString(36).toUpperCase
 export const orderStatusLabels: Record<string, string> = { pending: 'Pending', recorded: 'Recorded', confirmed: 'Confirmed', processing: 'Processing', shipped: 'Shipped', delivered: 'Delivered', cancelled: 'Cancelled' }
 
 export const publicProductColumns = { id: products.id, title: products.title, name: products.name, author: products.author, brand: products.brand, category: products.category, description: products.description, price: products.price, originalPrice: products.originalPrice, cover: products.cover, badge: products.badge, rating: products.rating, stock: products.stock, featured: products.featured, active: products.active }
-export const publicBookColumns = publicProductColumns
 
 export function coverFallback(title: string) { return title }
 
 export const productsTable = products
-export const booksTable = products
 export const orderTable = orders
 export const orderItemsTable = orderItems
 
 export const productSlug = (title: string, id: string) => `${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}-${id}`
-export const bookSlug = productSlug
 export const idFromProductSlug = (slug: string) => slug.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)?.[0] ?? slug.split('-').pop() ?? slug
-export const idFromBookSlug = idFromProductSlug
 
 export const orderSummary = (subtotal: number) => ({ subtotal, shipping: shippingFor(subtotal), total: subtotal + shippingFor(subtotal) })
 
@@ -250,17 +243,14 @@ export const statusValues = ['pending', 'recorded', 'confirmed', 'processing', '
 export const stockError = (title: string, stock: number) => `Only ${stock} ${stock === 1 ? 'item' : 'items'} of ${title} are currently available.`
 
 export const productDisplayPrice = (price: number) => `₹${price.toLocaleString('en-IN')}`
-export const bookDisplayPrice = productDisplayPrice
 
 export const orderNumber = (id: string) => id
 export const emptyCart = [] as { id: string; quantity: number }[]
 export const maxOrderQuantity = 20
 export const orderCreatedMessage = 'Your order has been recorded successfully.'
 export const productNotFoundMessage = 'This product is not available.'
-export const bookNotFoundMessage = productNotFoundMessage
 export const cataloguePageSize = 24
 export const relatedProductLimit = 4
-export const relatedBookLimit = relatedProductLimit
 export const shippingMessage = 'Free shipping on orders over ₹1,000.'
 export const checkoutFields = ['fullName', 'email', 'phone', 'address', 'address2', 'city', 'state', 'pincode', 'country'] as const
 export const orderIdParam = 'id'
@@ -273,13 +263,12 @@ export const conditionalStockUpdate = true
 export const noPaymentGateway = true
 export const commerceVersion = '1.0'
 export const schemaReady = true
-export const tableNames = { products: 'products', books: 'products', orders: 'orders', orderItems: 'order_items' }
+export const tableNames = { products: 'products', orders: 'orders', orderItems: 'order_items' }
 export const defaultCountry = 'India'
 export const defaultOrderStatus = 'pending'
 export const orderCurrency = 'INR'
 export const orderDateLocale = 'en-IN'
 export const catalogueUsesActiveProducts = true
-export const catalogueUsesActiveBooks = true
 export const historicalOrderItemsAreSnapshots = true
 export const schemaNotes = 'Orders retain customer and item snapshots for archive-safe history; product data is kept generic for e-commerce use.'
 export const schemaSentinel = 'indian-heritager-commerce'

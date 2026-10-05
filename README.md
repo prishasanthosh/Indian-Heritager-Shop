@@ -1,16 +1,16 @@
-# Indian Heritage Books
+# Indian Heritager Shop
 
-A full-stack Indian heritage book catalogue and commerce experience inspired by the editorial character of [indianheritager.org](https://www.indianheritager.org/). Visitors can browse books by category, view book details, add books to a persistent cart, place orders, and review order history from their account. Administrators can manage the catalogue and orders from a protected dashboard.
+A full-stack Indian heritage product catalogue and commerce experience inspired by the editorial character of [indianheritager.org](https://www.indianheritager.org/). Visitors can browse handcrafted products by category, view product details, add items to a persistent cart, place orders, and review order history. Administrators can manage the catalogue and orders from a protected dashboard.
 
 ## Features
 
 ### Public storefront
 
 - Editorial home page with Indian heritage-inspired visual styling
-- Responsive catalogue at `/books`
+- Responsive product catalogue at `/products`
 - Category navigation and category-filtered catalogue views
-- Book detail pages at `/books/[slug]`
-- Typographic cover placeholders for books without uploaded artwork
+- Product detail pages at `/products/[slug]`
+- Product image placeholders for items without uploaded artwork
 - Accessible navigation, buttons, forms, labels, and responsive layouts
 
 ### Accounts and authentication
@@ -25,7 +25,7 @@ A full-stack Indian heritage book catalogue and commerce experience inspired by 
 ### Cart and checkout
 
 - Persistent cart state through the cart provider
-- Add and remove books from the cart
+- Add and remove products from the cart
 - Quantity controls and order totals
 - Cart page at `/cart`
 - Checkout page at `/checkout`
@@ -37,10 +37,10 @@ A full-stack Indian heritage book catalogue and commerce experience inspired by 
 - Protected admin dashboard at `/admin`
 - Admin access controlled by `ADMIN_EMAILS`
 - Add, edit, archive, restore, and delete catalogue items
-- Catalogue visibility and featured-book controls
-- Category, price, stock, description, author, publisher, and metadata management
+- Catalogue visibility and featured-product controls
+- Category, price, stock, description, maker, and metadata management
 - Category selection from the configured catalogue categories
-- Book cover uploads stored in Cloudinary
+- Product image uploads stored in Cloudinary
 - Admin order list and order status controls
 
 ## Technology stack
@@ -62,8 +62,8 @@ A full-stack Indian heritage book catalogue and commerce experience inspired by 
 ```text
 app/
   page.tsx                         Home page
-  books/page.tsx                   Catalogue and category filters
-  books/[slug]/page.tsx            Book detail page
+  products/page.tsx                Catalogue and category filters
+  products/[slug]/page.tsx         Product detail page
   cart/page.tsx                    Cart page
   checkout/page.tsx                Checkout and order creation
   orders/[id]/page.tsx             Order confirmation/detail
@@ -74,10 +74,9 @@ app/
   admin/catalogue-manager.tsx      Catalogue management UI
   admin/order-manager.tsx          Order management UI
   api/auth/[...all]/route.ts       Better Auth handler
-  api/books/route.ts               Public catalogue API
-  api/books/[id]/route.ts          Book lookup API
+  api/products/route.ts            Public catalogue API
   api/orders/route.ts              Customer order creation and retrieval
-  api/admin/books/route.ts         Protected catalogue mutations
+  api/admin/products/route.ts      Protected catalogue mutations
   api/admin/orders/route.ts        Protected order administration
 components/
   cart-provider.tsx                Cart state and cart actions
@@ -112,7 +111,7 @@ CLOUDINARY_API_KEY="your-api-key"
 CLOUDINARY_API_SECRET="your-api-secret"
 ```
 
-Configure the Cloudinary values in the deployment environment (and `.env.local` for local development) to enable book cover uploads. Keep `CLOUDINARY_API_SECRET` private; uploads are signed by the server and are limited to JPEG, PNG, or WebP images up to 5 MB.
+Configure the Cloudinary values in the deployment environment (and `.env.local` for local development) to enable product image uploads. Keep `CLOUDINARY_API_SECRET` private; uploads are signed by the server and are limited to JPEG, PNG, or WebP images up to 5 MB.
 
 Optional deployment URL configuration:
 
@@ -173,25 +172,25 @@ prishasanthosh1@gmail.com
 
 Create or use an account with that email, then open `/admin`. The server checks the authenticated session and compares the email against `ADMIN_EMAILS`; changing the UI alone cannot grant admin access.
 
-## Managing books
+## Managing products
 
 1. Sign in with an email included in `ADMIN_EMAILS`.
 2. Open `/admin`.
-3. Use the catalogue manager to add a book.
-4. Enter the title, slug, author, category, price, stock, description, and optional metadata.
-5. Save the book and confirm it appears in the catalogue.
+3. Use the catalogue manager to add a product.
+4. Enter the title, maker, category, price, stock, description, and optional metadata.
+5. Save the product and confirm it appears in the catalogue.
 6. Use edit to update catalogue details.
-7. Use archive to hide a book from the public catalogue without losing its record.
-8. Restore an archived book when it should become visible again.
-9. Permanently delete a book only when its record is no longer needed.
+7. Use archive to hide a product from the public catalogue without losing its record.
+8. Restore an archived product when it should become visible again.
+9. Permanently delete a product only when its record is no longer needed.
 
-Archived books are excluded from public catalogue queries. Public catalogue results are also limited to books marked as visible/active by the catalogue API.
+Archived products and any legacy book-category records are excluded from public catalogue queries.
 
 ## Customer ordering flow
 
-1. Browse `/books`.
-2. Open a book detail page.
-3. Select a quantity and add the book to the cart.
+1. Browse `/products`.
+2. Open a product detail page.
+3. Select a quantity and add the product to the cart.
 4. Open `/cart` and review the items.
 5. Continue to `/checkout`.
 6. Enter the required customer details.
@@ -218,9 +217,9 @@ All admin order operations are protected server-side. A user who is not authenti
 | Route | Purpose |
 | --- | --- |
 | `/` | Storefront home page |
-| `/books` | Public catalogue |
-| `/books?category=indian-literature` | Filtered catalogue |
-| `/books/[slug]` | Book details |
+| `/products` | Public catalogue |
+| `/products?category=handicrafts` | Filtered catalogue |
+| `/products/[slug]` | Product details |
 | `/cart` | Shopping cart |
 | `/checkout` | Checkout and order recording |
 | `/account` | Account and order history |
@@ -228,9 +227,9 @@ All admin order operations are protected server-side. A user who is not authenti
 | `/sign-in` | Customer/admin sign-in |
 | `/sign-up` | Account creation |
 | `/admin` | Protected admin dashboard |
-| `/api/books` | Public catalogue API |
+| `/api/products` | Public catalogue API |
 | `/api/orders` | Authenticated customer order API |
-| `/api/admin/books` | Admin catalogue API |
+| `/api/admin/products` | Admin catalogue API |
 | `/api/admin/orders` | Admin order API |
 
 ## Security model
@@ -248,13 +247,13 @@ All admin order operations are protected server-side. A user who is not authenti
 Before deploying, verify:
 
 - The home page loads at desktop and mobile widths.
-- Catalogue pages load with an empty catalogue and with real books.
+- Catalogue pages load with an empty catalogue and with real products.
 - Category links open the correct filtered catalogue.
 - Sign-up, sign-in, reload, and sign-out work.
-- A signed-in customer can add a book to the cart and submit an order.
+- A signed-in customer can add a product to the cart and submit an order.
 - The customer can see only their own order history.
 - A non-admin account cannot access admin operations.
-- The configured admin can add, edit, archive, restore, and delete books.
+- The configured admin can add, edit, archive, restore, and delete products.
 - The configured admin can view and update orders.
 - `pnpm build` completes successfully.
 
@@ -300,7 +299,7 @@ Prefer the project’s existing Vercel integration values when they are already 
 - Restrict `ADMIN_EMAILS` to trusted administrators.
 - Add payment processing only after validating server-side price and quantity handling.
 - Add transactional email for order confirmations when the fulfilment workflow is ready.
-- Add image storage when real book cover assets replace typographic placeholders.
+- Add image storage when product image assets are ready.
 - Monitor Vercel logs and database errors after deployment.
 
 ## Development commands
@@ -321,17 +320,17 @@ Confirm that `BETTER_AUTH_SECRET` is set and that the Better Auth development co
 
 Confirm that the signed-in account email exactly matches one of the comma-separated addresses in `ADMIN_EMAILS`. Then verify the environment variable is present in the environment where the app is running and redeploy after changing it.
 
-### Books do not appear
+### Products do not appear
 
-Confirm the book is not archived, has public visibility enabled, and has valid catalogue fields. Check the `/api/books` response and server logs for database errors.
+Confirm the product is not archived, has a valid category, and has an image if expected. Check the `/api/products` response and server logs for database errors.
 
 ### Orders cannot be created
 
-Confirm the customer is signed in, the requested book IDs exist and are active, quantities are positive, and the order tables are present in Neon.
+Confirm the customer is signed in, the requested product IDs exist and are active, quantities are positive, and the order tables are present in Neon.
 
 ## License and content
 
-This project is an application implementation for an Indian heritage book catalogue. Ensure that all book metadata, cover artwork, excerpts, and editorial content used in production are properly licensed or owned by the site operator.
+This project is an application implementation for an Indian heritage product catalogue. Ensure that all product metadata, imagery, and editorial content used in production are properly licensed or owned by the site operator.
 
 ## Maintainers
 
@@ -368,7 +367,7 @@ The project stores account, catalogue, cart, and order data in the connected Neo
 - [ ] Database schema applied to the target Neon database
 - [ ] Admin email verified
 - [ ] Test account created
-- [ ] Test book added and published
+- [ ] Test product added and published
 - [ ] Test order created and visible to the customer
 - [ ] Admin order status updated
 - [ ] Production build passed
@@ -399,13 +398,13 @@ Make schema changes through the connected Neon workflow, update `lib/db/schema.t
 
 ## End
 
-The application is ready to be extended as a catalogue-driven Indian heritage books storefront with authenticated customer ordering and protected administration.
+The application is a catalogue-driven Indian heritage product storefront with authenticated customer ordering and protected administration.
 
 ----
 
 ### At-a-glance ownership
 
-- **Storefront UI:** `app/page.tsx`, `app/books/page.tsx`, `app/books/[slug]/page.tsx`
+- **Storefront UI:** `app/page.tsx`, `app/products/page.tsx`, `app/products/[slug]/page.tsx`
 - **Commerce UI:** `components/cart-provider.tsx`, `app/cart/page.tsx`, `app/checkout/page.tsx`
 - **Customer data:** `app/account/page.tsx`, `app/orders/[id]/page.tsx`, `app/api/orders/route.ts`
 - **Admin data:** `app/admin/*`, `app/api/admin/*`
@@ -419,11 +418,11 @@ Keep credentials out of the repository and use Vercel environment variables for 
 ### Recommended first production test
 
 1. Create a customer account with a non-admin email.
-2. Add a published book to the cart.
+2. Add a published product to the cart.
 3. Submit an order and verify it appears in that customer’s account.
 4. Sign out.
 5. Sign in with `prishasanthosh1@gmail.com`.
-6. Open `/admin` and verify the book and order appear.
+6. Open `/admin` and verify the product and order appear.
 7. Update the order status.
 8. Return to the customer account and confirm the order detail remains available.
 

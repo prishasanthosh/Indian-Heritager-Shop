@@ -4,24 +4,31 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useCart } from '@/components/cart-provider'
 
-type Book = { id: string; title: string; author: string; price: number; cover: string; stock: number }
+type Product = { id: string; title: string; author: string; price: number; cover: string; stock: number }
 
 export default function CartPage() {
   const { items, setQuantity, remove } = useCart()
-  const [books, setBooks] = useState<Book[]>([])
+  const [products, setProducts] = useState<Product[]>([])
 
   useEffect(() => {
     if (items.length) {
-      fetch(`/api/books?ids=${items.map((item) => item.id).join(',')}`)
+      fetch(`/api/products?ids=${items.map((item) => item.id).join(',')}`)
         .then((response) => response.json())
-        .then((data) => setBooks(data.books || []))
+        .then((data) => {
+          const availableProducts: Product[] = data.products ?? []
+          setProducts(availableProducts)
+          const availableIds = new Set(availableProducts.map((product) => product.id))
+          items.forEach((item) => {
+            if (!availableIds.has(item.id)) remove(item.id)
+          })
+        })
     }
-  }, [items])
+  }, [items, remove])
 
   const lines = items
-    .map((item) => ({ ...item, book: books.find((book) => book.id === item.id) }))
-    .filter((line): line is typeof line & { book: Book } => Boolean(line.book))
-  const subtotal = lines.reduce((sum, line) => sum + line.book.price * line.quantity, 0)
+    .map((item) => ({ ...item, product: products.find((product) => product.id === item.id) }))
+    .filter((line): line is typeof line & { product: Product } => Boolean(line.product))
+  const subtotal = lines.reduce((sum, line) => sum + line.product.price * line.quantity, 0)
   const shipping = subtotal >= 1000 ? 0 : 80
 
   return (
@@ -39,19 +46,19 @@ export default function CartPage() {
             <div className="divide-y divide-[#dcd3c2] border-y border-[#dcd3c2]">
               {lines.map((line) => (
                 <div key={line.id} className="flex gap-3 py-4 sm:gap-4 sm:py-5">
-                  <div className="grid size-20 shrink-0 place-items-center bg-[#eadfce] p-2 text-center text-xs font-bold sm:size-24">{line.book.title}</div>
+                  <div className="grid size-20 shrink-0 place-items-center bg-[#eadfce] p-2 text-center text-xs font-bold sm:size-24">{line.product.title}</div>
                   <div className="min-w-0 flex-1">
-                    <h2 className="break-words font-serif text-lg sm:text-xl">{line.book.title}</h2>
-                    <p className="break-words text-sm text-[#59645f]">{line.book.author}</p>
+                    <h2 className="break-words font-serif text-lg sm:text-xl">{line.product.title}</h2>
+                    <p className="break-words text-sm text-[#59645f]">{line.product.author}</p>
                     <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
                       <div className="flex items-center border border-[#dcd3c2] bg-white">
-                        <button aria-label={`Decrease quantity of ${line.book.title}`} className="min-h-10 min-w-10 px-3 py-1" onClick={() => setQuantity(line.id, line.quantity - 1, line.book.stock)}>−</button>
+                        <button aria-label={`Decrease quantity of ${line.product.title}`} className="min-h-10 min-w-10 px-3 py-1" onClick={() => setQuantity(line.id, line.quantity - 1, line.product.stock)}>−</button>
                         <span className="px-2">{line.quantity}</span>
-                        <button aria-label={`Increase quantity of ${line.book.title}`} disabled={line.quantity >= line.book.stock} className="min-h-10 min-w-10 px-3 py-1 disabled:cursor-not-allowed disabled:opacity-40" onClick={() => setQuantity(line.id, line.quantity + 1, line.book.stock)}>+</button>
+                        <button aria-label={`Increase quantity of ${line.product.title}`} disabled={line.quantity >= line.product.stock} className="min-h-10 min-w-10 px-3 py-1 disabled:cursor-not-allowed disabled:opacity-40" onClick={() => setQuantity(line.id, line.quantity + 1, line.product.stock)}>+</button>
                       </div>
-                      {line.quantity > line.book.stock && <p className="w-full text-sm text-[#a13d2d]">Only {line.book.stock} available. Reduce quantity to continue.</p>}
+                      {line.quantity > line.product.stock && <p className="w-full text-sm text-[#a13d2d]">Only {line.product.stock} available. Reduce quantity to continue.</p>}
                       <button onClick={() => remove(line.id)} className="text-sm text-[#c26742] underline">Remove</button>
-                      <b>₹{(line.book.price * line.quantity).toLocaleString('en-IN')}</b>
+                      <b>₹{(line.product.price * line.quantity).toLocaleString('en-IN')}</b>
                     </div>
                   </div>
                 </div>

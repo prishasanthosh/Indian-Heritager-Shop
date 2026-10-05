@@ -94,7 +94,7 @@ export function StoreHeader() {
             <strong className="whitespace-nowrap font-display text-[15px] font-bold text-black sm:text-base lg:text-lg">Indian Heritager</strong>
           </Link>
 
-          <nav aria-label="Main navigation" className="ml-4 hidden items-center gap-7 xl:ml-6 xl:flex">
+          <nav aria-label="Main navigation" className="ml-1 hidden items-center gap-1 md:ml-2 md:flex lg:gap-3 xl:ml-3 xl:gap-5">
             <Link href="/" className={navLinkClass('home')}>Home</Link>
             <Link href="/#categories" className={navLinkClass('categories')}>Categories</Link>
             <Link href="/products" className={navLinkClass('shop')}>Shop</Link>
@@ -116,11 +116,11 @@ export function StoreHeader() {
             </button>
 
             {session?.user ? (
-              <Link href="/account" aria-label="My account" className="hidden items-center gap-2 rounded-full bg-[#f4bb20] px-4 py-2.5 text-sm font-semibold text-[#101e29] xl:inline-flex">
+              <Link href="/account" aria-label="My account" className="hidden items-center gap-2 rounded-full bg-[#f4bb20] px-3 py-2.5 text-sm font-semibold text-[#101e29] md:inline-flex">
                 <UserRound size={16} /> My account
               </Link>
             ) : (
-              <Link href="/sign-in" aria-label="Sign in" className="hidden rounded-full bg-[#f4bb20] px-4 py-2.5 text-sm font-semibold text-[#101e29] xl:inline-flex">Sign in</Link>
+              <Link href="/sign-in" aria-label="Sign in" className="hidden rounded-full bg-[#f4bb20] px-3 py-2.5 text-sm font-semibold text-[#101e29] md:inline-flex">Sign in</Link>
             )}
 
             <Link href="/cart" aria-label={`${count} ${count === 1 ? 'item' : 'items'} in cart`} className="relative grid size-9 place-items-center rounded-full hover:bg-[#f1eadb] sm:size-10">
@@ -139,7 +139,7 @@ export function StoreHeader() {
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
               aria-controls="mobile-navigation-drawer"
-              className="grid size-9 place-items-center rounded-full hover:bg-[#f1eadb] sm:size-10 xl:hidden"
+              className="grid size-9 place-items-center rounded-full hover:bg-[#f1eadb] sm:size-10 md:hidden"
             >
               {menuOpen ? <X size={21} aria-hidden="true" /> : <Menu size={21} aria-hidden="true" />}
             </button>
@@ -154,20 +154,28 @@ export function StoreHeader() {
             <button type="submit" className="rounded-full bg-[#f4bb20] px-4 py-2 text-sm font-semibold text-[#101e29]">Search</button>
           </form>
         )}
+
+        <nav aria-label="Product categories" className="mx-auto hidden min-h-10 max-w-[1400px] flex-wrap items-center justify-center gap-x-3 gap-y-1 border-t border-[#e9e4d9] bg-[#f4c532] px-2 py-2 md:flex lg:gap-x-4 xl:gap-x-6">
+          {menuCategories.map((category) => (
+            <Link key={category.label} href={category.href} className="shrink-0 whitespace-nowrap text-[clamp(0.625rem,0.8vw,0.75rem)] font-semibold uppercase tracking-wide text-[#84211d] transition-colors hover:text-[#b34a36]">
+              {category.label}
+            </Link>
+          ))}
+        </nav>
       </header>
 
       {menuOpen && (
-        <div className="fixed inset-0 z-[60] xl:hidden">
+        <div className="fixed inset-0 z-[60] md:hidden">
           <button type="button" aria-label="Close menu" onClick={closeMenu} className="absolute inset-0 bg-black/55" />
-          <aside id="mobile-navigation-drawer" role="dialog" aria-modal="true" aria-label="Mobile navigation" className="absolute inset-y-0 right-0 flex w-[min(88vw,380px)] flex-col bg-[#fcebe2] text-[#84291e] shadow-2xl">
-            <div className="grid grid-cols-[1fr_auto] border-b border-[#e9d2c6] text-center text-xs font-medium text-[#075985]">
+          <aside id="mobile-navigation-drawer" role="dialog" aria-modal="true" aria-label="Mobile navigation" className="absolute inset-y-0 right-0 flex w-[min(88vw,380px)] flex-col bg-[#fff5d9] text-[#84291e] shadow-2xl">
+            <div className="grid grid-cols-[1fr_auto] border-b border-[#ead7a8] text-center text-xs font-medium text-[#84291e]">
               <div role="tablist" aria-label="Mobile navigation sections" className="grid grid-cols-3">
                 {([
                   ['menu', 'Menu'],
                   ['account', 'Account'],
                   ['settings', 'Settings'],
                 ] as const).map(([tab, label]) => (
-                  <button key={tab} id={`mobile-navigation-tab-${tab}`} type="button" onClick={() => setDrawerTab(tab)} role="tab" aria-controls="mobile-navigation-panel" aria-selected={drawerTab === tab} className={`min-h-14 border-r border-[#e9d2c6] px-2 ${drawerTab === tab ? 'bg-[#fff5ef]' : 'bg-[#f7d9ca]'}`}>
+                  <button key={tab} id={`mobile-navigation-tab-${tab}`} type="button" onClick={() => setDrawerTab(tab)} role="tab" aria-controls="mobile-navigation-panel" aria-selected={drawerTab === tab} className={`min-h-14 border-r border-[#ead7a8] px-2 ${drawerTab === tab ? 'bg-[#fffdf5]' : 'bg-[#ffedbd]'}`}>
                     {label}
                   </button>
                 ))}
@@ -181,7 +189,7 @@ export function StoreHeader() {
               {drawerTab === 'menu' && (
                 <nav aria-label="Product categories">
                   {menuCategories.map((category) => (
-                    <Link key={category.label} href={category.href} onClick={closeMenu} className="flex min-h-11 items-center border-b border-[#ead8cf] px-5 py-3 text-xs font-medium">
+                    <Link key={category.label} href={category.href} onClick={closeMenu} className="flex min-h-11 items-center border-b border-[#eadfbe] px-5 py-3 text-xs font-medium">
                       {category.label}
                     </Link>
                   ))}
@@ -190,21 +198,21 @@ export function StoreHeader() {
 
               {drawerTab === 'account' && (
                 <nav aria-label="Account menu" className="flex flex-col">
-                  <p className="border-b border-[#ead8cf] px-5 py-4 text-sm font-semibold">{session?.user ? `Hello, ${session.user.name || 'shopper'}` : 'Welcome to Indian Heritager'}</p>
-                  <Link href={session?.user ? '/account' : '/sign-in'} onClick={closeMenu} className="border-b border-[#ead8cf] px-5 py-4 text-sm">{session?.user ? 'My account & orders' : 'Sign in'}</Link>
-                  {!session?.user && <Link href="/sign-up" onClick={closeMenu} className="border-b border-[#ead8cf] px-5 py-4 text-sm">Create an account</Link>}
-                  <Link href="/cart" onClick={closeMenu} className="border-b border-[#ead8cf] px-5 py-4 text-sm">Shopping cart ({count})</Link>
+                  <p className="border-b border-[#eadfbe] px-5 py-4 text-sm font-semibold">{session?.user ? `Hello, ${session.user.name || 'shopper'}` : 'Welcome to Indian Heritager'}</p>
+                  <Link href={session?.user ? '/account' : '/sign-in'} onClick={closeMenu} className="border-b border-[#eadfbe] px-5 py-4 text-sm">{session?.user ? 'My account & orders' : 'Sign in'}</Link>
+                  {!session?.user && <Link href="/sign-up" onClick={closeMenu} className="border-b border-[#eadfbe] px-5 py-4 text-sm">Create an account</Link>}
+                  <Link href="/cart" onClick={closeMenu} className="border-b border-[#eadfbe] px-5 py-4 text-sm">Shopping cart ({count})</Link>
                 </nav>
               )}
 
               {drawerTab === 'settings' && (
                 <div className="space-y-4 p-5 text-sm">
                   <h2 className="font-semibold">Shopping settings</h2>
-                  <div className="border-b border-[#ead8cf] pb-4">
+                  <div className="border-b border-[#eadfbe] pb-4">
                     <p className="text-xs text-[#806e67]">Country / Region</p>
                     <p className="mt-1">India</p>
                   </div>
-                  <div className="border-b border-[#ead8cf] pb-4">
+                  <div className="border-b border-[#eadfbe] pb-4">
                     <p className="text-xs text-[#806e67]">Currency</p>
                     <p className="mt-1">Indian Rupee (₹ INR)</p>
                   </div>
@@ -213,8 +221,8 @@ export function StoreHeader() {
               )}
             </div>
 
-            <div className="border-t border-[#e9d2c6] p-4">
-              <form action="/products" className="flex h-11 items-center gap-2 border border-[#d9bfb2] bg-white px-3">
+            <div className="border-t border-[#ead7a8] p-4">
+              <form action="/products" className="flex h-11 items-center gap-2 border border-[#d8c78e] bg-white px-3">
                 <Search size={17} aria-hidden="true" />
                 <label className="sr-only" htmlFor="mobile-products-search">Search products</label>
                 <input id="mobile-products-search" name="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search products…" className="min-w-0 flex-1 bg-transparent text-sm outline-none" />
