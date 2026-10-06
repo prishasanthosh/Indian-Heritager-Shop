@@ -63,52 +63,22 @@ const customerStories: VideoStory[] = [
 
 const sellerStories: VideoStory[] = [
   {
-    name: 'Altaf Hussain',
-    description: 'A national award-winning artisan shares how handmade work can find new audiences and recognition.',
-    videoId: 'rT80k4K_jdg',
-    image: 'https://img.indiahandmade.com/wysiwyg/altaf_hussain.jpg',
+    name: 'Lakhu Ben',
+    description: 'A master craftswoman whose journey from construction work to skilled artisan shows how traditional crafts can create lasting livelihoods.',
+    videoUrl: 'https://www.youtube.com/results?search_query=Lakhu+Ben+Okhai+artisan&utm_source=chatgpt.com',
+    image: '/hero-image-1.jpeg',
   },
   {
-    name: 'Monammed Shafuddin',
-    description: 'A state award-winning maker speaks about sharing his craft with a wider community.',
-    videoId: 'RQZG9SCPfXA',
-    image: 'https://img.indiahandmade.com/wysiwyg/monammed_shafuddin.jpg',
+    name: 'Ramiben Nangesh',
+    description: 'A skilled artisan who has spent years designing, stitching and creating handcrafted work while building financial independence through her craft.',
+    videoUrl: 'https://www.youtube.com/results?search_query=Ramiben+Nangesh+Okhai&utm_source=chatgpt.com',
+    image: '/hero-image-2.jpeg',
   },
   {
-    name: 'Amrita Saavan',
-    description: 'A Manipur handloom seller reflects on showcasing traditional shawls through online platforms.',
-    videoId: 'mBch5MXhBDE',
-    image: 'https://img.indiahandmade.com/wysiwyg/amrita-savan.jpg',
-  },
-  {
-    name: 'Himanshu Khanna',
-    description: 'A maker’s perspective on the care and effort behind handcrafted masterpieces.',
-    videoId: 'mQf-P8Wy1J4',
-    image: 'https://img.indiahandmade.com/wysiwyg/himanshu-khanna.jpg',
-  },
-  {
-    name: 'Hemant Kumar Koli',
-    description: 'A story about discovering authentic handmade products, including Chanderi sarees.',
-    videoId: '-bUfohg3xa0',
-    image: 'https://img.indiahandmade.com/wysiwyg/hemant-kumar.jpg',
-  },
-  {
-    name: 'Neeraj Patel',
-    description: 'A seller shares his perspective on transparent payments and reaching more customers.',
-    videoId: 'dUAwTU-4Fgw',
-    image: 'https://img.indiahandmade.com/wysiwyg/neeraj-patel.jpg',
-  },
-  {
-    name: 'Payal Roy',
-    description: 'A celebration of original handmade creations and the people who value them.',
-    videoId: 'yn-RkHOOFk4',
-    image: 'https://img.indiahandmade.com/wysiwyg/payal-roy.jpg',
-  },
-  {
-    name: 'Lvv Satyanarayana',
-    description: 'An award-winning artisan shares traditional creations with customers across India.',
-    videoId: 'R6u1hrbIZaw',
-    image: 'https://img.indiahandmade.com/wysiwyg/satyanarayan.jpg',
+    name: 'Laxmiben Karamta',
+    description: 'A master cutter and designer whose traditional skills have grown into a source of independence, opportunity and pride.',
+    videoUrl: 'https://www.youtube.com/results?search_query=Laxmiben+Karamta+Okhai+artisan&utm_source=chatgpt.com',
+    image: '/hero-image-3.jpeg',
   },
 ]
 

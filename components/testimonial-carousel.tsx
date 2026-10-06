@@ -6,7 +6,8 @@ import { ChevronLeft, ChevronRight, Play, X } from 'lucide-react'
 export type VideoStory = {
   name: string
   description: string
-  videoId: string
+  videoId?: string
+  videoUrl?: string
   image: string
 }
 
@@ -64,22 +65,44 @@ export function TestimonialCarousel({
               className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-5"
             >
               {stories.map((story, index) => (
-                <article key={story.videoId} className={`min-w-[88%] snap-start border border-[#e5cfad] p-4 sm:min-w-[calc((100%-2.5rem)/3)] sm:p-5 ${index % 2 === 0 ? 'bg-[#fff8e8]' : 'bg-white'}`}>
-                  <button
-                    type="button"
-                    onClick={() => setActiveStory(story)}
-                    aria-label={`Play video: ${story.name}`}
-                    className="group relative block aspect-video w-full overflow-hidden bg-[#f6e9d2]"
-                  >
-                    <img src={story.image} alt="" loading="lazy" className="size-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
-                    <span className="absolute inset-0 grid place-items-center bg-black/10 transition-colors group-hover:bg-black/25">
-                      <span className="grid size-12 place-items-center rounded-lg border-2 border-white bg-black/20 text-white">
-                        <Play size={23} fill="currentColor" aria-hidden="true" />
+                <article key={story.videoId ?? story.name} className={`min-w-[88%] snap-start border border-[#e5cfad] p-4 sm:min-w-[calc((100%-2.5rem)/3)] sm:p-5 ${index % 2 === 0 ? 'bg-[#fff8e8]' : 'bg-white'}`}>
+                  {story.videoUrl ? (
+                    <a
+                      href={story.videoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Watch ${story.name}'s artisan story on YouTube`}
+                      className="group relative block aspect-video w-full overflow-hidden bg-[#f6e9d2]"
+                    >
+                      <img src={story.image} alt="" loading="lazy" className="size-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
+                      <span className="absolute inset-0 grid place-items-center bg-black/10 transition-colors group-hover:bg-black/25">
+                        <span className="grid size-12 place-items-center rounded-lg border-2 border-white bg-black/20 text-white">
+                          <Play size={23} fill="currentColor" aria-hidden="true" />
+                        </span>
                       </span>
-                    </span>
-                  </button>
+                    </a>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setActiveStory(story)}
+                      aria-label={`Play video: ${story.name}`}
+                      className="group relative block aspect-video w-full overflow-hidden bg-[#f6e9d2]"
+                    >
+                      <img src={story.image} alt="" loading="lazy" className="size-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
+                      <span className="absolute inset-0 grid place-items-center bg-black/10 transition-colors group-hover:bg-black/25">
+                        <span className="grid size-12 place-items-center rounded-lg border-2 border-white bg-black/20 text-white">
+                          <Play size={23} fill="currentColor" aria-hidden="true" />
+                        </span>
+                      </span>
+                    </button>
+                  )}
                   <h3 className="mt-4 font-serif text-lg font-semibold sm:text-xl">{story.name}</h3>
                   <p className="mt-2 text-sm leading-6 text-[#071b2b]">{story.description}</p>
+                  {story.videoUrl && (
+                    <a href={story.videoUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-[#601010] underline underline-offset-4 hover:text-[#b06f00]">
+                      Watch artisan story on YouTube
+                    </a>
+                  )}
                 </article>
               ))}
             </div>
@@ -103,7 +126,7 @@ export function TestimonialCarousel({
         </div>
       </section>
 
-      {activeStory && (
+      {activeStory?.videoId && (
         <div
           className="fixed inset-0 z-[80] grid place-items-center bg-black/80 p-4"
           role="dialog"
