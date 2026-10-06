@@ -184,6 +184,11 @@ export const orderItems = pgTable('order_items', {
   orderItemsProductIdIdx: index('order_items_product_id_idx').on(table.productId),
 }))
 
+export const newsletterSubscribers = pgTable('newsletter_subscribers', {
+  email: text('email').primaryKey(),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+})
+
 export const orderPayments = pgTable('order_payments', {
   id: text('id').primaryKey(),
   orderId: text('order_id').notNull().references(() => orders.id, { onDelete: 'cascade' }),

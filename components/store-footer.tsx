@@ -41,7 +41,7 @@ function FooterLinks({ title, links }: { title: string; links: string[][] }) {
 
 export function StoreFooter() {
   return (
-    <footer className="bg-[#fff4d4] px-4 py-9 text-[#601010] sm:px-5 sm:py-12 lg:px-8 lg:py-14 xl:px-12">
+    <footer className="store-footer bg-[#fff4d4] px-4 py-9 text-[#601010] sm:px-5 sm:py-12 lg:px-8 lg:py-14 xl:px-12">
       <div className="mx-auto grid max-w-[1800px] gap-7 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 xl:grid-cols-[1.3fr_0.7fr_0.8fr_0.9fr_1.3fr] xl:gap-8">
         <div>
           <a href="/" aria-label="Indian Heritager home" className="inline-flex min-w-0 items-center gap-3">

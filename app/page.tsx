@@ -1,9 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Award, BadgeCheck, Crown, Heart, MapPin, PackageCheck, Sparkles, Star, Store, Truck, UserRoundCheck, WalletCards } from 'lucide-react'
+import { ArrowRight, Award, BadgeCheck, Crown, Heart, MapPin, PackageCheck, Sparkles, Star, Truck, UserRoundCheck, WalletCards } from 'lucide-react'
 import { FantasticFinds } from '@/components/fantastic-finds'
+import { HeritageMarquee } from '@/components/heritage-marquee'
 import { HeroCarousel } from '@/components/hero-carousel'
+import { NewsletterSignup } from '@/components/newsletter-signup'
 import { ShopByCategory } from '@/components/shop-by-category'
+import { TestimonialCarousel, type VideoStory } from '@/components/testimonial-carousel'
 import { productsHref } from '@/lib/categories'
 
 const celebrationTiles = [
@@ -37,10 +40,76 @@ const sellerCards = [
   },
 ]
 
-const communityNotes = [
-  { title: 'Thoughtful finds', icon: '01' },
-  { title: 'Craft with character', icon: '02' },
-  { title: 'A closer connection to makers', icon: '03' },
+const customerStories: VideoStory[] = [
+  {
+    name: 'Authentic finds, close to home',
+    description: 'See how handmade pieces bring the makers and traditions behind them closer to everyday life.',
+    videoId: '-bUfohg3xa0',
+    image: 'https://img.indiahandmade.com/wysiwyg/hemant-kumar.jpg',
+  },
+  {
+    name: 'Craft made for craft lovers',
+    description: 'A story celebrating the care and artistry that go into every handcrafted creation.',
+    videoId: 'yn-RkHOOFk4',
+    image: 'https://img.indiahandmade.com/wysiwyg/payal-roy.jpg',
+  },
+  {
+    name: 'A connection to the maker',
+    description: 'Take a closer look at the people and thoughtful work behind India’s handmade products.',
+    videoId: 'mQf-P8Wy1J4',
+    image: 'https://img.indiahandmade.com/wysiwyg/himanshu-khanna.jpg',
+  },
+]
+
+const sellerStories: VideoStory[] = [
+  {
+    name: 'Altaf Hussain',
+    description: 'A national award-winning artisan shares how handmade work can find new audiences and recognition.',
+    videoId: 'rT80k4K_jdg',
+    image: 'https://img.indiahandmade.com/wysiwyg/altaf_hussain.jpg',
+  },
+  {
+    name: 'Monammed Shafuddin',
+    description: 'A state award-winning maker speaks about sharing his craft with a wider community.',
+    videoId: 'RQZG9SCPfXA',
+    image: 'https://img.indiahandmade.com/wysiwyg/monammed_shafuddin.jpg',
+  },
+  {
+    name: 'Amrita Saavan',
+    description: 'A Manipur handloom seller reflects on showcasing traditional shawls through online platforms.',
+    videoId: 'mBch5MXhBDE',
+    image: 'https://img.indiahandmade.com/wysiwyg/amrita-savan.jpg',
+  },
+  {
+    name: 'Himanshu Khanna',
+    description: 'A maker’s perspective on the care and effort behind handcrafted masterpieces.',
+    videoId: 'mQf-P8Wy1J4',
+    image: 'https://img.indiahandmade.com/wysiwyg/himanshu-khanna.jpg',
+  },
+  {
+    name: 'Hemant Kumar Koli',
+    description: 'A story about discovering authentic handmade products, including Chanderi sarees.',
+    videoId: '-bUfohg3xa0',
+    image: 'https://img.indiahandmade.com/wysiwyg/hemant-kumar.jpg',
+  },
+  {
+    name: 'Neeraj Patel',
+    description: 'A seller shares his perspective on transparent payments and reaching more customers.',
+    videoId: 'dUAwTU-4Fgw',
+    image: 'https://img.indiahandmade.com/wysiwyg/neeraj-patel.jpg',
+  },
+  {
+    name: 'Payal Roy',
+    description: 'A celebration of original handmade creations and the people who value them.',
+    videoId: 'yn-RkHOOFk4',
+    image: 'https://img.indiahandmade.com/wysiwyg/payal-roy.jpg',
+  },
+  {
+    name: 'Lvv Satyanarayana',
+    description: 'An award-winning artisan shares traditional creations with customers across India.',
+    videoId: 'R6u1hrbIZaw',
+    image: 'https://img.indiahandmade.com/wysiwyg/satyanarayan.jpg',
+  },
 ]
 
 export default function Page() {
@@ -56,18 +125,21 @@ export default function Page() {
       <section id="story">
         <div className="bg-[#fff1c2] px-4 py-12 text-black sm:px-5 sm:py-16 lg:px-8 lg:py-20">
           <div className="mx-auto grid max-w-[1280px] gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
-            <div className="text-center">
-              <h2 className="mx-auto max-w-2xl font-serif text-4xl leading-[1.08] sm:text-5xl lg:text-5xl">The Gateway to<br />India&apos;s Timeless Heritage</h2>
-              <p className="mx-auto mt-5 max-w-2xl text-base leading-7 sm:text-lg sm:leading-[1.7]">
-                We aim to provide a platform to Indian Handloom Weavers and Handicraft Artisans to sell their traditional handicraft products online, paving the way for their financial and social empowerment. This will also help in promoting their skills while eliminating the intermediaries.
-              </p>
-              <p className="mx-auto mt-3 max-w-2xl text-base leading-7 sm:text-lg sm:leading-[1.7]">
-                We hope to raise the dignity of the Indian artisans and kindle an interest for an unsurpassed legacy of craft that spans millennia and spreads across the length and breadth of India.
-              </p>
-              <Link href="#about" className="mt-6 inline-flex min-h-12 items-center bg-[#f4a900] px-8 text-sm font-semibold text-black transition-colors hover:bg-[#e99b00]">Know More</Link>
-            </div>
             <div className="relative mx-auto aspect-[1.1] w-full max-w-[560px] overflow-hidden sm:aspect-[1.25]">
               <Image src="/hero-image-1.jpeg" alt="Indian handloom textiles and artisan-made home goods" fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover object-center" />
+            </div>
+            <div className="text-left">
+              <h2 className="font-serif text-2xl leading-tight sm:text-3xl lg:text-4xl">Where India’s Heritage Becomes Your Everyday Luxury</h2>
+              <p className="mt-4 text-sm leading-6 sm:text-base sm:leading-7">
+                Direct from India’s artisans—handloom weavers and handicraft creators who carry forward centuries of tradition. Every product is made with authenticity, skill, and cultural depth, brought to you without intermediaries.
+              </p>
+              <p className="mt-3 text-sm leading-6 sm:text-base sm:leading-7">
+                Explore a marketplace where craftsmanship meets dignity—shop authentic creations that preserve India’s 5,000-year legacy while ensuring fair value reaches the hands that create them.
+              </p>
+              <p className="mt-3 text-sm leading-6 sm:text-base sm:leading-7">
+                Discover handwoven textiles, handcrafted treasures, and timeless art forms that tell stories of culture, identity, and generations of mastery.
+              </p>
+              <Link href="#about" className="mt-6 inline-flex min-h-12 items-center bg-[#f4a900] px-8 text-sm font-semibold text-black transition-colors hover:bg-[#e99b00]">Know More</Link>
             </div>
           </div>
         </div>
@@ -129,21 +201,7 @@ export default function Page() {
 
       <FantasticFinds />
 
-      <section aria-labelledby="customer-stories-heading" className="bg-[#fff8e8] px-4 py-12 text-black sm:px-5 sm:py-16 lg:px-8 lg:py-20">
-        <div className="mx-auto max-w-[1280px]">
-          <h2 id="customer-stories-heading" className="text-center font-serif text-3xl sm:text-4xl">Hear From Our Happy Customers</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-6 sm:text-base">We’re collecting stories from customers who bring Indian craftsmanship into their homes. Check back soon to hear from them.</p>
-          <div className="mt-7 grid gap-4 sm:grid-cols-3">
-            {communityNotes.map((note) => (
-              <div key={note.title} className="border border-[#e5cfad] bg-white p-5 text-center sm:p-6">
-                <span className="mx-auto grid size-10 place-items-center rounded-full bg-[#fff1c2] text-sm font-bold">{note.icon}</span>
-                <h3 className="mt-3 font-serif text-xl">{note.title}</h3>
-                <p className="mt-2 text-sm text-black/70">Customer stories coming soon</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TestimonialCarousel id="customer-stories" title="Hear From Our Happy Customers" stories={customerStories} />
 
       <section className="bg-white px-4 py-12 text-black sm:px-5 sm:py-16 lg:px-8 lg:py-20">
         <div className="mx-auto max-w-[1280px]">
@@ -230,16 +288,9 @@ export default function Page() {
         </div>
       </section>
 
-      <section aria-labelledby="seller-stories-heading" className="bg-[#fff1c2] px-4 py-12 text-black sm:px-5 sm:py-16 lg:px-8 lg:py-20">
-        <div className="mx-auto max-w-[1280px]">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="mx-auto grid size-12 place-items-center rounded-full bg-[#f4a900]"><Store size={22} aria-hidden="true" /></span>
-            <h2 id="seller-stories-heading" className="mt-4 font-serif text-3xl sm:text-4xl">Hear From Our Happy Sellers</h2>
-            <p className="mt-3 text-sm leading-6 sm:text-base">We’re building a platform for artisans and independent makers to share their work. Seller stories will be featured here soon.</p>
-            <a href="mailto:support@indianheritager.com?subject=Share%20your%20seller%20story" className="mt-6 inline-flex min-h-12 items-center bg-[#f4a900] px-6 text-sm font-semibold text-black transition-colors hover:bg-[#e99b00]">Share your story</a>
-          </div>
-        </div>
-      </section>
+      <TestimonialCarousel id="seller-stories" title="Hear From Our Happy Sellers" stories={sellerStories} />
+      <HeritageMarquee />
+      <NewsletterSignup />
     </main>
   )
 }

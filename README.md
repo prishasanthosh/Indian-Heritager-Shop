@@ -11,6 +11,8 @@ A full-stack Indian heritage product catalogue and commerce experience inspired 
 - Category navigation and category-filtered catalogue views
 - Product detail pages at `/products/[slug]`
 - Product image placeholders for items without uploaded artwork
+- Customer and seller video-story carousels
+- Newsletter email subscriptions
 - Accessible navigation, buttons, forms, labels, and responsive layouts
 
 ### Accounts and authentication
@@ -74,12 +76,16 @@ app/
   admin/catalogue-manager.tsx      Catalogue management UI
   admin/order-manager.tsx          Order management UI
   api/auth/[...all]/route.ts       Better Auth handler
+  api/newsletter/route.ts           Newsletter subscription endpoint
   api/products/route.ts            Public catalogue API
   api/orders/route.ts              Customer order creation and retrieval
   api/admin/products/route.ts      Protected catalogue mutations
   api/admin/orders/route.ts        Protected order administration
 components/
   cart-provider.tsx                Cart state and cart actions
+  testimonial-carousel.tsx         Customer and seller video stories
+  newsletter-signup.tsx            Newsletter subscription form
+  heritage-marquee.tsx              Scrolling heritage highlights
 lib/
   auth.ts                          Better Auth server configuration
   auth-client.ts                   Better Auth browser client
@@ -145,7 +151,7 @@ Do not paste secrets into source files or commit them.
 
 The Neon database must contain the Better Auth tables and the application tables defined in `lib/db/schema.ts`, including catalogue, cart, order, and order-item data.
 
-When using the connected Neon integration, apply schema changes through the Neon SQL tooling. Do not use a client-side database connection or expose `DATABASE_URL` in browser code.
+When using the connected Neon integration, apply schema changes through the Neon SQL tooling. Apply `drizzle/0002_newsletter_subscribers.sql` before enabling newsletter subscriptions. Do not use a client-side database connection or expose `DATABASE_URL` in browser code.
 
 ### 4. Start development
 

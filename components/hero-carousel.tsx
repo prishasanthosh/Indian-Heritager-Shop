@@ -55,8 +55,8 @@ export function HeroCarousel() {
         ))}
       </div>
       <div className="relative z-10 mx-auto w-full max-w-[1280px] text-[#601010]">
-        <p className="mb-5 text-xs font-bold tracking-[0.24em] sm:mb-6 sm:text-sm">THE INDIAN HERITAGER PRODUCTS</p>
-        <h1 className="max-w-[1100px] font-serif text-[clamp(2.65rem,8vw,7.5rem)] font-normal leading-[0.9]">
+        <p className="mb-5 text-xs font-bold tracking-[0.24em] sm:mb-6 sm:text-sm">INDIAN HERITAGER PRODUCTS</p>
+        <h1 className="max-w-[1100px] font-serif text-[clamp(2.2rem,6.5vw,6rem)] font-normal leading-[0.95]">
           <span className="block">{heroImages[activeIndex].catchline[0]}</span>
           <span className="block italic">{heroImages[activeIndex].catchline[1]}</span>
         </h1>

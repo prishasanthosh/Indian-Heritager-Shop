@@ -155,6 +155,22 @@
 }
 
 @layer base {
+  main,
+  .store-footer {
+    --text-xs: 0.6875rem;
+    --text-sm: 0.8rem;
+    --text-base: 0.9rem;
+    --text-lg: 1rem;
+    --text-xl: 1.125rem;
+    --text-2xl: 1.35rem;
+    --text-3xl: 1.65rem;
+    --text-4xl: 1.95rem;
+    --text-5xl: 2.4rem;
+    --text-6xl: 2.9rem;
+    --text-7xl: 3.5rem;
+    --text-8xl: 4rem;
+    --text-9xl: 4.5rem;
+  }
   * {
     @apply border-border outline-ring/50;
   }
@@ -184,5 +200,25 @@
 @layer utilities {
   [class*="text-black"] {
     color: var(--heritage-maroon);
+  }
+
+  .heritage-marquee-track {
+    animation: heritage-marquee 34s linear infinite;
+  }
+
+  .heritage-marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes heritage-marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .heritage-marquee-track {
+      animation: none;
+    }
   }
 }
