@@ -48,7 +48,8 @@
 :root {
   color-scheme: light;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --heritage-maroon: #601010;
+  --foreground: var(--heritage-maroon);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -161,6 +162,7 @@
     @apply bg-background text-foreground;
     font-family: Arial, Helvetica, sans-serif;
     background: #f8f5ee;
+    color: var(--heritage-maroon);
     overflow-x: clip;
   }
   button, a, select, input {
@@ -176,5 +178,11 @@
   ::selection {
     background: #f4c532;
     color: #031321;
+  }
+}
+
+@layer utilities {
+  [class*="text-black"] {
+    color: var(--heritage-maroon);
   }
 }

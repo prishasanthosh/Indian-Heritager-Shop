@@ -65,19 +65,19 @@ export function StoreHeader() {
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-[#e9e4d9] bg-[#fbfaf6] px-3 sm:px-5 lg:px-8">
-        <div className="mx-auto flex min-h-14 max-w-[1400px] items-center gap-2 py-2 sm:min-h-16 sm:gap-4 xl:min-h-20">
-          <Link href="/" onClick={closeMenu} className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3" aria-label="Indian Heritager home">
+        <div className="mx-auto grid min-h-14 max-w-[1400px] grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 py-2 sm:min-h-16 sm:grid-cols-[minmax(0,1fr)_minmax(280px,560px)_minmax(0,1fr)] sm:gap-4 xl:min-h-20">
+          <Link href="/" onClick={closeMenu} className="col-start-1 row-start-1 flex min-w-0 shrink-0 items-center gap-2 sm:gap-3" aria-label="Indian Heritager home">
             <img src="/logo.png" alt="" width="48" height="48" className="size-9 shrink-0 rounded-full object-contain sm:size-12" />
             <strong className="hidden whitespace-nowrap font-display text-[15px] font-bold text-black sm:block sm:text-base lg:text-lg">Indian Heritager</strong>
           </Link>
 
-          <form action="/products" className="flex h-10 min-w-0 max-w-[560px] flex-1 items-center gap-2 border border-[#d7c9a5] bg-white px-3 sm:h-11 sm:px-4">
+          <form action="/products" className="col-span-2 row-start-2 flex h-10 w-full min-w-0 items-center gap-2 border border-[#d7c9a5] bg-white px-3 sm:col-span-1 sm:col-start-2 sm:row-start-1 sm:h-11 sm:px-4">
             <label className="sr-only" htmlFor="header-products-search">Search products</label>
             <input id="header-products-search" name="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search products…" className="min-w-0 flex-1 bg-transparent text-sm text-black outline-none placeholder:text-[#686868]" />
             <button type="submit" aria-label="Search products" className="grid size-8 shrink-0 place-items-center text-black"><Search size={18} aria-hidden="true" /></button>
           </form>
 
-          <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
+          <div className="col-start-2 row-start-1 flex shrink-0 items-center justify-self-end gap-1 sm:col-start-3 sm:gap-2">
             {session?.user ? (
               <Link href="/account" aria-label="My account" className="hidden items-center gap-2 rounded-full bg-[#f4a900] px-3 py-2.5 text-sm font-semibold text-black md:inline-flex">
                 <UserRound size={16} /> My account

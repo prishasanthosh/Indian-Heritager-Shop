@@ -46,18 +46,9 @@ const communityNotes = [
 export default function Page() {
   return (
     <main className="home-page min-h-screen overflow-x-clip bg-[#fffdf7] text-black">
-      <section id="top" className="relative flex min-h-[440px] items-center overflow-hidden bg-[#fff1c2] px-4 py-12 text-black sm:min-h-[520px] sm:px-5 sm:py-16 lg:px-8">
+      <section id="top" className="relative flex min-h-[440px] items-center overflow-hidden bg-[#fffdf7] px-4 py-12 text-[#601010] sm:min-h-[520px] sm:px-5 sm:py-16 lg:px-8">
         <HeroCarousel />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#fff1c2]/95 via-[#fff1c2]/80 to-[#fff1c2]/15" />
-        <div className="relative mx-auto w-full max-w-[1280px]">
-          <p className="mb-5 text-xs font-bold tracking-[0.24em]">THE INDIAN HERITAGER SHOP</p>
-          <h1 className="max-w-3xl font-serif text-[clamp(2.5rem,10vw,4.5rem)] leading-[0.98] lg:text-[88px]">Shop thoughtfully.<br /><em>Celebrate craft.</em></h1>
-          <p className="mt-6 max-w-xl text-sm leading-6 sm:mt-8 sm:text-lg sm:leading-7">Browse a diverse collection of handcrafted goods, traditional essentials, home finds, accessories, and keepsakes rooted in Indian heritage.</p>
-          <div className="mt-7 flex flex-wrap gap-3 sm:mt-9">
-            <Link href="/products" className="inline-flex items-center gap-2 bg-[#f4a900] px-4 py-3 text-sm font-bold text-black transition hover:bg-[#e99b00] sm:gap-3 sm:px-6 sm:py-3.5">Browse products <ArrowRight size={17} /></Link>
-            <Link href="#about" className="border border-black/60 bg-white/50 px-4 py-3 text-sm font-bold text-black hover:bg-white sm:px-6 sm:py-3.5">Our story</Link>
-          </div>
-        </div>
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#fffdf7]/88 via-[#fffdf7]/60 to-[#fffdf7]/5" />
       </section>
 
       <ShopByCategory />
@@ -156,7 +147,7 @@ export default function Page() {
 
       <section className="bg-white px-4 py-12 text-black sm:px-5 sm:py-16 lg:px-8 lg:py-20">
         <div className="mx-auto max-w-[1280px]">
-          <h2 className="flex items-center justify-center gap-3 text-center font-serif text-3xl text-black sm:gap-5 sm:text-4xl"><span aria-hidden="true">⭐</span> Sellers of the Month <span aria-hidden="true">⭐</span></h2>
+          <h2 className="flex items-center justify-center gap-2 text-center font-serif text-2xl text-[#601010] sm:gap-5 sm:text-4xl"><span aria-hidden="true">⭐⭐</span> Sellers of the Month <span aria-hidden="true">⭐⭐</span></h2>
           <div className="mt-8 grid gap-5 sm:mt-10 lg:grid-cols-3 lg:gap-6">
             {sellerCards.map((seller) => (
               <article key={seller.name} className="overflow-hidden rounded-2xl bg-white shadow-[0_8px_30px_rgba(60,40,20,0.12)]">
