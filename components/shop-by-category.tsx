@@ -28,8 +28,8 @@ export function ShopByCategory() {
   const { trackRef, scroll } = useLoopingCarousel(categories.length)
 
   return (
-    <section id="categories" className="bg-white px-4 py-12 sm:px-5 sm:py-16 lg:px-8 lg:py-20">
-      <div className="relative mx-auto mt-5 max-w-[1280px] border border-[#e5cfad] px-4 pb-7 pt-10 sm:px-8 sm:pb-10 sm:pt-12">
+    <section id="categories" className="bg-white px-4 py-5 sm:px-5 sm:py-6 lg:px-8 lg:py-8">
+      <div className="relative mx-auto max-w-[1280px] border border-[#e5cfad] px-4 pb-7 pt-10 sm:px-8 sm:pb-10 sm:pt-12">
         <h2 className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap bg-white px-3 font-serif text-2xl text-black sm:px-5 sm:text-4xl">
           Shop by Category
         </h2>

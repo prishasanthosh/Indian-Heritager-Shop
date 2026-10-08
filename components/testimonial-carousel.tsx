@@ -54,8 +54,8 @@ export function TestimonialCarousel({
 
   return (
     <>
-      <section aria-labelledby={`${id}-heading`} className="bg-white px-4 py-10 text-[#601010] sm:px-5 sm:py-14 lg:px-8 lg:py-16">
-        <div className="relative mx-auto mt-5 max-w-[1280px] border border-[#e5cfad] px-4 pb-6 pt-9 sm:px-8 sm:pb-9 sm:pt-11">
+      <section aria-labelledby={`${id}-heading`} className="bg-white px-4 py-5 text-[#601010] sm:px-5 sm:py-6 lg:px-8 lg:py-8">
+        <div className="relative mx-auto max-w-[1280px] border border-[#e5cfad] px-4 pb-6 pt-9 sm:px-8 sm:pb-9 sm:pt-11">
           <h2 id={`${id}-heading`} className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap bg-white px-3 text-center font-serif text-xl sm:px-5 sm:text-3xl">
             {title}
           </h2>

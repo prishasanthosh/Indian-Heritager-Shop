@@ -85,15 +85,15 @@ const sellerStories: VideoStory[] = [
 export default function Page() {
   return (
     <main className="home-page min-h-screen overflow-x-clip bg-[#fffdf7] text-black">
-      <section id="top" className="relative flex min-h-[440px] items-center overflow-hidden bg-[#fffdf7] px-4 py-12 text-[#601010] sm:min-h-[520px] sm:px-5 sm:py-16 lg:px-8">
+      <section id="top" className="relative flex min-h-[400px] items-center overflow-hidden bg-[#fffdf7] px-4 py-6 text-[#601010] sm:min-h-[520px] sm:px-5 sm:py-8 lg:px-8">
         <HeroCarousel />
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#fffdf7]/88 via-[#fffdf7]/60 to-[#fffdf7]/5" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#fffdf7]/72 via-[#fffdf7]/28 to-transparent" />
       </section>
 
       <ShopByCategory />
 
       <section id="story">
-        <div className="bg-[#fff1c2] px-4 py-12 text-black sm:px-5 sm:py-16 lg:px-8 lg:py-20">
+        <div className="bg-[#fff1c2] px-4 py-5 text-black sm:px-5 sm:py-6 lg:px-8 lg:py-8">
           <div className="mx-auto grid max-w-[1280px] gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
             <div className="relative mx-auto aspect-[1.1] w-full max-w-[560px] overflow-hidden sm:aspect-[1.25]">
               <Image src="/hero-image-1.jpeg" alt="Indian handloom textiles and artisan-made home goods" fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover object-center" />
@@ -113,7 +113,7 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <div aria-label="Shopping benefits" className="border-b border-[#e5cfad] bg-white px-4 py-6 text-black sm:px-5">
+        <div aria-label="Shopping benefits" className="border-b border-[#e5cfad] bg-white px-4 py-4 text-black sm:px-5">
           <div className="mx-auto grid max-w-[1280px] gap-4 sm:grid-cols-3 sm:gap-0">
             {[
               { label: 'Authentic Sellers', Icon: UserRoundCheck },
@@ -129,7 +129,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="bg-white px-4 py-12 sm:px-5 sm:py-16 lg:px-8 lg:py-20">
+      <section className="bg-white px-4 py-5 sm:px-5 sm:py-6 lg:px-8 lg:py-8">
         <div className="mx-auto max-w-[1280px]">
           <h2 className="text-center font-serif text-3xl text-black sm:text-4xl">Celebrate The New Beginning</h2>
           <div className="mt-7 grid auto-rows-[170px] grid-cols-2 gap-3 sm:mt-8 sm:auto-rows-[230px] sm:gap-5 lg:auto-rows-[282px] lg:grid-cols-4">
@@ -145,7 +145,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="bg-[#fff0c9] px-4 py-12 text-black sm:px-5 sm:py-16 lg:px-8 lg:py-20">
+      <section className="bg-[#fff0c9] px-4 py-5 text-black sm:px-5 sm:py-6 lg:px-8 lg:py-8">
         <div className="mx-auto grid max-w-[1280px] gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
           <div className="relative mx-auto aspect-[1.35] w-full max-w-[580px] overflow-hidden">
             <Image src="/hero-image-3.jpeg" alt="Artisans and families preserving Indian traditions" fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
@@ -173,7 +173,7 @@ export default function Page() {
 
       <TestimonialCarousel id="customer-stories" title="Hear From Our Happy Customers" stories={customerStories} />
 
-      <section className="bg-white px-4 py-12 text-black sm:px-5 sm:py-16 lg:px-8 lg:py-20">
+      <section className="bg-white px-4 py-5 text-black sm:px-5 sm:py-6 lg:px-8 lg:py-8">
         <div className="mx-auto max-w-[1280px]">
           <h2 className="flex items-center justify-center gap-2 text-center font-serif text-2xl text-[#601010] sm:gap-5 sm:text-4xl"><span aria-hidden="true">⭐⭐</span> Sellers of the Month <span aria-hidden="true">⭐⭐</span></h2>
           <div className="mt-8 grid gap-5 sm:mt-10 lg:grid-cols-3 lg:gap-6">
@@ -210,7 +210,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="bg-[#fff1c2] px-4 py-12 text-black sm:px-5 sm:py-16 lg:px-8 lg:py-20">
+      <section className="bg-[#fff1c2] px-4 py-5 text-black sm:px-5 sm:py-6 lg:px-8 lg:py-8">
         <div className="mx-auto grid max-w-[1280px] gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
           <div className="text-center">
             <h2 className="font-serif text-3xl leading-tight sm:text-4xl">Sell Hassle Free<br />Become an Indian Heritager Seller</h2>
@@ -234,7 +234,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="about" className="bg-white px-4 py-12 text-black sm:px-5 sm:py-16 lg:px-8 lg:py-20">
+      <section id="about" className="bg-white px-4 py-5 text-black sm:px-5 sm:py-6 lg:px-8 lg:py-8">
         <div className="mx-auto grid max-w-[1280px] gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-12">
           <div>
             <p className="text-xs font-bold tracking-[0.2em]">OUR STORY</p>

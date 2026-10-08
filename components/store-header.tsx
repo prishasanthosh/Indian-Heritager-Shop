@@ -68,7 +68,7 @@ export function StoreHeader() {
         <div className="mx-auto grid min-h-14 max-w-[1400px] grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 py-2 sm:min-h-16 sm:grid-cols-[minmax(0,1fr)_minmax(280px,560px)_minmax(0,1fr)] sm:gap-4 xl:min-h-20">
           <Link href="/" onClick={closeMenu} className="col-start-1 row-start-1 flex min-w-0 shrink-0 items-center gap-2 sm:gap-3" aria-label="Indian Heritager home">
             <img src="/logo.png" alt="" width="48" height="48" className="size-9 shrink-0 rounded-full object-contain sm:size-12" />
-            <strong className="hidden whitespace-nowrap font-display text-[15px] font-bold text-black sm:block sm:text-base lg:text-lg">Indian Heritager</strong>
+            <strong className="whitespace-nowrap font-display text-[clamp(0.625rem,3.1vw,0.875rem)] font-bold text-black sm:text-base lg:text-lg">Indian Heritager</strong>
           </Link>
 
           <form action="/products" className="col-span-2 row-start-2 flex h-10 w-full min-w-0 items-center gap-2 border border-[#d7c9a5] bg-white px-3 sm:col-span-1 sm:col-start-2 sm:row-start-1 sm:h-11 sm:px-4">
