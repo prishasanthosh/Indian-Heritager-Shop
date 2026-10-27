@@ -12,10 +12,12 @@ export async function GET(request: NextRequest) {
   const ids = params.get('ids')?.split(',').map((id) => id.trim()).filter(Boolean) ?? []
   const category = params.get('category')?.trim() ?? ''
   const sort = params.get('sort') ?? 'featured'
+  const featuredOnly = params.get('featured') === 'true'
 
   const filters: SQL[] = [eq(products.isArchived, false), notIlike(products.category, 'books')]
 
   if (ids.length) filters.push(sql`${products.id} in ${ids}`)
+  if (featuredOnly) filters.push(eq(products.featured, true))
 
   if (query) {
     const searchFilter = or(

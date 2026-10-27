@@ -14,13 +14,13 @@ export function AddToCart({ id, stock }: { id: string; stock: number }) {
 
   return (
     <div className="mt-8 flex flex-wrap gap-3">
-      <div className="flex items-center border border-[#dcd3c2] bg-white">
-        <button aria-label="Decrease quantity" className="px-4 py-3" onClick={() => setQuantity(Math.max(1, quantity - 1))}>−</button>
-        <span className="min-w-10 text-center">{quantity}</span>
-        <button aria-label="Increase quantity" disabled={quantity >= remainingStock} className="px-4 py-3 disabled:cursor-not-allowed disabled:opacity-40" onClick={() => setQuantity(Math.min(remainingStock, quantity + 1))}>+</button>
+      <div className="flex items-center overflow-hidden rounded-full border border-[#d9cab0] bg-[#fffaf2] shadow-[0_10px_24px_rgba(30,25,22,0.04)]">
+        <button aria-label="Decrease quantity" className="min-h-12 min-w-12 px-3 text-lg font-bold text-[#1d1716] transition-colors hover:bg-[#f7f1e6]" onClick={() => setQuantity(Math.max(1, quantity - 1))}>−</button>
+        <span className="min-w-12 text-center text-sm font-bold text-[#1d1716]">{quantity}</span>
+        <button aria-label="Increase quantity" disabled={quantity >= remainingStock} className="min-h-12 min-w-12 px-3 text-lg font-bold text-[#1d1716] transition-colors hover:bg-[#f7f1e6] disabled:cursor-not-allowed disabled:opacity-40" onClick={() => setQuantity(Math.min(remainingStock, quantity + 1))}>+</button>
       </div>
-      <button disabled={disabled} onClick={() => add(id, quantity, stock)} className="bg-[#f4a900] px-6 py-3 font-bold text-black disabled:cursor-not-allowed disabled:opacity-50">{disabled ? 'Stock limit reached' : 'Add to cart'}</button>
-      <button disabled={disabled} onClick={() => { add(id, quantity, stock); router.push('/checkout') }} className="border border-[#071b2b] px-6 py-3 font-bold disabled:opacity-50">Buy now</button>
+      <button disabled={disabled} onClick={() => add(id, quantity, stock)} className="min-h-12 rounded-full bg-[#702d32] px-6 py-3 text-sm font-bold text-[#fffaf2] transition-colors hover:bg-[#5a2227] disabled:cursor-not-allowed disabled:opacity-50">{disabled ? 'Stock limit reached' : 'Add to cart'}</button>
+      <button disabled={disabled} onClick={() => { add(id, quantity, stock); router.push('/checkout') }} className="min-h-12 rounded-full border border-[#bda985] bg-[#fffaf2] px-6 py-3 text-sm font-bold text-[#1d1716] transition-colors hover:bg-[#f7efe2] disabled:cursor-not-allowed disabled:opacity-50">Buy now</button>
     </div>
   )
 }

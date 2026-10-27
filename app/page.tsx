@@ -1,127 +1,58 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Award, BadgeCheck, Crown, Heart, MapPin, PackageCheck, Sparkles, Star, Truck, UserRoundCheck, WalletCards } from 'lucide-react'
+import { ArrowRight, PackageCheck, Sparkles, Truck } from 'lucide-react'
+import { CategoryArtwork } from '@/components/category-artwork'
 import { FantasticFinds } from '@/components/fantastic-finds'
 import { HeritageMarquee } from '@/components/heritage-marquee'
 import { HeroCarousel } from '@/components/hero-carousel'
 import { NewsletterSignup } from '@/components/newsletter-signup'
 import { ShopByCategory } from '@/components/shop-by-category'
-import { TestimonialCarousel, type VideoStory } from '@/components/testimonial-carousel'
 import { productsHref } from '@/lib/categories'
-
-const celebrationTiles = [
-  { name: 'Cushion Covers', image: '/hero-image-1.jpeg', className: 'col-span-2 row-span-2', category: 'home-decor' },
-  { name: 'Home Decor', image: '/hero-image-3.jpeg', className: '', category: 'home-decor' },
-  { name: 'Bedsheets', image: '/hero-image-1.jpeg', className: '', category: 'home-decor' },
-  { name: 'Floor Coverings', image: '/hero-image-2.jpeg', className: 'col-span-2', category: 'traditional-products' },
-]
-
-const sellerCards = [
-  {
-    name: 'Craft Edge',
-    location: 'Madhubani, Bihar',
-    description: 'Where Madhubani heritage meets contemporary handmade artistry.',
-    image: '/hero-image-2.jpeg',
-    products: ['/hero-image-2.jpeg', '/hero-image-1.jpeg', '/hero-image-3.jpeg'],
-  },
-  {
-    name: 'Handloom Plus',
-    location: 'Bhagalpur, Bihar',
-    description: 'Bhagalpur’s timeless silk heritage, woven into contemporary elegance.',
-    image: '/hero-image-1.jpeg',
-    products: ['/hero-image-1.jpeg', '/hero-image-3.jpeg', '/hero-image-2.jpeg'],
-  },
-  {
-    name: 'Vidyashish Hathkargha',
-    location: 'Anwa, Rajasthan',
-    description: 'Preserving India’s handloom legacy and empowering artisan communities.',
-    image: '/hero-image-3.jpeg',
-    products: ['/hero-image-3.jpeg', '/hero-image-1.jpeg', '/hero-image-2.jpeg'],
-  },
-]
-
-const customerStories: VideoStory[] = [
-  {
-    name: 'Authentic finds, close to home',
-    description: 'See how handmade pieces bring the makers and traditions behind them closer to everyday life.',
-    videoId: '-bUfohg3xa0',
-    image: 'https://img.indiahandmade.com/wysiwyg/hemant-kumar.jpg',
-  },
-  {
-    name: 'Craft made for craft lovers',
-    description: 'A story celebrating the care and artistry that go into every handcrafted creation.',
-    videoId: 'yn-RkHOOFk4',
-    image: 'https://img.indiahandmade.com/wysiwyg/payal-roy.jpg',
-  },
-  {
-    name: 'A connection to the maker',
-    description: 'Take a closer look at the people and thoughtful work behind India’s handmade products.',
-    videoId: 'mQf-P8Wy1J4',
-    image: 'https://img.indiahandmade.com/wysiwyg/himanshu-khanna.jpg',
-  },
-]
-
-const sellerStories: VideoStory[] = [
-  {
-    name: 'Lakhu Ben',
-    description: 'A master craftswoman whose journey from construction work to skilled artisan shows how traditional crafts can create lasting livelihoods.',
-    videoUrl: 'https://www.youtube.com/results?search_query=Lakhu+Ben+Okhai+artisan&utm_source=chatgpt.com',
-    image: '/hero-image-1.jpeg',
-  },
-  {
-    name: 'Ramiben Nangesh',
-    description: 'A skilled artisan who has spent years designing, stitching and creating handcrafted work while building financial independence through her craft.',
-    videoUrl: 'https://www.youtube.com/results?search_query=Ramiben+Nangesh+Okhai&utm_source=chatgpt.com',
-    image: '/hero-image-2.jpeg',
-  },
-  {
-    name: 'Laxmiben Karamta',
-    description: 'A master cutter and designer whose traditional skills have grown into a source of independence, opportunity and pride.',
-    videoUrl: 'https://www.youtube.com/results?search_query=Laxmiben+Karamta+Okhai+artisan&utm_source=chatgpt.com',
-    image: '/hero-image-3.jpeg',
-  },
-]
 
 export default function Page() {
   return (
     <main className="home-page min-h-screen overflow-x-clip bg-[#fffdf7] text-black">
-      <section id="top" className="relative flex min-h-[400px] items-center overflow-hidden bg-[#fffdf7] px-4 py-6 text-[#601010] sm:min-h-[520px] sm:px-5 sm:py-8 lg:px-8">
+      <section id="top" className="relative px-4 py-5 sm:px-5 sm:py-7 lg:px-8 lg:py-8">
         <HeroCarousel />
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#fffdf7]/72 via-[#fffdf7]/28 to-transparent" />
       </section>
 
       <ShopByCategory />
 
-      <section id="story">
-        <div className="bg-[#fff1c2] px-4 py-5 text-black sm:px-5 sm:py-6 lg:px-8 lg:py-8">
-          <div className="mx-auto grid max-w-[1280px] gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
-            <div className="relative mx-auto aspect-[1.1] w-full max-w-[560px] overflow-hidden sm:aspect-[1.25]">
-              <Image src="/hero-image-1.jpeg" alt="Indian handloom textiles and artisan-made home goods" fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover object-center" />
+      <section id="about" className="px-4 py-8 sm:px-5 sm:py-10 lg:px-8 lg:py-12">
+        <span id="story" className="scroll-mt-24" />
+        <div className="mx-auto max-w-[1360px] overflow-hidden rounded-[30px] border border-[#e5d4b0] bg-[#f8f1e7] shadow-[0_24px_60px_rgba(40,38,33,0.07)]">
+          <div className="grid gap-0 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="relative min-h-[320px] overflow-hidden border-b border-[#e5d4b0] lg:min-h-[520px] lg:border-b-0 lg:border-r">
+              <Image src="/hero-image-1.jpeg" alt="Indian textiles and decorative objects arranged in a home setting" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
             </div>
-            <div className="text-left">
-              <h2 className="font-serif text-2xl leading-tight sm:text-3xl lg:text-4xl">Where India’s Heritage Becomes Your Everyday Luxury</h2>
-              <p className="mt-4 text-sm leading-6 sm:text-base sm:leading-7">
-                Direct from India’s artisans—handloom weavers and handicraft creators who carry forward centuries of tradition. Every product is made with authenticity, skill, and cultural depth, brought to you without intermediaries.
-              </p>
-              <p className="mt-3 text-sm leading-6 sm:text-base sm:leading-7">
-                Explore a marketplace where craftsmanship meets dignity—shop authentic creations that preserve India’s 5,000-year legacy while ensuring fair value reaches the hands that create them.
-              </p>
-              <p className="mt-3 text-sm leading-6 sm:text-base sm:leading-7">
-                Discover handwoven textiles, handcrafted treasures, and timeless art forms that tell stories of culture, identity, and generations of mastery.
-              </p>
-              <Link href="#about" className="mt-6 inline-flex min-h-12 items-center bg-[#f4a900] px-8 text-sm font-semibold text-black transition-colors hover:bg-[#e99b00]">Know More</Link>
+            <div className="flex items-center px-5 py-7 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
+              <div>
+                <p className="text-[10px] font-extrabold uppercase tracking-[0.28em] text-[#702d32]">Our story</p>
+                <h2 className="mt-3 max-w-[560px] font-serif text-4xl leading-[0.9] text-[#1d1716] sm:text-5xl">Where Indian heritage becomes a lived, modern ritual.</h2>
+                <p className="mt-5 max-w-[540px] text-sm leading-7 text-[#433e38] sm:text-base">
+                  Our collection brings together products shaped by Indian craft traditions, cultural continuity and considered design.
+                </p>
+                <p className="mt-3 max-w-[540px] text-sm leading-7 text-[#433e38] sm:text-base">
+                  From handloom textiles and decorative objects to meaningful gifts, explore pieces that bring heritage-inspired design into everyday life.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link href="#about" className="inline-flex items-center gap-2 rounded-full bg-[#702d32] px-5 py-3 text-sm font-bold text-[#fffaf2] transition-colors hover:bg-[#5a2227]">Know more</Link>
+                  <Link href="/products" className="inline-flex items-center gap-2 rounded-full border border-[#c8b592] bg-[#fffaf2] px-5 py-3 text-sm font-bold text-[#1d1716] transition-colors hover:bg-[#f7efe1]">Explore products</Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div aria-label="Shopping benefits" className="border-b border-[#e5cfad] bg-white px-4 py-4 text-black sm:px-5">
-          <div className="mx-auto grid max-w-[1280px] gap-4 sm:grid-cols-3 sm:gap-0">
+
+        <div aria-label="Shopping benefits" className="mx-auto mt-6 max-w-[1360px] rounded-[22px] border border-[#e5d4b0] bg-[#fffaf2] px-3 py-4 sm:px-6">
+          <div className="grid gap-4 sm:grid-cols-3 sm:gap-0">
             {[
-              { label: 'Authentic Sellers', Icon: UserRoundCheck },
-              { label: 'Free Shipping', Icon: Truck },
-              { label: 'Easy Returns', Icon: PackageCheck },
+              { label: 'Craft-led collections', Icon: Sparkles },
+              { label: 'Stock shown before checkout', Icon: PackageCheck },
+              { label: 'Shipping shown in your cart', Icon: Truck },
             ].map(({ label, Icon }) => (
-              <div key={label} className="flex items-center justify-center gap-3 py-2 text-lg sm:border-r sm:border-[#e5cfad] sm:py-4 last:sm:border-r-0 sm:text-xl">
-                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-[#fff1c2] text-black"><Icon size={23} aria-hidden="true" /></span>
+              <div key={label} className="flex items-center justify-center gap-3 py-2 text-sm font-semibold text-[#2b2723] sm:border-r sm:border-[#e7d9bb] sm:py-4 sm:text-base last:sm:border-r-0">
+                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-[#f7eed8] text-[#702d32]"><Icon size={20} aria-hidden="true" /></span>
                 <span>{label}</span>
               </div>
             ))}
@@ -129,136 +60,36 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="bg-white px-4 py-5 sm:px-5 sm:py-6 lg:px-8 lg:py-8">
-        <div className="mx-auto max-w-[1280px]">
-          <h2 className="text-center font-serif text-3xl text-black sm:text-4xl">Celebrate The New Beginning</h2>
-          <div className="mt-7 grid auto-rows-[170px] grid-cols-2 gap-3 sm:mt-8 sm:auto-rows-[230px] sm:gap-5 lg:auto-rows-[282px] lg:grid-cols-4">
-            {celebrationTiles.map((tile) => (
-              <Link key={tile.name} href={productsHref(tile.category)} className={`group relative overflow-hidden ${tile.className}`}>
-                <Image src={tile.image} alt="" fill sizes="(min-width: 1024px) 40vw, 50vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-white/95 to-transparent px-4 pb-4 pt-12 text-black sm:px-5 sm:pb-5">
-                  <h3 className="font-serif text-lg sm:text-2xl">{tile.name}</h3>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#fff0c9] px-4 py-5 text-black sm:px-5 sm:py-6 lg:px-8 lg:py-8">
-        <div className="mx-auto grid max-w-[1280px] gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
-          <div className="relative mx-auto aspect-[1.35] w-full max-w-[580px] overflow-hidden">
-            <Image src="/hero-image-3.jpeg" alt="Artisans and families preserving Indian traditions" fill sizes="(min-width: 1024px) 45vw, 90vw" className="object-cover" />
-          </div>
-          <div className="text-center">
-            <h2 className="font-serif text-3xl leading-tight sm:text-4xl">A True Reflection of Authenticity<br className="hidden sm:block" /> &amp; Tradition</h2>
-            <div className="mt-7 grid grid-cols-3 gap-3 sm:gap-5">
-              {[
-                { label: 'Verified artisans and weavers', Icon: BadgeCheck },
-                { label: 'Exquisite products', Icon: Award },
-                { label: 'Intricate designs', Icon: PackageCheck },
-              ].map(({ label, Icon }) => (
-                <div key={label} className="flex flex-col items-center gap-2 text-xs leading-5 sm:flex-row sm:text-sm">
-                  <span className="grid size-11 shrink-0 place-items-center rounded-full border border-black/50"><Icon size={19} aria-hidden="true" /></span>
-                  <span>{label}</span>
-                </div>
-              ))}
-            </div>
-            <Link href="/products" className="mt-8 inline-flex min-h-12 items-center bg-[#f4a900] px-8 text-sm font-semibold text-black transition-colors hover:bg-[#e99b00]">Shop Now</Link>
-          </div>
-        </div>
-      </section>
-
       <FantasticFinds />
 
-      <TestimonialCarousel id="customer-stories" title="Hear From Our Happy Customers" stories={customerStories} />
-
-      <section className="bg-white px-4 py-5 text-black sm:px-5 sm:py-6 lg:px-8 lg:py-8">
-        <div className="mx-auto max-w-[1280px]">
-          <h2 className="flex items-center justify-center gap-2 text-center font-serif text-2xl text-[#601010] sm:gap-5 sm:text-4xl"><span aria-hidden="true">⭐⭐</span> Sellers of the Month <span aria-hidden="true">⭐⭐</span></h2>
-          <div className="mt-8 grid gap-5 sm:mt-10 lg:grid-cols-3 lg:gap-6">
-            {sellerCards.map((seller) => (
-              <article key={seller.name} className="overflow-hidden rounded-2xl bg-white shadow-[0_8px_30px_rgba(60,40,20,0.12)]">
-                <div className="relative aspect-[2.1] overflow-hidden bg-[#f6e9d2]">
-                  <Image src={seller.image} alt="" fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover" />
-                  <div className="absolute right-4 top-0 flex h-20 w-16 flex-col items-center bg-[#f4a900] px-2 pt-3 text-center text-xs font-bold uppercase leading-tight text-black [clip-path:polygon(0_0,100%_0,100%_85%,50%_100%,0_85%)]">
-                    <Crown size={19} aria-hidden="true" />
-                    <span className="mt-1">Seller of the month</span>
-                  </div>
-                </div>
-                <div className="p-5 sm:p-6">
-                  <div className="flex items-center gap-3">
-                    <span className="grid size-14 shrink-0 place-items-center rounded-full border border-[#d5b879] bg-[#fffaf0] text-black"><Award size={28} aria-hidden="true" /></span>
-                    <div className="min-w-0">
-                      <h3 className="font-serif text-xl font-bold sm:text-2xl">{seller.name}</h3>
-                      <p className="mt-1 flex items-center gap-1 text-sm text-black/70"><MapPin size={14} aria-hidden="true" />{seller.location}</p>
-                    </div>
-                  </div>
-                  <p className="mt-4 min-h-12 text-sm leading-6 text-black/75">{seller.description}</p>
-                  <div className="mt-4 grid grid-cols-3 gap-2">
-                    {seller.products.map((image, index) => (
-                      <div key={`${seller.name}-${image}-${index}`} className="relative aspect-[1.4] overflow-hidden rounded-xl border border-[#e9dfcf]">
-                        <Image src={image} alt="" fill sizes="120px" className="object-cover" />
-                      </div>
-                    ))}
-                  </div>
-                  <Link href={productsHref('handicrafts')} className="mt-5 block text-center text-sm font-semibold text-black hover:underline">Explore Store <ArrowRight className="ml-1 inline" size={15} aria-hidden="true" /></Link>
-                </div>
-              </article>
-            ))}
+      <section aria-labelledby="maker-stories-heading" className="px-4 py-8 sm:px-5 sm:py-10 lg:px-8 lg:py-12">
+        <div className="mx-auto grid max-w-[1360px] overflow-hidden rounded-[28px] border border-[#e7d9bb] bg-[#fffaf2] sm:grid-cols-[0.8fr_1.2fr]">
+          <CategoryArtwork category="handicrafts" className="min-h-48 sm:min-h-64" />
+          <div className="flex flex-col justify-center p-5 sm:p-8 lg:p-10">
+            <p className="text-[10px] font-extrabold uppercase tracking-[0.26em] text-[#702d32]">Maker stories</p>
+            <h2 id="maker-stories-heading" className="mt-2 font-serif text-3xl leading-tight text-[#1d1716] sm:text-4xl">Stories from the people behind the craft.</h2>
+            <p className="mt-3 max-w-xl text-sm leading-6 text-[#5f5a56]">Verified seller profiles and artisan stories will be featured here when the details and media are available.</p>
+            <Link href={productsHref('handicrafts')} className="mt-5 inline-flex w-fit items-center gap-2 text-sm font-bold uppercase tracking-[0.15em] text-[#702d32] hover:text-[#b9563d]">Explore handicrafts <ArrowRight size={15} aria-hidden="true" /></Link>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#fff1c2] px-4 py-5 text-black sm:px-5 sm:py-6 lg:px-8 lg:py-8">
-        <div className="mx-auto grid max-w-[1280px] gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
-          <div className="text-center">
-            <h2 className="font-serif text-3xl leading-tight sm:text-4xl">Sell Hassle Free<br />Become an Indian Heritager Seller</h2>
-            <div className="mt-7 grid grid-cols-3 gap-3 sm:gap-5">
-              {[
-                { label: 'Zero commission', Icon: BadgeCheck },
-                { label: 'Easy pickup & delivery', Icon: Truck },
-                { label: 'Direct payment to bank accounts', Icon: WalletCards },
-              ].map(({ label, Icon }) => (
-                <div key={label} className="flex flex-col items-center gap-2 text-xs leading-5 sm:flex-row sm:text-sm">
-                  <span className="grid size-11 shrink-0 place-items-center rounded-full border border-black/60"><Icon size={20} aria-hidden="true" /></span>
-                  <span>{label}</span>
-                </div>
-              ))}
+      <section className="px-4 py-8 text-[#1d1716] sm:px-5 sm:py-10 lg:px-8 lg:py-12">
+        <div className="mx-auto grid max-w-[1360px] gap-8 rounded-[32px] border border-[#e5d4b0] bg-[#f8f1e7] p-5 sm:p-8 lg:grid-cols-[0.95fr_1.05fr] lg:p-10">
+          <div className="flex items-center">
+            <div>
+              <p className="text-[10px] font-extrabold uppercase tracking-[0.28em] text-[#702d32]">Become a seller</p>
+              <h2 className="mt-3 font-serif text-4xl leading-[0.9] text-[#1d1716] sm:text-5xl">Bring your products to Indian Heritager.</h2>
+              <p className="mt-5 max-w-xl text-sm leading-6 text-[#433e38]">Interested in listing heritage-inspired products? Contact our team to learn more about selling with Indian Heritager.</p>
+              <a href="mailto:support@indianheritager.com?subject=Become%20a%20seller" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#702d32] px-5 py-3 text-sm font-bold text-[#fffaf2] transition-colors hover:bg-[#5a2227]">Register now</a>
             </div>
-            <a href="mailto:support@indianheritager.com?subject=Become%20a%20seller" className="mt-8 inline-flex min-h-12 items-center bg-[#f4a900] px-8 text-sm font-semibold text-black transition-colors hover:bg-[#e99b00]">Register Now</a>
           </div>
-          <div className="relative mx-auto aspect-[1.4] w-full max-w-[600px] overflow-hidden">
-            <Image src="/hero-image-3.jpeg" alt="Indian artisan community sharing their work" fill sizes="(min-width: 1024px) 48vw, 90vw" className="object-cover" />
-          </div>
-        </div>
-      </section>
-
-      <section id="about" className="bg-white px-4 py-5 text-black sm:px-5 sm:py-6 lg:px-8 lg:py-8">
-        <div className="mx-auto grid max-w-[1280px] gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-12">
-          <div>
-            <p className="text-xs font-bold tracking-[0.2em]">OUR STORY</p>
-            <h2 className="mt-3 font-serif text-3xl sm:text-4xl">Thoughtful living, rooted in heritage.</h2>
-            <p className="mt-4 max-w-2xl text-sm leading-7 sm:text-base">Indian Heritager Foundation curates culturally rooted products that celebrate Indian craftsmanship, everyday utility, and meaningful gifting. Each collection reflects India’s diverse stories, artistry, and timeless traditions.</p>
-            <p className="mt-3 max-w-2xl text-sm leading-7 sm:text-base">We partner with artisans, makers, and community-led initiatives to offer products chosen for their quality, authenticity, and value.</p>
-            <Link href="/products" className="mt-6 inline-flex min-h-12 items-center gap-2 bg-[#f4a900] px-6 text-sm font-semibold text-black transition-colors hover:bg-[#e99b00]">Explore products <ArrowRight size={16} /></Link>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-            {[
-              { title: 'Curated quality', description: 'Thoughtful products chosen for beauty, utility, and lasting value.', Icon: Sparkles },
-              { title: 'Craft with purpose', description: 'Meaningful commerce supporting makers and heritage communities.', Icon: Star },
-              { title: 'Community impact', description: 'Celebrating the people and traditions behind every creation.', Icon: Heart },
-            ].map(({ title, description, Icon }) => (
-              <article key={title} className="flex gap-4 border border-[#e5cfad] bg-[#fff8e8] p-4 sm:p-5">
-                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-[#f4a900]"><Icon size={20} aria-hidden="true" /></span>
-                <div><h3 className="font-serif text-lg font-semibold">{title}</h3><p className="mt-1 text-sm leading-5 text-black/75">{description}</p></div>
-              </article>
-            ))}
+          <div className="min-h-[240px] overflow-hidden rounded-[26px] border border-[#d4c1a8] lg:min-h-[300px]">
+            <CategoryArtwork category="handicrafts" className="size-full min-h-[240px] lg:min-h-[300px]" />
           </div>
         </div>
       </section>
 
-      <TestimonialCarousel id="seller-stories" title="Hear From Our Happy Sellers" stories={sellerStories} />
       <HeritageMarquee />
       <NewsletterSignup />
     </main>

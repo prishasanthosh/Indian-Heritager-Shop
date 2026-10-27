@@ -2,83 +2,65 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { CategoryArtwork } from '@/components/category-artwork'
 import { productCategories, productsHref } from '@/lib/categories'
-import { useLoopingCarousel } from '@/components/use-looping-carousel'
 
-const categoryImages: Record<string, string> = {
+const categoryImages: Record<string, string | undefined> = {
   clothing: '/hero-image-1.jpeg',
   handicrafts: '/hero-image-2.jpeg',
   'home-decor': '/hero-image-3.jpeg',
-  jewellery: '/hero-image-1.jpeg',
-  accessories: '/hero-image-1.jpeg',
-  gifts: '/hero-image-2.jpeg',
-  'art-collectibles': '/hero-image-2.jpeg',
-  'traditional-products': '/hero-image-1.jpeg',
-  'other-products': '/hero-image-3.jpeg',
 }
 
 const categories = productCategories.map((category) => ({
   name: category.name,
   href: productsHref(category.slug),
   image: categoryImages[category.slug],
+  slug: category.slug,
 }))
 
 export function ShopByCategory() {
-  const { trackRef, scroll } = useLoopingCarousel(categories.length)
-
   return (
-    <section id="categories" className="bg-white px-4 py-5 sm:px-5 sm:py-6 lg:px-8 lg:py-8">
-      <div className="relative mx-auto max-w-[1280px] border border-[#e5cfad] px-4 pb-7 pt-10 sm:px-8 sm:pb-10 sm:pt-12">
-        <h2 className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap bg-white px-3 font-serif text-2xl text-black sm:px-5 sm:text-4xl">
-          Shop by Category
-        </h2>
-
-        <div className="relative">
-          <div
-            ref={trackRef}
-            className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-6"
-          >
-            {[...categories, ...categories.slice(0, 4)].map((category, index) => (
-              <Link
-                key={`${category.name}-${index}`}
-                href={category.href}
-                aria-hidden={index >= categories.length}
-                tabIndex={index >= categories.length ? -1 : undefined}
-                className="group min-w-[78%] snap-start sm:min-w-[44%] lg:min-w-[calc((100%-4.5rem)/4)]"
-              >
-                <div className="relative aspect-[0.82] overflow-hidden bg-[#f8f0e4]">
-                  <Image
-                    src={category.image}
-                    alt=""
-                    fill
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 44vw, 78vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <h3 className="mt-4 font-serif text-xl text-[#601010] transition-colors group-hover:text-[#b06f00] sm:text-2xl">
-                  {category.name}
-                </h3>
-              </Link>
-            ))}
+    <section id="categories" className="px-4 py-8 sm:px-5 sm:py-10 lg:px-8 lg:py-12">
+      <div className="mx-auto max-w-[1360px]">
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-[10px] font-extrabold uppercase tracking-[0.26em] text-[#702d32]">Curated collections</p>
+            <h2 className="mt-2 font-serif text-4xl leading-none text-[#1f1b18] sm:text-5xl">Shop by heritage category</h2>
           </div>
+          <Link href="/products" className="hidden text-sm font-bold uppercase tracking-[0.18em] text-[#702d32] hover:text-[#b9563d] sm:inline-flex">
+            View all
+          </Link>
+        </div>
 
-          <button
-            type="button"
-            aria-label="Show previous categories"
-            onClick={() => scroll('left')}
-            className="absolute -left-4 top-[42%] grid size-8 -translate-y-1/2 place-items-center border border-black bg-[#fffaf2] text-black transition-colors hover:bg-[#f4a900] sm:-left-12 sm:size-10"
-          >
-            <ChevronLeft size={20} aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            aria-label="Show more categories"
-            onClick={() => scroll('right')}
-            className="absolute -right-4 top-[42%] grid size-8 -translate-y-1/2 place-items-center border border-black bg-[#fffaf2] text-black transition-colors hover:bg-[#f4a900] sm:-right-12 sm:size-10"
-          >
-            <ChevronRight size={20} aria-hidden="true" />
-          </button>
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-4">
+          {categories.map((category) => (
+            <Link
+              key={category.name}
+              href={category.href}
+              className="group relative aspect-[0.86] overflow-hidden rounded-[24px] border border-[#e8dcc6] bg-[#fbf5ee] transition-colors hover:border-[#b9563d] last:col-span-2 last:aspect-[1.7] sm:last:col-span-1 sm:last:aspect-[0.86] xl:last:col-start-2 xl:last:col-span-2 xl:last:aspect-[2.4]"
+            >
+              <div className="absolute inset-0 overflow-hidden">
+                {category.image ? (
+                <Image
+                  src={category.image}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                ) : (
+                  <CategoryArtwork category={category.slug} className="size-full transition-transform duration-500 group-hover:scale-[1.02]" />
+                )}
+              </div>
+              {category.image && <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,transparent_30%,rgba(27,23,20,0.68)_100%)]" />}
+              <div className="absolute inset-x-0 bottom-0 flex min-w-0 items-end justify-between gap-2 p-3 sm:p-4">
+                <h3 className="min-w-0 font-serif text-[1.7rem] leading-[0.95] text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.45)] sm:text-3xl">{category.name}</h3>
+                <span aria-hidden="true" className="grid size-9 shrink-0 place-items-center rounded-full border border-white/60 bg-black/15 text-lg text-white backdrop-blur-sm sm:size-10">
+                  →
+                </span>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

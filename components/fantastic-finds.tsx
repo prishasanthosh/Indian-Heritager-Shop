@@ -1,49 +1,123 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { productsHref } from '@/lib/categories'
-import { useLoopingCarousel } from '@/components/use-looping-carousel'
+import { useEffect, useState } from 'react'
+import { ArrowRight } from 'lucide-react'
+import { CategoryArtwork } from '@/components/category-artwork'
+import { useCart } from '@/components/cart-provider'
+import { productCategories } from '@/lib/categories'
 
-const finds = [
-  { name: 'Ethnic Accessories', category: 'accessories', image: '/hero-image-1.jpeg' },
-  { name: 'Furniture', category: 'home-decor', image: '/hero-image-3.jpeg' },
-  { name: 'Art & Collectibles', category: 'art-collectibles', image: '/hero-image-2.jpeg' },
-  { name: 'Handcrafted Gifts', category: 'gifts', image: '/hero-image-2.jpeg' },
-  { name: 'Handloom Clothing', category: 'clothing', image: '/hero-image-1.jpeg' },
-  { name: 'Home Decor', category: 'home-decor', image: '/hero-image-3.jpeg' },
-  { name: 'Jewellery', category: 'jewellery', image: '/hero-image-1.jpeg' },
-  { name: 'Traditional Crafts', category: 'traditional-products', image: '/hero-image-2.jpeg' },
-]
+type Product = {
+  id: string
+  title: string
+  author: string
+  category: string
+  price: number
+  cover: string
+  stock: number
+}
 
-export function FantasticFinds() {
-  const { trackRef, scroll } = useLoopingCarousel(finds.length)
+type ProductsResponse = { products: Product[] }
+
+function getCategorySlug(category: string) {
+  return productCategories.find((item) => item.value.toLowerCase() === category.toLowerCase())?.slug ?? 'other-products'
+}
+
+function ProductImage({ product, categorySlug }: { product: Product; categorySlug: string }) {
+  const [failed, setFailed] = useState(false)
+
+  if (!product.cover || failed) return <CategoryArtwork category={categorySlug} className="size-full" />
 
   return (
-    <section className="bg-white px-4 py-5 sm:px-5 sm:py-6 lg:px-8 lg:py-8">
-      <div className="relative mx-auto max-w-[1280px] border border-[#e5cfad] px-4 pb-8 pt-10 sm:px-8 sm:pb-10 sm:pt-12">
-        <h2 className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap bg-white px-3 font-serif text-2xl text-black sm:px-5 sm:text-4xl">
-          Curated Treasures
-        </h2>
-        <div className="relative">
-          <div ref={trackRef} className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-8">
-            {[...finds, ...finds.slice(0, 4)].map((find, index) => (
-              <Link key={`${find.name}-${index}`} href={productsHref(find.category)} aria-hidden={index >= finds.length} tabIndex={index >= finds.length ? -1 : undefined} className="group min-w-[78%] snap-start sm:min-w-[44%] lg:min-w-[calc((100%-6rem)/4)]">
-                <div className="relative aspect-[0.82] overflow-hidden bg-[#fff1d6]">
-                  <Image src={find.image} alt="" fill sizes="(min-width: 1024px) 25vw, (min-width: 640px) 44vw, 78vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
-                </div>
-                <h3 className="mt-4 font-serif text-xl text-[#601010] transition-colors group-hover:text-[#b06f00] sm:text-2xl">{find.name}</h3>
-              </Link>
-            ))}
+    <img
+      src={product.cover}
+      alt={product.title}
+      loading="lazy"
+      onError={() => setFailed(true)}
+      className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+    />
+  )
+}
+
+export function FantasticFinds() {
+  const { add, items } = useCart()
+  const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    const controller = new AbortController()
+
+    fetch('/api/products?featured=true', { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error('Unable to load featured products.')
+        return response.json() as Promise<ProductsResponse>
+      })
+      .then((data) => setProducts(data.products))
+      .catch((cause: unknown) => {
+        if (cause instanceof Error && cause.name === 'AbortError') return
+        setError(cause instanceof Error ? cause.message : 'Unable to load featured products.')
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setLoading(false)
+      })
+
+    return () => controller.abort()
+  }, [])
+
+  return (
+    <section aria-labelledby="featured-products-heading" className="px-4 py-8 sm:px-5 sm:py-10 lg:px-8 lg:py-12">
+      <div className="mx-auto max-w-[1360px]">
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-[10px] font-extrabold uppercase tracking-[0.26em] text-[#702d32]">Selected from the catalogue</p>
+            <h2 id="featured-products-heading" className="mt-2 font-serif text-4xl leading-none text-[#1d1716] sm:text-5xl">Featured products</h2>
           </div>
-          <button type="button" aria-label="Show previous finds" onClick={() => scroll('left')} className="absolute -left-4 top-[42%] grid size-8 -translate-y-1/2 place-items-center border border-black bg-[#fffaf2] text-black hover:bg-[#f4a900] sm:-left-12 sm:size-10">
-            <ChevronLeft size={20} aria-hidden="true" />
-          </button>
-          <button type="button" aria-label="Show more finds" onClick={() => scroll('right')} className="absolute -right-4 top-[42%] grid size-8 -translate-y-1/2 place-items-center border border-black bg-[#fffaf2] text-black hover:bg-[#f4a900] sm:-right-12 sm:size-10">
-            <ChevronRight size={20} aria-hidden="true" />
-          </button>
+          <Link href="/products" className="inline-flex shrink-0 items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-[#702d32] hover:text-[#b9563d] sm:text-sm">
+            View all <ArrowRight size={15} aria-hidden="true" />
+          </Link>
         </div>
+
+        {loading ? (
+          <p className="rounded-[24px] border border-[#e7d9bb] bg-[#fffaf2] px-5 py-12 text-center font-serif text-2xl text-[#5f5a56]" role="status">Loading featured products…</p>
+        ) : error ? (
+          <p className="rounded-[24px] border border-[#e7d9bb] bg-[#fffaf2] px-5 py-12 text-center text-sm text-[#702d32]" role="alert">{error}</p>
+        ) : products.length === 0 ? (
+          <p className="rounded-[24px] border border-[#e7d9bb] bg-[#fffaf2] px-5 py-12 text-center text-sm text-[#5f5a56]">
+            No featured products are available right now. <Link href="/products" className="font-bold text-[#702d32] underline underline-offset-4">Browse the full catalogue</Link>.
+          </p>
+        ) : (
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-4">
+            {products.slice(0, 8).map((product) => {
+              const quantityInCart = items.find((item) => item.id === product.id)?.quantity ?? 0
+              const categorySlug = getCategorySlug(product.category)
+
+              return (
+                <article key={product.id} className="flex min-w-0 flex-col overflow-hidden rounded-[22px] border border-[#e7d9bb] bg-[#fffaf2]">
+                  <Link href={`/products/${product.id}`} className="group min-w-0">
+                    <div className="relative aspect-[4/5] overflow-hidden bg-[#eee2d0]">
+                      <ProductImage product={product} categorySlug={categorySlug} />
+                    </div>
+                    <div className="p-3 sm:p-4">
+                      <p className="truncate text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#702d32]">{product.category}</p>
+                      <h3 className="mt-2 line-clamp-2 font-serif text-xl leading-tight text-[#1d1716] sm:text-2xl">{product.title}</h3>
+                      {product.author && <p className="mt-1 truncate text-xs text-[#5f5a56] sm:text-sm">{product.author}</p>}
+                      <p className="mt-3 text-base font-bold text-[#1d1716]">₹{product.price.toLocaleString('en-IN')}</p>
+                    </div>
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => add(product.id, 1, product.stock)}
+                    disabled={product.stock <= 0 || quantityInCart >= product.stock}
+                    className="mx-3 mb-3 min-h-10 rounded-full bg-[#702d32] px-3 py-2 text-xs font-bold text-[#fffaf2] transition-colors hover:bg-[#5a2227] disabled:cursor-not-allowed disabled:opacity-50 sm:mx-4 sm:mb-4"
+                  >
+                    {product.stock <= 0 ? 'Out of stock' : quantityInCart >= product.stock ? 'Stock limit reached' : 'Add to cart'}
+                  </button>
+                </article>
+              )
+            })}
+          </div>
+        )}
       </div>
     </section>
   )
