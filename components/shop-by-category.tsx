@@ -4,14 +4,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { CategoryArtwork } from '@/components/category-artwork'
 export const categoryCardImages = {
-  kids: undefined,
-  women: undefined,
-  men: undefined,
+  kids: '/Kids.png',
+  women: '/Women.png',
+  men: '/Men.png',
   handicrafts: '/hero-image-2.jpeg',
-  'home-living': '/hero-image-3.jpeg',
-  accessories: undefined,
-  'art-collectibles': undefined,
-  furniture: undefined,
+  'home-living': '/Home%20%26%20Living.png',
+  accessories: '/Accessories.png',
+  'art-collectibles': '/Art%20%26%20Collectibles.png',
+  furniture: '/Furniture.png',
   'gi-tagged': undefined,
 } as const
 

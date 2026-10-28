@@ -84,8 +84,14 @@ export default function Page() {
               <a href="mailto:support@indianheritager.com?subject=Become%20a%20seller" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#702d32] px-5 py-3 text-sm font-bold text-[#fffaf2] transition-colors hover:bg-[#5a2227]">Register now</a>
             </div>
           </div>
-          <div className="min-h-[240px] overflow-hidden rounded-[26px] border border-[#d4c1a8] lg:min-h-[300px]">
-            <CategoryArtwork category="handicrafts" className="size-full min-h-[240px] lg:min-h-[300px]" />
+          <div className="relative min-h-[240px] overflow-hidden rounded-[26px] border border-[#d4c1a8] lg:min-h-[300px]">
+            <Image
+              src="/Vendor.png"
+              alt="Indian Heritager marketplace artisan and vendor"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
           </div>
         </div>
       </section>
