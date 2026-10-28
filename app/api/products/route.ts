@@ -11,6 +11,7 @@ export async function GET(request: NextRequest) {
   const query = params.get('q')?.trim() ?? ''
   const ids = params.get('ids')?.split(',').map((id) => id.trim()).filter(Boolean) ?? []
   const category = params.get('category')?.trim() ?? ''
+  const subcategory = params.get('subcategory')?.trim() ?? ''
   const sort = params.get('sort') ?? 'featured'
   const featuredOnly = params.get('featured') === 'true'
 
@@ -32,6 +33,16 @@ export async function GET(request: NextRequest) {
   }
 
   if (category && category !== 'All products') filters.push(eq(products.category, category))
+  if (subcategory) {
+    const subcategoryFilter = or(
+      ilike(products.title, `%${subcategory}%`),
+      ilike(products.name, `%${subcategory}%`),
+      ilike(products.description, `%${subcategory}%`),
+      ilike(products.shortDescription, `%${subcategory}%`),
+      ilike(products.tags, `%${subcategory}%`),
+    )
+    if (subcategoryFilter) filters.push(subcategoryFilter)
+  }
 
   const orderBy =
     sort === 'price-asc'

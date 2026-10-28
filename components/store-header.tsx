@@ -6,30 +6,11 @@ import { useEffect, useState } from 'react'
 import { ChevronDown, Menu, Search, ShoppingBag, UserRound, X } from 'lucide-react'
 import { useCart } from '@/components/cart-provider'
 import { useSession } from '@/lib/auth-client'
-import { productsHref } from '@/lib/categories'
+import { navigationCategories, subcategoryHref } from '@/lib/navigation'
 
 type DrawerTab = 'menu' | 'account' | 'settings'
 
-const menuCategories = [
-  { label: 'Men', href: productsHref('clothing') },
-  { label: 'Women', href: productsHref('clothing') },
-  { label: 'Kids', href: productsHref('clothing') },
-  { label: 'Handicrafts', href: productsHref('handicrafts') },
-  { label: 'Home & Living', href: productsHref('home-decor') },
-  { label: 'Jewellery', href: productsHref('jewellery') },
-  { label: 'Art & Collectibles', href: productsHref('art-collectibles') },
-  { label: 'Traditional Products', href: productsHref('traditional-products') },
-  {
-    label: 'Other Products',
-    href: productsHref('other-products'),
-    children: [
-      { label: 'Accessories', href: productsHref('accessories') },
-      { label: 'Gifts', href: productsHref('gifts') },
-    ],
-  },
-  { label: 'GI Tagged', href: productsHref('handicrafts') },
-  { label: 'ODOP', href: productsHref('traditional-products') },
-]
+const menuCategories = navigationCategories
 
 export function StoreHeader() {
   const { count } = useCart()
@@ -128,30 +109,40 @@ export function StoreHeader() {
           </div>
         </div>
 
-        <nav aria-label="Product categories" className="mx-auto hidden min-h-12 max-w-[1400px] items-center justify-start gap-4 overflow-x-auto border-t border-[#e7d9bb] bg-[#f2e7d8] px-4 py-2.5 lg:flex xl:justify-center xl:gap-5">
+        <nav aria-label="Product categories" onKeyDown={(event) => { if (event.key === 'Escape') (event.target as HTMLElement).closest('details')?.removeAttribute('open') }} className="mx-auto hidden min-h-12 max-w-[1400px] items-center justify-start gap-4 border-t border-[#e7d9bb] bg-[#f2e7d8] px-4 py-2.5 lg:flex xl:justify-center xl:gap-5">
           {menuCategories.map((category) => {
-            if (category.children) {
+            if (!category.megaMenu) {
               return (
-                <details key={category.label} className="group relative">
-                  <summary className="flex cursor-pointer list-none items-center gap-1 whitespace-nowrap text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#3b2f2d]">
-                    {category.label}
-                    <ChevronDown size={12} aria-hidden="true" />
-                  </summary>
-                  <div className="absolute left-0 top-full z-50 mt-3 min-w-44 rounded-xl border border-[#ead7b1] bg-[#fffaf2] p-2 shadow-[0_18px_40px_rgba(40,38,33,0.12)]">
-                    {category.children.map((child) => (
-                      <Link key={child.label} href={child.href} className="block rounded-lg px-3 py-2 text-xs font-semibold text-[#2d2a26] transition-colors hover:bg-[#f0e3c8]">
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                </details>
+                <Link key={category.label} href={category.href} className="whitespace-nowrap text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#3b2f2d] transition-colors hover:text-[#702d32] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#702d32] focus-visible:ring-offset-2">
+                  {category.label}
+                </Link>
               )
             }
 
+            const categoryColumnCount = category.label === 'Kids' ? 3 : category.label === 'Women' ? 2 : category.label === 'Men' ? 2 : 3
+            const alignment = category.label === 'Furniture' ? 'right-0' : category.label === 'Kids' ? 'left-[-52px]' : category.label === 'Women' ? 'left-[-170px]' : 'left-[-100px]'
             return (
-              <Link key={category.label} href={category.href} className="whitespace-nowrap text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#3b2f2d] transition-colors hover:text-[#702d32]">
-                {category.label}
-              </Link>
+              <details key={category.label} className="group relative">
+                <summary className="flex cursor-pointer list-none items-center gap-1 whitespace-nowrap py-1 text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#3b2f2d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#702d32] focus-visible:ring-offset-2">
+                  {category.label}<ChevronDown size={12} aria-hidden="true" className="transition-transform group-open:rotate-180" />
+                </summary>
+                <div className={`absolute top-full ${alignment} z-50 hidden w-[min(760px,calc(100vw-48px))] group-hover:block group-focus-within:block`}>
+                  <div className="mt-2 rounded-none border border-[#dcc69d] bg-[#fffaf2] p-5 shadow-[0_22px_55px_rgba(40,38,33,0.16)] md:p-7">
+                    <div className={`grid gap-x-8 gap-y-7 ${categoryColumnCount === 3 ? 'grid-cols-3' : 'grid-cols-2'}`}>
+                      {category.megaMenu.columns.map((section) => (
+                        <section key={section.label} className="min-w-0">
+                          <h2 className="mb-2 text-[11px] font-extrabold uppercase tracking-[0.08em] text-[#702d32]">{section.label}</h2>
+                          <ul className="space-y-1">
+                            {section.items.map((item) => (
+                              <li key={item}><Link href={subcategoryHref(category.megaMenu!.label === 'Furniture' ? 'home-decor' : 'clothing', item)} className="block py-1 text-sm leading-5 text-[#2f2925] hover:text-[#a83f35] focus-visible:outline-none focus-visible:text-[#a83f35] focus-visible:underline">{item}</Link></li>
+                            ))}
+                          </ul>
+                        </section>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </details>
             )
           })}
         </nav>
@@ -191,17 +182,25 @@ export function StoreHeader() {
               {drawerTab === 'menu' && (
                 <nav aria-label="Product categories" className="flex flex-col">
                   {menuCategories.map((category) =>
-                    category.children ? (
+                    category.megaMenu ? (
                       <details key={category.label} className="border-b border-[#eadfbe]">
                         <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between px-5 py-3 text-xs font-semibold">
                           {category.label}
                           <ChevronDown size={14} aria-hidden="true" />
                         </summary>
-                        <div className="bg-[#ffedbd]">
-                          {category.children.map((child) => (
-                            <Link key={child.label} href={child.href} onClick={closeMenu} className="flex min-h-10 items-center border-t border-[#eadfbe] px-8 py-2 text-xs">
-                              {child.label}
-                            </Link>
+                        <div className="bg-[#f8efd8] px-3 py-2">
+                          <Link href={category.href} onClick={closeMenu} className="block rounded px-5 py-2 text-xs font-bold uppercase tracking-[0.12em] text-[#702d32]">
+                            All {category.label}
+                          </Link>
+                          {category.megaMenu.columns.map((section) => (
+                            <details key={section.label} className="border-t border-[#eadfbe]">
+                              <summary className="cursor-pointer list-none px-5 py-2 text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#702d32]">{section.label}</summary>
+                              <div>
+                                {section.items.map((item) => (
+                                  <Link key={item} href={subcategoryHref(category.label === 'Furniture' ? 'home-decor' : 'clothing', item)} onClick={closeMenu} className="block min-h-10 px-7 py-2 text-xs text-[#3b3632]">{item}</Link>
+                                ))}
+                              </div>
+                            </details>
                           ))}
                         </div>
                       </details>

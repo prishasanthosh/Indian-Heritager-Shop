@@ -23,6 +23,7 @@ export default function ProductsPage() {
   const { add, items } = useCart()
   const [search, setSearch] = useState('')
   const [categorySlug, setCategorySlug] = useState('')
+  const [subcategory, setSubcategory] = useState('')
   const [price, setPrice] = useState('')
   const [rating, setRating] = useState('')
   const [inStock, setInStock] = useState(false)
@@ -36,6 +37,7 @@ export default function ProductsPage() {
     const params = new URLSearchParams(window.location.search)
     setSearch(params.get('search') ?? params.get('q') ?? '')
     setCategorySlug(params.get('category') ?? '')
+    setSubcategory(params.get('subcategory') ?? '')
     setSort(params.get('sort') ?? 'featured')
     setPage(Math.max(1, Number(params.get('page') ?? '1') || 1))
   }, [])
@@ -57,6 +59,7 @@ export default function ProductsPage() {
     const params = new URLSearchParams({ page: String(page), sort })
     if (search) params.set('q', search)
     if (categorySlug) params.set('category', category?.value ?? categorySlug)
+    if (subcategory) params.set('subcategory', subcategory)
     if (price) params.set('price', price)
     if (rating) params.set('rating', rating)
     if (inStock) params.set('inStock', 'true')
@@ -67,7 +70,7 @@ export default function ProductsPage() {
       .catch(() => setResult({ products: [], page, pageSize: 24, hasMore: false }))
       .finally(() => setLoading(false))
     return () => controller.abort()
-  }, [page, search, category, sort, price, rating, inStock])
+  }, [page, search, category, subcategory, sort, price, rating, inStock])
 
   const change = (next: Record<string, string | number | boolean>) => {
     if ('search' in next) setPage(1)
@@ -84,6 +87,7 @@ export default function ProductsPage() {
   const clearFilters = () => {
     setSearch('')
     setCategorySlug('')
+    setSubcategory('')
     setPrice('')
     setRating('')
     setInStock(false)
@@ -92,7 +96,7 @@ export default function ProductsPage() {
     window.history.pushState({}, '', '/products')
   }
 
-  const title = category?.name ?? 'All products'
+  const title = subcategory || category?.name || 'All products'
   const products = result.products
 
   return (
