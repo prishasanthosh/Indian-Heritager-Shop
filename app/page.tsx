@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, PackageCheck, Sparkles, Truck } from 'lucide-react'
-import { CategoryArtwork } from '@/components/category-artwork'
 import { FantasticFinds } from '@/components/fantastic-finds'
 import { HeritageMarquee } from '@/components/heritage-marquee'
 import { HeroCarousel } from '@/components/hero-carousel'
@@ -64,7 +63,15 @@ export default function Page() {
 
       <section aria-labelledby="maker-stories-heading" className="px-4 py-8 sm:px-5 sm:py-10 lg:px-8 lg:py-12">
         <div className="mx-auto grid max-w-[1360px] overflow-hidden rounded-[28px] border border-[#e7d9bb] bg-[#fffaf2] sm:grid-cols-[0.8fr_1.2fr]">
-          <CategoryArtwork category="handicrafts" className="min-h-48 sm:min-h-64" />
+          <div className="relative min-h-48 overflow-hidden sm:min-h-64">
+            <Image
+              src="/Vendor 2.png"
+              alt="Indian artisan shaping clay pottery"
+              fill
+              sizes="(min-width: 640px) 40vw, 100vw"
+              className="object-cover"
+            />
+          </div>
           <div className="flex flex-col justify-center p-5 sm:p-8 lg:p-10">
             <p className="text-[10px] font-extrabold uppercase tracking-[0.26em] text-[#702d32]">Maker stories</p>
             <h2 id="maker-stories-heading" className="mt-2 font-serif text-3xl leading-tight text-[#1d1716] sm:text-4xl">Stories from the people behind the craft.</h2>

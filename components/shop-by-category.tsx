@@ -12,7 +12,7 @@ export const categoryCardImages = {
   accessories: '/Accessories.png',
   'art-collectibles': '/Art%20%26%20Collectibles.png',
   furniture: '/Furniture.png',
-  'gi-tagged': undefined,
+  'gi-tagged': '/GI%20Tagged.png',
 } as const
 
 const categories = [
