@@ -1,0 +1,14 @@
+'use client'
+import { useState } from 'react'
+type Vendor={storeName:string;description:string;businessAddress:string;city:string;state:string;pincode:string;country:string;phone:string;logo:string;banner:string;website:string;instagram:string;facebook:string}
+export function VendorStoreForm({initialVendor}:{initialVendor:Vendor}){
+  const [form,setForm]=useState(initialVendor); const [message,setMessage]=useState(''); const [uploading,setUploading]=useState('')
+  const update=(key:keyof Vendor,value:string)=>setForm(current=>({...current,[key]:value}))
+  async function upload(key:'logo'|'banner', file:File){setUploading(key);setMessage('');const data=new FormData();data.append('image',file);const response=await fetch('/api/vendor/products/image',{method:'POST',body:data});const result=await response.json();if(response.ok)update(key,result.url);else setMessage(result.error??'Could not upload image.');setUploading('')}
+  async function save(event:React.FormEvent){event.preventDefault();const response=await fetch('/api/vendor/store',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(form)});setMessage(response.ok?'Store profile saved.':'Could not save store profile.')}
+  const labels:Partial<Record<keyof Vendor,string>>={storeName:'Store name',description:'Store description',businessAddress:'Address',city:'City',state:'State',pincode:'Postal code',country:'Country',phone:'Contact phone',logo:'Logo image URL',banner:'Banner image URL',website:'Website',instagram:'Instagram',facebook:'Facebook'}
+  return <form onSubmit={save} className="mt-6 grid gap-4 rounded-[24px] border border-[#e7d9bb] bg-white p-6 sm:grid-cols-2">
+    {(Object.keys(labels) as (keyof Vendor)[]).map(key=><label key={key} className={key==='description'||key==='businessAddress'||key==='logo'||key==='banner'?'sm:col-span-2':''}><span className="mb-1 block text-sm font-semibold">{labels[key]}</span>{key==='description'||key==='businessAddress'?<textarea value={form[key]} onChange={event=>update(key,event.target.value)} rows={3} className="w-full border border-[#d8cbb7] p-3"/>:<input value={form[key]} onChange={event=>update(key,event.target.value)} className="w-full border border-[#d8cbb7] px-3 py-3"/>}{(key==='logo'||key==='banner')&&<input type="file" accept="image/jpeg,image/png,image/webp" className="mt-2 w-full border border-[#d8cbb7] p-3" onChange={event=>{const file=event.target.files?.[0];if(file)void upload(key,file)}}/>}</label>)}
+    <div className="sm:col-span-2"><button disabled={Boolean(uploading)} className="rounded-full bg-[#702d32] px-5 py-3 font-bold text-white disabled:opacity-60">{uploading?'Uploading…':'Save store profile'}</button>{message&&<span className="ml-4 text-sm">{message}</span>}</div>
+  </form>
+}

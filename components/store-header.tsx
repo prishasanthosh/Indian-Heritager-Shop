@@ -81,6 +81,7 @@ export function StoreHeader() {
           </form>
 
           <div className="col-start-2 row-start-1 flex shrink-0 items-center justify-self-end gap-2 sm:gap-3 lg:col-start-3">
+            <Link href="/sell-with-us" className="hidden text-xs font-extrabold uppercase tracking-[0.12em] text-[#702d32] xl:inline-flex">Sell with us</Link>
             {session?.user ? (
               <Link href="/account" aria-label="My account" className="hidden items-center gap-2 rounded-full bg-[#702d32] px-3 py-2.5 text-sm font-semibold text-[#fffaf2] transition-colors hover:bg-[#5a2227] lg:inline-flex">
                 <UserRound size={16} /> My account

@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
   try {
     const result = await db.transaction(async (tx) => {
       const ids = parsed.data.items.map((item) => item.id)
-      const currentProducts = await tx.select().from(products).where(and(eq(products.isArchived, false), notIlike(products.category, 'books'), sql`${products.id} in ${ids}`))
+      const currentProducts = await tx.select().from(products).where(and(eq(products.isArchived, false), eq(products.moderationStatus, 'approved'), notIlike(products.category, 'books'), sql`${products.id} in ${ids}`))
       const byId = new Map(currentProducts.map((product) => [product.id, product]))
       if (byId.size !== ids.length) throw new Error('Some products are no longer available.')
       let subtotal = 0
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       const shipping = shippingFor(subtotal)
       const id = makeOrderId()
       await tx.insert(orders).values({ id, userId: session.user.id, status: 'pending', total: subtotal + shipping, subtotal, shipping, customerName: parsed.data.fullName, customerEmail: parsed.data.email, customerPhone: parsed.data.phone, shippingAddress: formatAddress(parsed.data), shippingAddress2: parsed.data.address2, city: parsed.data.city, state: parsed.data.state, pincode: parsed.data.pincode, country: parsed.data.country })
-      for (const { product, quantity } of snapshots) { const updated = await tx.update(products).set({ stock: sql`${products.stock} - ${quantity}`, updatedAt: new Date() }).where(and(eq(products.id, product.id), eq(products.isArchived, false), notIlike(products.category, 'books'), sql`${products.stock} >= ${quantity}`)).returning({ id: products.id }); if (!updated.length) throw new Error('Some products in your cart are no longer available in the requested quantity.'); await tx.insert(orderItems).values({ id: crypto.randomUUID(), orderId: id, bookId: product.id, title: product.title, author: product.author, price: product.price, quantity }) }
+      for (const { product, quantity } of snapshots) { const updated = await tx.update(products).set({ stock: sql`${products.stock} - ${quantity}`, updatedAt: new Date() }).where(and(eq(products.id, product.id), eq(products.isArchived, false), eq(products.moderationStatus, 'approved'), notIlike(products.category, 'books'), sql`${products.stock} >= ${quantity}`)).returning({ id: products.id }); if (!updated.length) throw new Error('Some products in your cart are no longer available in the requested quantity.'); await tx.insert(orderItems).values({ id: crypto.randomUUID(), orderId: id, bookId: product.id, productId: product.id, vendorId: product.vendorId, title: product.title, author: product.author, price: product.price, quantity }) }
       return id
     })
     return NextResponse.json({ id: result })

@@ -1,0 +1,8 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { eq } from 'drizzle-orm'
+import { z } from 'zod'
+import { db } from '@/lib/db'
+import { products, marketplaceAuditLog, vendorNotifications } from '@/lib/db/schema'
+import { currentAdministrator } from '@/lib/vendor-auth'
+const schema=z.object({id:z.string(),status:z.enum(['approved','rejected']),reason:z.string().max(1000).optional()})
+export async function POST(request:NextRequest){const admin=await currentAdministrator();if(!admin)return NextResponse.json({error:'Forbidden'},{status:403});const parsed=schema.safeParse(await request.json());if(!parsed.success)return NextResponse.json({error:'Invalid moderation action.'},{status:400});const [product]=await db.select().from(products).where(eq(products.id,parsed.data.id));if(!product)return NextResponse.json({error:'Product not found'},{status:404});await db.update(products).set({moderationStatus:parsed.data.status,moderationReason:parsed.data.reason??null,active:parsed.data.status==='approved'&&!product.isArchived,updatedAt:new Date()}).where(eq(products.id,parsed.data.id));if(product.vendorId){await db.insert(vendorNotifications).values({id:crypto.randomUUID(),vendorId:product.vendorId,type:parsed.data.status==='approved'?'product_approved':'product_rejected',title:`Product ${parsed.data.status}`,message:parsed.data.reason??`${product.title} was ${parsed.data.status}.`});await db.insert(marketplaceAuditLog).values({id:crypto.randomUUID(),actorUserId:admin.id,vendorId:product.vendorId,action:`product.${parsed.data.status}`,details:`${product.id} ${parsed.data.reason??''}`})}return NextResponse.json({ok:true})}

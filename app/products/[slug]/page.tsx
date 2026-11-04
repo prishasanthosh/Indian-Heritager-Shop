@@ -6,14 +6,14 @@ import { and, eq, notIlike } from 'drizzle-orm'
 import { AddToCart } from './add-to-cart'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const product = await db.select({ title: products.title, description: products.description }).from(products).where(and(eq(products.id, idFromProductSlug((await params).slug)), notIlike(products.category, 'books'))).limit(1)
+  const product = await db.select({ title: products.title, description: products.description }).from(products).where(and(eq(products.id, idFromProductSlug((await params).slug)), notIlike(products.category, 'books'), eq(products.moderationStatus, 'approved'))).limit(1)
   return product[0]
     ? { title: `${product[0].title} | Indian Heritager`, description: product[0].description }
     : { title: 'Product | Indian Heritager' }
 }
 
 export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
-  const product = (await db.select().from(products).where(and(eq(products.id, idFromProductSlug((await params).slug)), notIlike(products.category, 'books'))).limit(1))[0]
+  const product = (await db.select().from(products).where(and(eq(products.id, idFromProductSlug((await params).slug)), notIlike(products.category, 'books'), eq(products.moderationStatus, 'approved'))).limit(1))[0]
   if (!product || product.isArchived) notFound()
 
   return (

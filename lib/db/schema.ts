@@ -2,6 +2,9 @@ import { boolean, index, integer, numeric, pgEnum, pgTable, text, timestamp, uni
 
 export const orderStatus = pgEnum('order_status', ['pending', 'recorded', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled'])
 export const paymentStatus = pgEnum('payment_status', ['pending', 'paid', 'failed', 'refunded'])
+export const vendorStatus = pgEnum('vendor_status', ['pending', 'approved', 'rejected', 'suspended'])
+export const productModerationStatus = pgEnum('product_moderation_status', ['pending', 'approved', 'rejected'])
+export const notificationType = pgEnum('vendor_notification_type', ['application_submitted', 'application_approved', 'application_rejected', 'vendor_suspended', 'product_submitted', 'product_approved', 'product_rejected', 'new_order', 'order_status', 'low_inventory'])
 
 export const user = pgTable('user', {
   id: text('id').primaryKey(),
@@ -60,6 +63,61 @@ export const verification = pgTable('verification', {
   verificationIdentifierIdx: index('verification_identifier_idx').on(table.identifier),
 }))
 
+export const vendorProfiles = pgTable('vendor_profiles', {
+  id: text('id').primaryKey(),
+  userId: text('user_id').notNull().unique().references(() => user.id, { onDelete: 'cascade' }),
+  status: vendorStatus('status').notNull().default('pending'),
+  storeName: text('store_name').notNull(),
+  storeSlug: text('store_slug').notNull().unique(),
+  contactName: text('contact_name').notNull(),
+  phone: text('phone').notNull(),
+  description: text('description').notNull().default(''),
+  businessType: text('business_type').notNull().default(''),
+  businessAddress: text('business_address').notNull().default(''),
+  city: text('city').notNull().default(''),
+  state: text('state').notNull().default(''),
+  pincode: text('pincode').notNull().default(''),
+  country: text('country').notNull().default('India'),
+  gstNumberEncrypted: text('gst_number_encrypted').notNull().default(''),
+  panNumberEncrypted: text('pan_number_encrypted').notNull().default(''),
+  bankHolderEncrypted: text('bank_holder_encrypted').notNull().default(''),
+  bankAccountEncrypted: text('bank_account_encrypted').notNull().default(''),
+  ifscEncrypted: text('ifsc_encrypted').notNull().default(''),
+  logo: text('logo').notNull().default(''),
+  banner: text('banner').notNull().default(''),
+  website: text('website').notNull().default(''),
+  instagram: text('instagram').notNull().default(''),
+  facebook: text('facebook').notNull().default(''),
+  rejectionReason: text('rejection_reason'),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow(),
+}, (table) => ({
+  vendorStatusIdx: index('vendor_status_idx').on(table.status),
+}))
+
+export const vendorNotifications = pgTable('vendor_notifications', {
+  id: text('id').primaryKey(),
+  vendorId: text('vendor_id').notNull().references(() => vendorProfiles.id, { onDelete: 'cascade' }),
+  type: notificationType('type').notNull(),
+  title: text('title').notNull(),
+  message: text('message').notNull(),
+  read: boolean('read').notNull().default(false),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+}, (table) => ({
+  vendorNotificationVendorIdx: index('vendor_notification_vendor_idx').on(table.vendorId),
+}))
+
+export const marketplaceAuditLog = pgTable('marketplace_audit_log', {
+  id: text('id').primaryKey(),
+  actorUserId: text('actor_user_id').references(() => user.id, { onDelete: 'set null' }),
+  vendorId: text('vendor_id').references(() => vendorProfiles.id, { onDelete: 'set null' }),
+  action: text('action').notNull(),
+  details: text('details').notNull().default(''),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+}, (table) => ({
+  auditActionIdx: index('marketplace_audit_action_idx').on(table.action),
+}))
+
 export const categories = pgTable('categories', {
   id: text('id').primaryKey(),
   name: text('name').notNull(),
@@ -83,6 +141,18 @@ export const products = pgTable('products', {
   sku: text('sku').notNull().default(''),
   category: text('category').notNull(),
   categoryId: text('category_id').references(() => categories.id, { onDelete: 'set null' }),
+  vendorId: text('vendor_id').references(() => vendorProfiles.id, { onDelete: 'set null' }),
+  moderationStatus: productModerationStatus('moderation_status').notNull().default('approved'),
+  moderationReason: text('moderation_reason'),
+  materials: text('materials').notNull().default(''),
+  dimensions: text('dimensions').notNull().default(''),
+  weight: text('weight').notNull().default(''),
+  origin: text('origin').notNull().default(''),
+  specifications: text('specifications').notNull().default(''),
+  craftType: text('craft_type').notNull().default(''),
+  artisanInfo: text('artisan_info').notNull().default(''),
+  regionOfOrigin: text('region_of_origin').notNull().default(''),
+  giTagInfo: text('gi_tag_info').notNull().default(''),
   description: text('description').notNull().default(''),
   shortDescription: text('short_description').notNull().default(''),
   price: integer('price').notNull(),
@@ -106,6 +176,8 @@ export const products = pgTable('products', {
   productCategoryIdIdx: index('product_category_id_idx').on(table.categoryId),
   productActiveIdx: index('product_active_idx').on(table.active),
   productFeaturedIdx: index('product_featured_idx').on(table.featured),
+  productVendorIdx: index('product_vendor_idx').on(table.vendorId),
+  productModerationIdx: index('product_moderation_idx').on(table.moderationStatus),
   productCreatedAtIdx: index('product_created_at_idx').on(table.createdAt),
 }))
 
@@ -178,8 +250,13 @@ export const orderItems = pgTable('order_items', {
   author: text('author').notNull().default(''),
   price: integer('price').notNull(),
   quantity: integer('quantity').notNull().default(1),
+  vendorId: text('vendor_id').references(() => vendorProfiles.id, { onDelete: 'set null' }),
+  fulfilmentStatus: text('fulfilment_status').notNull().default('new'),
+  trackingNumber: text('tracking_number'),
+  carrier: text('carrier'),
 }, (table) => ({
   orderItemsOrderIdIdx: index('order_items_order_id_idx').on(table.orderId),
+  orderItemsVendorIdIdx: index('order_items_vendor_id_idx').on(table.vendorId),
   orderItemsBookIdIdx: index('order_items_book_id_idx').on(table.bookId),
   orderItemsProductIdIdx: index('order_items_product_id_idx').on(table.productId),
 }))
@@ -244,6 +321,7 @@ export const orderFields = { customerName: orders.customerName, customerEmail: o
 export const orderItemFields = { title: orderItems.title, author: orderItems.author, price: orderItems.price, quantity: orderItems.quantity }
 
 export const statusValues = ['pending', 'recorded', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled'] as const
+export const fulfilmentStatuses = ['new', 'processing', 'shipped', 'delivered', 'cancelled'] as const
 
 export const stockError = (title: string, stock: number) => `Only ${stock} ${stock === 1 ? 'item' : 'items'} of ${title} are currently available.`
 

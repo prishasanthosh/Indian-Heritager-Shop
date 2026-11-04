@@ -17,6 +17,13 @@ const brandLinks = [
   ['Ask a question', 'mailto:support@indianheritager.com?subject=Customer%20question'],
 ]
 
+const sellerLinks = [
+  ['Become a Seller', '/sell-with-us'],
+  ['Vendor Registration', '/vendor/register'],
+  ['Vendor Login', '/vendor/login'],
+  ['Seller Support', 'mailto:support@indianheritager.com?subject=Seller%20support'],
+]
+
 const customerCareLinks = [
   ['Shipping & Delivery', 'mailto:support@indianheritager.com?subject=Shipping%20question'],
   ['Returns & Refunds', 'mailto:support@indianheritager.com?subject=Returns%20question'],
@@ -47,7 +54,7 @@ function FooterLinks({ title, links }: { title: string; links: string[][] }) {
 export function StoreFooter() {
   return (
     <footer className="store-footer relative overflow-hidden bg-[#20201d] px-4 py-9 text-[#f7f1e6] sm:px-5 sm:py-12 lg:px-8 lg:py-14 xl:px-12">
-      <div className="relative mx-auto grid max-w-[1800px] gap-7 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 xl:grid-cols-[1.2fr_0.7fr_0.8fr_0.9fr_1.2fr] xl:gap-8">
+      <div className="relative mx-auto grid max-w-[1800px] gap-7 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 xl:grid-cols-[1.2fr_0.7fr_0.8fr_0.9fr_0.9fr_1.2fr] xl:gap-8">
         <div>
           <Link href="/" aria-label="Indian Heritager home" className="inline-flex min-w-0 items-center gap-3">
             <img src="/logo.png" alt="" width="56" height="56" className="size-11 shrink-0 rounded-full border border-[#e7d9bb] object-contain sm:size-12" />
@@ -62,6 +69,7 @@ export function StoreFooter() {
         <FooterLinks title="Shop" links={shopLinks} />
         <FooterLinks title="Indian Heritager" links={brandLinks} />
         <FooterLinks title="Customer Care" links={customerCareLinks} />
+        <FooterLinks title="Sell on Indian Heritager" links={sellerLinks} />
 
         <div>
           <h2 className="text-base font-bold text-[#f8ead7]">Contact us</h2>

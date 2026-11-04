@@ -1,0 +1,4 @@
+import { approvedVendorForCurrentUser } from '@/lib/vendor-auth'
+import { redirect } from 'next/navigation'
+import { VendorStoreForm } from './vendor-store-form'
+export default async function VendorStorePage(){const access=await approvedVendorForCurrentUser();if(!access)redirect('/vendor/login');const {gstNumberEncrypted,panNumberEncrypted,bankHolderEncrypted,bankAccountEncrypted,ifscEncrypted,...vendor}=access.vendor;return <main className="min-h-screen bg-[#f8f5ee] px-4 py-8"><div className="mx-auto max-w-4xl"><h1 className="font-serif text-4xl">Store profile</h1><VendorStoreForm initialVendor={vendor}/></div></main>}

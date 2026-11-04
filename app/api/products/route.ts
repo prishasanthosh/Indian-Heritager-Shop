@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
   const sort = params.get('sort') ?? 'featured'
   const featuredOnly = params.get('featured') === 'true'
 
-  const filters: SQL[] = [eq(products.isArchived, false), notIlike(products.category, 'books')]
+  const filters: SQL[] = [eq(products.isArchived, false), eq(products.moderationStatus, 'approved'), notIlike(products.category, 'books')]
 
   if (ids.length) filters.push(sql`${products.id} in ${ids}`)
   if (featuredOnly) filters.push(eq(products.featured, true))
