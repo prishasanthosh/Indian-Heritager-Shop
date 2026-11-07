@@ -13,23 +13,22 @@ const brandLinks = [
   ['About Us', '/about'],
   ['Our Story', '/#story'],
   ['Our Heritage', '/about'],
-  ['Contact Us', 'mailto:support@indianheritager.com'],
-  ['Ask a question', 'mailto:support@indianheritager.com?subject=Customer%20question'],
+  ['Contact Us', 'mailto:support@indianheritager.org'],
+  ['Ask a question', 'mailto:support@indianheritager.org?subject=Customer%20question'],
 ]
 
 const sellerLinks = [
   ['Become a Seller', '/sell-with-us'],
   ['Vendor Registration', '/vendor/register'],
   ['Vendor Login', '/vendor/login'],
-  ['Seller Support', 'mailto:support@indianheritager.com?subject=Seller%20support'],
+  ['Seller Support', 'mailto:support@indianheritager.org?subject=Seller%20support'],
 ]
 
 const customerCareLinks = [
-  ['Shipping & Delivery', 'mailto:support@indianheritager.com?subject=Shipping%20question'],
-  ['Returns & Refunds', 'mailto:support@indianheritager.com?subject=Returns%20question'],
-  ['Track Your Order', '/account'],
-  ['Privacy questions', 'mailto:support@indianheritager.com?subject=Privacy%20question'],
-  ['Terms questions', 'mailto:support@indianheritager.com?subject=Terms%20question'],
+  ['Shipping & Delivery', '/shipping-policy'],
+  ['Returns & Refunds', '/return-refund-policy'],
+  ['Privacy Policy', '/privacy-policy'],
+  ['Terms & Conditions', '/terms-and-conditions'],
 ]
 
 function FooterLinks({ title, links }: { title: string; links: string[][] }) {
@@ -79,7 +78,7 @@ export function StoreFooter() {
           <p className="mt-4 inline-flex max-w-full items-start gap-2 text-sm leading-5 text-[#f7f1e6]/78">
             <Mail size={16} className="mt-0.5 shrink-0 text-[#f8ead7]" aria-hidden="true" />
             <span><strong className="text-[#fffaf2]">Email:</strong>{' '}
-              <a className="break-all transition-colors hover:text-[#fffaf2]" href="mailto:support@indianheritager.com">support@indianheritager.com</a>
+              <a className="break-all transition-colors hover:text-[#fffaf2]" href="mailto:support@indianheritager.org">support@indianheritager.org</a>
             </span>
           </p>
         </div>
