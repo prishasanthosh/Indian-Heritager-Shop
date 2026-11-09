@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { vendorPortalHref } from '@/lib/site-urls'
 import { ArrowRight, PackageCheck, Sparkles, Truck } from 'lucide-react'
 import { FantasticFinds } from '@/components/fantastic-finds'
 import { HeritageMarquee } from '@/components/heritage-marquee'
@@ -88,7 +89,7 @@ export default function Page() {
               <p className="text-[10px] font-extrabold uppercase tracking-[0.28em] text-[#702d32]">Become a seller</p>
               <h2 className="mt-3 font-serif text-4xl leading-[0.9] text-[#1d1716] sm:text-5xl">Bring your products to Indian Heritager.</h2>
               <p className="mt-5 max-w-xl text-sm leading-6 text-[#433e38]">Interested in listing heritage-inspired products? Contact our team to learn more about selling with Indian Heritager.</p>
-              <a href="/vendor/login" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#702d32] px-5 py-3 text-sm font-bold text-[#fffaf2] transition-colors hover:bg-[#5a2227]">Register now</a>
+              <a href={vendorPortalHref('/login')} className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#702d32] px-5 py-3 text-sm font-bold text-[#fffaf2] transition-colors hover:bg-[#5a2227]">Register now</a>
             </div>
           </div>
           <div className="relative min-h-[240px] overflow-hidden rounded-[26px] border border-[#d4c1a8] lg:min-h-[300px]">

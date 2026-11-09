@@ -7,7 +7,7 @@ import { VendorProductForm } from '../../new/vendor-product-form'
 
 export default async function EditVendorProduct({ params }: { params: Promise<{ id: string }> }) {
   const access = await approvedVendorForCurrentUser()
-  if (!access) redirect('/vendor/login')
+  if (!access) redirect('/login')
   const { id } = await params
   const [product] = await db.select().from(products).where(and(eq(products.id, id), eq(products.vendorId, access.vendor.id)))
   if (!product) notFound()

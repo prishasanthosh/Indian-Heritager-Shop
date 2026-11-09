@@ -3,14 +3,15 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { signOut } from '@/lib/auth-client'
+import { bookstoreHref } from '@/lib/site-urls'
 
 const links = [
-  ['Overview', '/vendor/dashboard'],
-  ['Store', '/vendor/store'],
-  ['Products', '/vendor/products'],
-  ['Inventory', '/vendor/inventory'],
-  ['Orders', '/vendor/orders'],
-  ['Notifications', '/vendor/notifications'],
+  ['Overview', '/dashboard'],
+  ['Store', '/store'],
+  ['Products', '/products'],
+  ['Inventory', '/inventory'],
+  ['Orders', '/orders'],
+  ['Notifications', '/notifications'],
 ]
 
 export function VendorShell({ storeName, children }: { storeName: string; children: React.ReactNode }) {
@@ -25,8 +26,8 @@ export function VendorShell({ storeName, children }: { storeName: string; childr
         {links.map(([label, href]) => <Link key={href} href={href} className={`whitespace-nowrap rounded-xl px-3 py-2 text-sm font-bold ${pathname === href ? 'bg-[#702d32] text-white' : 'text-[#d8dfdf] hover:bg-white/10'}`}>{label}</Link>)}
       </nav>
       <div className="mt-5 flex gap-3 border-t border-white/10 pt-5 lg:flex-col">
-        <Link href="/" className="rounded-xl px-3 py-2 text-sm font-bold text-[#d8dfdf] hover:bg-white/10">Back to Shop</Link>
-        <button onClick={async () => { await signOut(); router.replace('/'); router.refresh() }} className="rounded-xl px-3 py-2 text-left text-sm font-bold text-[#d8dfdf] hover:bg-white/10">Logout</button>
+        <a href={bookstoreHref('/')} className="rounded-xl px-3 py-2 text-sm font-bold text-[#d8dfdf] hover:bg-white/10">Back to Shop</a>
+        <button onClick={async () => { await signOut(); router.replace('/login'); router.refresh() }} className="rounded-xl px-3 py-2 text-left text-sm font-bold text-[#d8dfdf] hover:bg-white/10">Logout</button>
       </div>
     </aside>
     <div>{children}</div>

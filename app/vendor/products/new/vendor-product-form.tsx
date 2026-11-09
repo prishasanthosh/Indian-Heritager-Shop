@@ -30,7 +30,7 @@ export function VendorProductForm({ product }: { product?: Partial<ProductFormDa
     const response = await fetch('/api/vendor/products', { method: form.id ? 'PATCH' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
     const result = await response.json()
     if (!response.ok) setMessage(result.error ?? 'Could not save product.')
-    else router.push('/vendor/products')
+    else router.push('/products')
     router.refresh(); setBusy(false)
   }
 

@@ -1,5 +1,6 @@
 import { Mail } from 'lucide-react'
 import Link from 'next/link'
+import { vendorPortalHref } from '@/lib/site-urls'
 
 const shopLinks = [
   ['Shop All', '/products'],
@@ -19,8 +20,8 @@ const brandLinks = [
 
 const sellerLinks = [
   ['Become a Seller', '/sell-with-us'],
-  ['Vendor Registration', '/vendor/register'],
-  ['Vendor Login', '/vendor/login'],
+  ['Vendor Registration', vendorPortalHref('/register')],
+  ['Vendor Login', vendorPortalHref('/login')],
   ['Seller Support', 'mailto:support@indianheritager.org?subject=Seller%20support'],
 ]
 

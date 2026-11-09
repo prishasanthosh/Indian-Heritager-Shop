@@ -122,10 +122,12 @@ Configure the Cloudinary values in the deployment environment (and `.env.local` 
 Optional deployment URL configuration:
 
 ```env
-BETTER_AUTH_URL="https://your-production-domain.example"
+BETTER_AUTH_URL="https://books.indianheritager.com"
 ```
 
-`BETTER_AUTH_URL` is optional for Vercel deployments. When omitted, the application resolves the deployment URL from Vercel runtime variables. `ADMIN_EMAILS` accepts one or more comma-separated email addresses if additional administrators are needed.
+Set `BETTER_AUTH_URL` to the bookstore origin in Vercel Production. Better Auth trusts both the bookstore and vendor origins; its cookies remain host-only, so customers and vendors establish sessions on their respective subdomains. The vendor URL and storefront URL are centralized in `lib/site-urls.ts`. If `BETTER_AUTH_URL` is omitted, the application uses the Vercel deployment URL and then falls back to the bookstore origin. `ADMIN_EMAILS` accepts one or more comma-separated email addresses if additional administrators are needed.
+
+The Vercel project should have both `books.indianheritager.com` and `vendor.indianheritager.com` assigned to the existing deployment. Vendor pages are rewritten by hostname to the existing `app/vendor` routes; old `/vendor/*` links on the bookstore domain redirect to the clean vendor subdomain paths. No additional application, database, or vendor-specific API origin is required.
 
 The Vercel project already provides the Neon connection variables and the configured `ADMIN_EMAILS`, `BETTER_AUTH_SECRET`, and `DATABASE_URL` values. For local development, copy the values into `.env.local` using the Vercel project environment settings rather than committing secrets.
 
