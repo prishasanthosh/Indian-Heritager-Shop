@@ -14,15 +14,15 @@ const brandLinks = [
   ['About Us', '/about'],
   ['Our Story', '/#story'],
   ['Our Heritage', '/about'],
-  ['Contact Us', 'mailto:support@indianheritager.org'],
-  ['Ask a question', 'mailto:support@indianheritager.org?subject=Customer%20question'],
+  ['Contact Us', 'mailto:support@indianheritager.com'],
+  ['Ask a question', 'mailto:support@indianheritager.com?subject=Customer%20question'],
 ]
 
 const sellerLinks = [
   ['Become a Seller', '/sell-with-us'],
   ['Vendor Registration', vendorPortalHref('/register')],
   ['Vendor Login', vendorPortalHref('/login')],
-  ['Seller Support', 'mailto:support@indianheritager.org?subject=Seller%20support'],
+  ['Seller Support', 'mailto:support@indianheritager.com?subject=Seller%20support'],
 ]
 
 const customerCareLinks = [
@@ -79,7 +79,7 @@ export function StoreFooter() {
           <p className="mt-4 inline-flex max-w-full items-start gap-2 text-sm leading-5 text-[#f7f1e6]/78">
             <Mail size={16} className="mt-0.5 shrink-0 text-[#f8ead7]" aria-hidden="true" />
             <span><strong className="text-[#fffaf2]">Email:</strong>{' '}
-              <a className="break-all transition-colors hover:text-[#fffaf2]" href="mailto:support@indianheritager.org">support@indianheritager.org</a>
+              <a className="break-all transition-colors hover:text-[#fffaf2]" href="mailto:support@indianheritager.com">support@indianheritager.com</a>
             </span>
           </p>
         </div>

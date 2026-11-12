@@ -50,7 +50,7 @@ export function PolicyContact({ registered = false }: { registered?: boolean }) 
       <p className="font-bold text-[#282621]">Indian Heritager</p>
       <p className="mt-3">Marketplace: <a className="text-[#702d32] underline underline-offset-4" href="https://indianheritager.com/">https://indianheritager.com</a></p>
       <p className="mt-1">Foundation: <a className="text-[#702d32] underline underline-offset-4" href="https://indianheritager.org/">https://indianheritager.org</a></p>
-      <p className="mt-1">Support email: <a className="text-[#702d32] underline underline-offset-4" href="mailto:support@indianheritager.org">support@indianheritager.org</a></p>
+      <p className="mt-1">Support email: <a className="text-[#702d32] underline underline-offset-4" href="mailto:support@indianheritager.com">support@indianheritager.com</a></p>
       <p className="mt-3 font-semibold">{registered ? 'Registered Office:' : 'Head Office:'}</p>
       <p>250, East Periyar Nagar,</p>
       <p>Ramanathapuram,</p>
